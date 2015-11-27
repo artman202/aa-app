@@ -19,10 +19,10 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   $ionicPlatform.ready(function() {
 
     // then override any default you want
-  window.plugins.nativepagetransitions.globalOptions.duration = 300;
-  window.plugins.nativepagetransitions.globalOptions.iosdelay = 300;
-  window.plugins.nativepagetransitions.globalOptions.androiddelay = 300;
-  window.plugins.nativepagetransitions.globalOptions.winphonedelay = 300;
+  window.plugins.nativepagetransitions.globalOptions.duration = 250;
+  window.plugins.nativepagetransitions.globalOptions.iosdelay = 250;
+  window.plugins.nativepagetransitions.globalOptions.androiddelay = 250;
+  window.plugins.nativepagetransitions.globalOptions.winphonedelay = 250;
   window.plugins.nativepagetransitions.globalOptions.slowdownfactor = 4;
   // these are used for slide left/right only currently
   window.plugins.nativepagetransitions.globalOptions.fixedPixelsTop = 60;
