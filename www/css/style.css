@@ -1,0 +1,114 @@
+/* Empty. Add your own CSS if you like */
+
+h1 {}
+h2 {}
+h3 {font-size: 1.3em !important}
+h4 {}
+
+.nav-bar button { border-radius: 0 !important; }
+
+.bg-blue { background-color: #113A84 !important; }
+.bg-yellow { background-color: #FFC20E; }
+.bg-yellow.activated { background-color: #113A84 !important; }
+
+.display {display: inline-block !important}
+.hide {display: none !important}
+
+.page-blue-heading { color: #113A84 }
+
+.align-left {float: left}
+.align-right {float: right}
+.no-padding { padding: 0; }
+.v-align-parent {
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.v-align {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.clear { clear: both; }
+.icon-font { font-size: 0.8em; line-height: 2em; opacity: 1; border: none !important; color: white !important; text-decoration: none; }
+
+.nav-bar { height: 60px !important;	padding: 0 !important; color: white; border-bottom: none !important; box-shadow: 0px -4px 5px 5px rgba(0, 0, 0, 0.2);}
+.nav-bar .title { height: 60px; 
+	display: -webkit-box;
+  	display: -moz-box;
+  	display: -ms-flexbox;
+  	display: -webkit-flex;
+  	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-btn { width: 65px;	height: 60px !important; background-color: white !important; color: #113A84 !important; border: none !important;}
+.bar .title + .buttons { top: 0 !important;	right: 0 !important; }
+.nav-btn-right { width: 65px; height: 60px !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
+.nav-btn-right.activated { border-left: 1px solid white !important; background-color: green !important; opacity: 1 !important; color: #113A84 !important; background-color: white !important}
+
+.nav-menu-item {padding: 0 30px !important; border: none; background-color: transparent; color: white; font-weight: bolder}
+.nav-menu-item .item-content {padding: 23px 30px !important; border-bottom: 2px solid white !important; background-color: transparent;}
+
+.has-header { top: 59px !important;}
+
+.home-banner-slider { height: 160px; background-color: #FFC20E; }
+.home-sub-heading {	text-align: center; }
+.home-col-1 { height: 400px; text-align: center; background-color: #17479E; }
+.home-col-2 { text-align: center; background-color: #3C68B8; }
+.home-col-3 { text-align: center; background-color: #EEB203; }
+.home-col-4 { text-align: center; background-color: #FFC20E; }
+
+.list-wrap .item { padding: 0; height: auto !important; border: none !important; border-radius: 5px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);}
+.list-wrap .item a {border: none !important;}
+.list-wrap .button.button-block {margin: 0;}
+.collection-repeat-spacer {height: 10px;}
+
+.btn-city { padding: 0; height: 50px;}
+.btn-city-view-name {	
+	float: left;
+	display: -webkit-box;
+  	display: -moz-box;
+  	display: -ms-flexbox;
+  	display: -webkit-flex;
+  	display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 10px;
+	width: 70%;
+	height: 50px;
+}
+.btn-city-view {
+	float: right;
+	display: -webkit-box;
+  	display: -moz-box;
+  	display: -ms-flexbox;
+  	display: -webkit-flex;
+  	display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+	width: 30%;
+	height: 50px;
+	color: white;
+}
+
+.accom-item-wrap .item {margin-bottom: 15px; padding: 0; border: none !important; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);}
+.accom-item-wrap .row {padding: 0;}
+.accom-img-bg {background-color: gray; height: 100px; padding: 0; overflow: hidden}
+.accom-img-bg img {background-color: gray; height: 120%; padding: 0; margin-left: -7.5px; margin-top: -10px}
+.accom-btn {text-decoration: none}
+.accom-btn h3 {text-decoration: none}
+.accom-content {padding: 10px 15px;}
+.accom-title-underline {border-bottom: 1px rgba(17, 58, 132, 0.2) solid}
+.accom-ratings-row img {width: 80px}
+.accom-ratings-row-price {color: #FFC20E; text-align: right}
+
+.footer-btn-1 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible; }
+.footer-btn-2 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible;}
+.back-btn {position: absolute; z-index: 99; /*margin-top: -200px;*/ bottom: 70px; right: 10px; padding-top: 6px; width: 50px; height: 50px; background-color: #113A84; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); text-align: center; pointer-events: visible;}
+.back-btn i {font-size: 2em}
+.footer-bar {padding: 0; height: 60px !important; background-color: green !important; }
+.footer-bar .tabs {padding: 0; height: 60px; color: white !important;}
+.footer-bar .tab-item {padding: 7.5px 0; opacity: 1}
+.footer-bar .tab-item:active {background-color: rgba(255, 255, 255, 0.2);}

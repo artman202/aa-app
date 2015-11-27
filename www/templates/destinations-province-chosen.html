@@ -1,0 +1,22 @@
+<ion-view view-title="{{state.provinceName}}">
+  <ion-content class="padding" overflow-scroll="true">
+    <h3 class="page-blue-heading">
+      Cities : {{cities.length}} Results
+    </h3>
+    <ion-list class="list-wrap">
+    	<div collection-repeat="city in cities">
+			<ion-item>
+				<a type="button" href="#/app/destinations/{{province.link}}+id={{province.id}}/{{city.city}}+id={{city.city_id}}" class="button button-block btn-city" go-native>
+				  	<div class="btn-city-view-name">
+				  		{{city.city}}
+				  	</div>
+				  	<div class="btn-city-view bg-blue">
+				  		view
+				  	</div>
+				</a>
+			</ion-item>
+			<div class="collection-repeat-spacer"></div>
+		</div>
+	</ion-list>
+  </ion-content>
+</ion-view>

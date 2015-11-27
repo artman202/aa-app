@@ -1,0 +1,82 @@
+<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="nav-bar bg-blue">
+      <!-- <ion-nav-back-button>
+      </ion-nav-back-button> -->
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon ion-navicon nav-btn" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <button class="button button-icon ion-android-search nav-btn-right">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-nav-view name="menuContent"></ion-nav-view>
+
+    <a type="button" class="back-btn" ng-click="$root.goBack()" transitiontype="slide" direction="right" ng-if="$root.showBack" go-native>
+      <i class="icon ion-arrow-return-left"></i>
+    </a>
+    <ion-footer-bar align-title="left" class="footer-bar" ng-if="$root.showTabs">
+        <!-- <div class="footer-btn-wrap"> -->
+            <!-- <a type="button" class="footer-btn-1" href="" >
+                Back
+            </a>
+            <a type="button" class="footer-btn-2" href="" >
+                Back
+            </a> -->
+            
+        <!-- </div> -->
+        <div class="tabs tabs-icon-top bg-blue">
+          <a class="tab-item" href="#/app/destinations" transitiontype="fade" go-native>
+            <i class="icon ion-ios-location"></i>
+            Destinations
+          </a>
+          <a class="tab-item" href="#/app/recommended" transitiontype="fade" go-native>
+            <i class="icon ion-heart"></i>
+            Recommended
+          </a>
+          <a class="tab-item" href="#/app/specials" transitiontype="fade" go-native>
+            <i class="icon ion-star"></i>
+            Specials
+          </a>          
+          <a class="tab-item" href="#/app/near-me" transitiontype="fade" go-native>
+            <i class="icon ion-navigate"></i>
+            Near Me
+          </a>
+        </div>
+    </ion-footer-bar>
+
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" class="bg-yellow">
+    <!-- <ion-header-bar class="bar-stable">
+      <h1 class="title">Left</h1>
+    </ion-header-bar> -->
+    <ion-content>
+      <ion-list>
+        <ion-item menu-close class="nav-menu-item" href="#/app/home">
+          Home
+        </ion-item>
+        <ion-item menu-close class="nav-menu-item" href="#/app/home">
+          Contact Us
+        </ion-item>
+        <ion-item menu-close class="nav-menu-item" href="#/app/home">
+          AA Information
+        </ion-item>
+        <!-- <ion-item menu-close ng-click="login()">
+          Login
+        </ion-item>
+        <ion-item menu-close href="#/app/search">
+          Search
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists">
+          Playlists
+        </ion-item> -->
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
+
