@@ -6,7 +6,44 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngCordova'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation) {
+
+  // var posOptions = {maximumAge : 1 * 60 * 1000, timeout: 15000, enableHighAccuracy: true};
+  // $cordovaGeolocation
+  //   .getCurrentPosition(posOptions)
+  //   .then(function (position) {
+
+  //     var lat  = position.coords.latitude;
+  //     var long = position.coords.longitude;
+
+  //     $rootScope.myLat = lat;
+  //     $rootScope.myLong = long;
+
+  //   }, function(err) {
+
+  //     alert("We regret that there is a problem retrieving your current location.")
+
+  //   });
+
+  var watchOptions = {
+    maximumAge : 5 * 60 * 1000,
+    timeout : 30000,
+    enableHighAccuracy: true // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      alert("We regret that there is a problem retrieving your current location.")
+    },
+    function(position) {
+      var lat  = position.coords.latitude;
+      var long = position.coords.longitude;
+
+      $rootScope.myLat = lat;
+      $rootScope.myLong = long;
+  });
 
   $rootScope.$on('loading:show', function() {
     $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
