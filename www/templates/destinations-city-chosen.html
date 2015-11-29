@@ -6,10 +6,13 @@
 	<ion-list class="list-wrap">
 		<div collection-repeat="accommodation in accommodations">
 			<ion-item>
-				<a type="button" href="" class="accom-btn" go-native>
+				<a type="button" href="" class="accom-btn">
 					<div class="row">
 						<div class="col accom-img-bg">
-							<img src="http://www.proportal.co.za/{{accommodation.tb}}" alt="">						
+							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
+								<!-- {{r[$index].distance.text}} -->
+							</div>
+							<img src="http://www.proportal.co.za/{{accommodation.tb}}" alt="">
 						</div>
 						<div class="col col-75 accom-content">
 							<h3 class="page-blue-heading">

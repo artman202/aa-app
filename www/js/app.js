@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngCordova'])
 
 .run(function($ionicPlatform, $rootScope, $ionicLoading) {
 
@@ -17,25 +17,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
   
   $ionicPlatform.ready(function() {
-
-    // then override any default you want
-  window.plugins.nativepagetransitions.globalOptions.duration = 300;
-  window.plugins.nativepagetransitions.globalOptions.iosdelay = 200;
-  window.plugins.nativepagetransitions.globalOptions.androiddelay = 200;
-  window.plugins.nativepagetransitions.globalOptions.winphonedelay = 200;
-  window.plugins.nativepagetransitions.globalOptions.slowdownfactor = 2;
-  // these are used for slide left/right only currently
-  window.plugins.nativepagetransitions.globalOptions.fixedPixelsTop = 60;
-  window.plugins.nativepagetransitions.globalOptions.fixedPixelsBottom = 0;
-
-    // window.plugins.nativepagetransitions.globalOptions.duration = 500;
-    // window.plugins.nativepagetransitions.globalOptions.iosdelay = 350;
-    // window.plugins.nativepagetransitions.globalOptions.androiddelay = 350;
-    // window.plugins.nativepagetransitions.globalOptions.winphonedelay = 350;
-    // window.plugins.nativepagetransitions.globalOptions.slowdownfactor = 4;
-    // // these are used for slide left/right only currently
-    // window.plugins.nativepagetransitions.globalOptions.fixedPixelsTop = 0;
-    // window.plugins.nativepagetransitions.globalOptions.fixedPixelsBottom = 0;
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -54,13 +35,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
-  $ionicConfigProvider.views.transition('none');
-  $ionicConfigProvider.scrolling.jsScrolling(false);
+  if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
 
   $httpProvider.interceptors.push(function($rootScope) {
     return {
       request: function(config) {
-        $rootScope.$broadcast('loading:show')
+        $rootScope.$broadcast('loading:show');
         return config
       },
       response: function(response) {
@@ -186,102 +166,3 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 })
-
-.directive('goNative', ['$ionicGesture', '$ionicPlatform', '$rootScope', function($ionicGesture, $ionicPlatform, $rootScope) {
-  return {
-    restrict: 'A',
- 
-    link: function(scope, element, attrs) {
- 
-      $ionicGesture.on('tap', function(e) {
- 
-        var direction = attrs.direction;
-        var transitiontype = attrs.transitiontype;
- 
-        $ionicPlatform.ready(function() {
- 
-          switch (transitiontype) {
-            case "slide":
-              window.plugins.nativepagetransitions.slide({
-                  "direction": direction
-                },
-                function(msg) {
-                  console.log("success: " + msg)
-                },
-                function(msg) {
-                  alert("error: " + msg)
-                }
-              );
-              break;
-            case "flip":
-              window.plugins.nativepagetransitions.flip({
-                  "direction": direction
-                },
-                function(msg) {
-                  console.log("success: " + msg)
-                },
-                function(msg) {
-                  alert("error: " + msg)
-                }
-              );
-              break;
-               
-            case "fade":
-              window.plugins.nativepagetransitions.fade({
-                   
-                },
-                function(msg) {
-                  console.log("success: " + msg)
-                },
-                function(msg) {
-                  alert("error: " + msg)
-                }
-              );
-              break;
- 
-            case "drawer":
-              window.plugins.nativepagetransitions.drawer({
-                  "origin"         : direction,
-                  "action"         : "open"
-                },
-                function(msg) {
-                  console.log("success: " + msg)
-                },
-                function(msg) {
-                  alert("error: " + msg)
-                }
-              );
-              break;
-               
-            case "curl":
-              window.plugins.nativepagetransitions.curl({
-                  "direction": direction
-                },
-                function(msg) {
-                  console.log("success: " + msg)
-                },
-                function(msg) {
-                  alert("error: " + msg)
-                }
-              );
-              break;              
-               
-            default:
-              window.plugins.nativepagetransitions.slide({
-                  "direction": direction
-                },
-                function(msg) {
-                  console.log("success: " + msg)
-                },
-                function(msg) {
-                  alert("error: " + msg)
-                }
-              );
-          }
- 
-        });
-      }, element);
-    }
-  };
-}]);
-

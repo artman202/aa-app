@@ -16,7 +16,7 @@
 
     <ion-nav-view name="menuContent"></ion-nav-view>
 
-    <a type="button" class="back-btn" ng-click="$root.goBack()" transitiontype="slide" direction="right" ng-if="$root.showBack" go-native>
+    <a type="button" class="back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
       <i class="icon ion-arrow-return-left"></i>
     </a>
     <ion-footer-bar align-title="left" class="footer-bar" ng-if="$root.showTabs">

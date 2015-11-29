@@ -66,52 +66,137 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
+.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', function($scope, $stateParams, cacheService) {
  
   var provinceId = null;
 
   $scope.state = $stateParams;
 
-  // Get cities
-  $http({
-    method: 'GET',
-    url: 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id='+$stateParams.provinceId
-  }).then(function successCallback(response) {
+  cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+    // e.g. "time taken for request: 2375ms"
+    // Data returned by this next call is already cached.
 
-    var data = response.data;
+      var cities = [];
 
-    var cities = [];
+      // Filter cities according to chosen province
+      for (var x = 0; x < data.length; x++) {
+        if(data[x].province_id == $stateParams.provinceId) {
+          cities.push(data[x]);
+        } 
+      }
 
-    // Filter cities according to chosen province
-    for (var x = 0; x < data.length; x++) {
-      if(data[x].province_id == $stateParams.provinceId) {
-        cities.push(data[x]);
-      } 
-    }
+      $scope.cities = cities;
 
-    $scope.cities = cities;
-
-  }, function errorCallback(response) {
-    alert("We regret that there is a problem retrieving the cities.")
+    return cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+      // e.g. "time taken for request: 1ms"
+    });
   });
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation) {
 
   $scope.state = $stateParams;
 
-  $http({
-    method: 'GET',
-    url: 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id='+$stateParams.cityId
-  }).then(function successCallback(response) {
+  cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
-    $scope.accommodations = response.data;
+      $scope.accommodations = data;
 
-  }, function errorCallback(response) {
+      var destinationsArray = [];
 
-    alert("We regret that there is a problem retrieving the accommodations.")
+      for(var x = 0; x < data.length; x++) {
 
+        var origin = new google.maps.LatLng(-25.877066, 28.158993);
+        var destination = new google.maps.LatLng(data[x].lat, data[x].lon);
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [origin],
+            destinations: [destination],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+          }, callback(data[x].id));
+
+        function callback(e){
+          return function (response, status) {
+
+            if (status == google.maps.DistanceMatrixStatus.OK) {
+
+              var origins = response.originAddresses;
+              var destinations = response.destinationAddresses;
+
+              var distances = [];
+
+              for (var i = 0; i < origins.length; i++) {
+
+                var results = response.rows[i].elements;
+                for (var j = 0; j < results.length; j++) {
+
+                  var element = results[j];
+                  var distance = element.distance.text;
+
+                  document.getElementById(e).innerHTML = distance;
+
+                  console.log(e);
+
+                  // if (e != "") {
+                  //   document.getElementById(e).innerHTML = distance;
+                  // } else {
+                  //   document.getElementById(e).innerHTML = 'NA';
+                  // }                  
+
+                }
+              }
+            }          
+          }
+        }
+      }
+
+      
+
+      // console.log(destinationsArray);
+
+      // var origin = new google.maps.LatLng(-25.877066, 28.158993);
+
+      // var service = new google.maps.DistanceMatrixService();
+      // service.getDistanceMatrix(
+      //   {
+      //     origins: [origin],
+      //     destinations: destinationsArray,
+      //     travelMode: google.maps.TravelMode.DRIVING,
+      //     unitSystem: google.maps.UnitSystem.METRIC,
+      //     avoidHighways: false,
+      //     avoidTolls: false,
+      //   }, callback);
+
+      // function callback(response, status) {
+      //   $scope.r = response;
+      // }
+
+      // var posOptions = {timeout: 20000, enableHighAccuracy: true};
+      // $cordovaGeolocation
+      //   .getCurrentPosition(posOptions)
+      //   .then(function (position) {
+
+      //     var lat  = position.coords.latitude
+      //     var long = position.coords.longitude          
+
+      //     // https://maps.googleapis.com/maps/api/distancematrix/json?origins=-25.877066,28.158993&destinations=-25.98667,30.43556
+
+      //     alert(lat +'+'+ long)
+
+      //   }, function(err) {
+
+      //     alert("We regret that there is a problem retrieving your current location.")
+
+      //   });
+
+    return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+      // e.g. "time taken for request: 1ms"
+    });
   });
 
 }])
@@ -136,6 +221,50 @@ angular.module('starter.controllers', [])
   $rootScope.showBack = true;
 
 }])
+
+.service('cacheService', function ($q, $http, CacheFactory, $stateParams) {
+
+  CacheFactory('dataCache', {
+    maxAge: 10080 * 60 * 1000, // Items added to this cache expire after 1 week
+    cacheFlushInterval: 10080 * 60 * 1000, // This cache will clear itself 1 week
+    deleteOnExpire: 'aggressive' // Items will be deleted from this cache when they expire
+  });
+
+  return {
+    getDataById: function (id, apiUrl) {
+      var deferred = $q.defer();
+      var start = new Date().getTime();
+      var dataCache = CacheFactory.get('dataCache');
+
+      // Now that control of inserting/removing from the cache is in our hands,
+      // we can interact with the data in "dataCache" outside of this context,
+      // e.g. Modify the data after it has been returned from the server and
+      // save those modifications to the cache.
+      if (dataCache.get(id)) {
+        deferred.resolve(dataCache.get(id));
+      } else {
+
+        $http({
+          method: 'GET',
+          url: apiUrl+''+id
+        }).then(function successCallback(response) {
+
+          var data = response.data;
+
+          dataCache.put(id, data);
+          deferred.resolve(data);
+
+        }, function errorCallback(response) {
+
+          alert("We regret that there is a problem retrieving the cities.");
+
+        });
+
+      }
+      return deferred.promise;
+    }
+  };
+})
 
 function buildProvinces() {
   return [
