@@ -322,8 +322,8 @@ angular.module('starter.controllers', [])
 .service('cacheService', function ($q, $http, CacheFactory, $stateParams) {
 
   CacheFactory('dataCache', {
-    maxAge: 10080 * 60 * 1000, // Items added to this cache expire after 1 week
-    cacheFlushInterval: 10080 * 60 * 1000, // This cache will clear itself 1 week
+    maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 week
+    cacheFlushInterval: 15 * 60 * 1000, // This cache will clear itself 15 week
     deleteOnExpire: 'aggressive' // Items will be deleted from this cache when they expire
   });
 
