@@ -1,18 +1,18 @@
 <ion-view view-title="{{state.city}}">
-  <ion-content class="padding">
+  <ion-content class="padding" lazy-scroll>
     <h3 class="page-blue-heading">
       {{accommodations.length}} Results
     </h3>
 	<ion-list class="list-wrap">
 		<div ng-repeat="accommodation in accommodations">
 			<ion-item>
-				<a type="button" href="" class="accom-btn">
+				<a type="button" href="" class="accom-btn" go-native>
 					<div class="row">
 						<div class="col accom-img-bg">
 							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
 								<!-- {{r[$index].distance.text}} -->
 							</div>
-							<img src="http://www.proportal.co.za/{{accommodation.tb}}" alt="">
+							<img image-lazy-src="http://www.proportal.co.za/{{accommodation.tb}}" alt="">
 						</div>
 						<div class="col col-75 accom-content">
 							<h3 class="page-blue-heading">
@@ -23,7 +23,7 @@
 							<div class="accom-title-underline"></div>
 							<div class="row accom-ratings-row">
 								<div class="col col-50">
-									<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
+									<img image-lazy-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
 								</div>
 								<div class="col col-50 accom-ratings-row-price" ng-if="accommodation.pl != 0.00">
 									<b>{{accommodation.pl}} ZAR</b>

@@ -72,25 +72,29 @@ angular.module('starter.controllers', [])
 
   $scope.state = $stateParams;
 
-  cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
-    // e.g. "time taken for request: 2375ms"
-    // Data returned by this next call is already cached.
+  setTimeout(function(){
 
-      var cities = [];
+    cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+      // e.g. "time taken for request: 2375ms"
+      // Data returned by this next call is already cached.
 
-      // Filter cities according to chosen province
-      for (var x = 0; x < data.length; x++) {
-        if(data[x].province_id == $stateParams.provinceId) {
-          cities.push(data[x]);
-        } 
-      }
+        var cities = [];
 
-      $scope.cities = cities;
+        // Filter cities according to chosen province
+        for (var x = 0; x < data.length; x++) {
+          if(data[x].province_id == $stateParams.provinceId) {
+            cities.push(data[x]);
+          } 
+        }
 
-    return cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
-      // e.g. "time taken for request: 1ms"
+        $scope.cities = cities;
+
+      return cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+        // e.g. "time taken for request: 1ms"
+      });
     });
-  });
+
+  }, 1000);
 
 }])
 
@@ -98,108 +102,199 @@ angular.module('starter.controllers', [])
 
   $scope.state = $stateParams;
 
-  cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+  setTimeout(function(){
 
-      $scope.accommodations = data;
+    cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
-      var origin = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);
+        $scope.accommodations = data;
 
-      setTimeout(function(){ 
+        // var origin = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);
+        var origin = new google.maps.LatLng(-25.797352, 28.328643);
 
-        for(var x = 0; x < data.length; x++) {
-        
-          var destination = new google.maps.LatLng(data[x].lat, data[x].lon);
+        var destinationsArrayMax = [];
+        var destinationsArray = [];
 
-          var service = new google.maps.DistanceMatrixService();
-          service.getDistanceMatrix(
-            {
-              origins: [origin],
-              destinations: [destination],
-              travelMode: google.maps.TravelMode.DRIVING,
-              unitSystem: google.maps.UnitSystem.METRIC,
-              avoidHighways: false,
-              avoidTolls: false,
-            }, callback(data[x].id));
+        var arrayNumber = Math.ceil(data.length / 24);
 
-          function callback(e){
-            return function (response, status) {
+        var n = [];
+        var a = [];
+        i = 24;
 
-              if (status == google.maps.DistanceMatrixStatus.OK) {
+        for (var x = 1; x <= arrayNumber; x++) {
 
-                var origins = response.originAddresses;
-                var destinations = response.destinationAddresses;
+          var p = 0;
 
-                var distances = [];
+          console.log(i * x);       
 
-                for (var i = 0; i < origins.length; i++) {
+          p = i * x;
 
-                  var results = response.rows[i].elements;
-                  for (var j = 0; j < results.length; j++) {
-
-                    var element = results[j];
-                    var distance = element.distance.text;
-
-                    document.getElementById(e).innerHTML = distance;
-
-                    console.log(e);
-
-                    // if (e != "") {
-                    //   document.getElementById(e).innerHTML = distance;
-                    // } else {
-                    //   document.getElementById(e).innerHTML = 'NA';
-                    // }                  
-
-                  }
-                }
-              }          
-            }
-          }
+          n.push(p);
+          a.push("destinationsArray"+x);
         }
 
-      }, 2000);
-            
+        p = 0;
+        for(var x = 0; x < data.length; x++) {
 
-      // console.log(destinationsArray);
+          console.log(window["a[1]"]);
 
-      // var origin = new google.maps.LatLng(-25.877066, 28.158993);
+          window["a[1]"] = [];        
 
-      // var service = new google.maps.DistanceMatrixService();
-      // service.getDistanceMatrix(
-      //   {
-      //     origins: [origin],
-      //     destinations: destinationsArray,
-      //     travelMode: google.maps.TravelMode.DRIVING,
-      //     unitSystem: google.maps.UnitSystem.METRIC,
-      //     avoidHighways: false,
-      //     avoidTolls: false,
-      //   }, callback);
+          // console.log(x);
+          // console.log(p);
 
-      // function callback(response, status) {
-      //   $scope.r = response;
-      // }
+          var destination = new google.maps.LatLng(data[x].lat, data[x].lon);
+          window["a[1]"].push(destination);
 
-      // var posOptions = {timeout: 20000, enableHighAccuracy: true};
-      // $cordovaGeolocation
-      //   .getCurrentPosition(posOptions)
-      //   .then(function (position) {
+          if (x == n[p]) {
 
-      //     var lat  = position.coords.latitude
-      //     var long = position.coords.longitude          
+            console.log("n+++++++++++++++++++++++++");
 
-      //     // https://maps.googleapis.com/maps/api/distancematrix/json?origins=-25.877066,28.158993&destinations=-25.98667,30.43556
+            destinationsArrayMax.push(window["a[1]"]);
 
-      //     alert(lat +'+'+ long)
+            p++;
+          }
 
-      //   }, function(err) {
+        }
 
-      //     alert("We regret that there is a problem retrieving your current location.")
+        console.log(destinationsArrayMax);
 
-      //   });
+        // var service = new google.maps.DistanceMatrixService();
+        // service.getDistanceMatrix(
+        //   {
+        //     origins: [origin],
+        //     destinations: destinationsArray,
+        //     travelMode: google.maps.TravelMode.DRIVING,
+        //     unitSystem: google.maps.UnitSystem.METRIC,
+        //     avoidHighways: false,
+        //     avoidTolls: false,
+        //   }, callback);
 
-    return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
-      // e.g. "time taken for request: 1ms"
+        // function callback(response, status){          
+
+        //   // console.log(response);
+
+        //   if (status == google.maps.DistanceMatrixStatus.OK) {
+
+        //     var origins = response.originAddresses;
+        //     var destinations = response.destinationAddresses;
+
+        //     for (var i = 0; i < destinations.length; i++) {
+
+        //       var results = response.rows[i].elements;
+
+        //       for (var j = 0; j < results.length; j++) {
+
+        //         var element = results[j];
+        //         var distance = element.distance.text;
+
+        //         document.getElementById(data[j].id).innerHTML = distance;             
+
+        //         // if (e != "") {
+        //         //   document.getElementById(e).innerHTML = distance;
+        //         // } else {
+        //         //   document.getElementById(e).innerHTML = 'NA';
+        //         // }                  
+
+        //       }
+        //     }
+        //   }
+
+        // }
+
+        // var origin = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);       
+
+        // for(var x = 0; x < data.length; x++) {
+        
+        //   var destination = new google.maps.LatLng(data[x].lat, data[x].lon);
+
+        //   var service = new google.maps.DistanceMatrixService();
+        //   service.getDistanceMatrix(
+        //     {
+        //       origins: [origin],
+        //       destinations: [destination],
+        //       travelMode: google.maps.TravelMode.DRIVING,
+        //       unitSystem: google.maps.UnitSystem.METRIC,
+        //       avoidHighways: false,
+        //       avoidTolls: false,
+        //     }, callback(data[x].id));
+
+        //   function callback(e){
+        //     return function (response, status) {
+
+        //       if (status == google.maps.DistanceMatrixStatus.OK) {
+
+        //         var origins = response.originAddresses;
+        //         var destinations = response.destinationAddresses;
+
+        //         var distances = [];
+
+        //         for (var i = 0; i < origins.length; i++) {
+
+        //           var results = response.rows[i].elements;
+        //           for (var j = 0; j < results.length; j++) {
+
+        //             var element = results[j];
+        //             var distance = element.distance.text;
+
+        //             document.getElementById(e).innerHTML = distance;
+
+        //             // if (e != "") {
+        //             //   document.getElementById(e).innerHTML = distance;
+        //             // } else {
+        //             //   document.getElementById(e).innerHTML = 'NA';
+        //             // }                  
+
+        //           }
+        //         }
+        //       }          
+        //     }
+        //   }
+        // }
+              
+
+        // console.log(destinationsArray);
+
+        // var origin = new google.maps.LatLng(-25.877066, 28.158993);
+
+        // var service = new google.maps.DistanceMatrixService();
+        // service.getDistanceMatrix(
+        //   {
+        //     origins: [origin],
+        //     destinations: destinationsArray,
+        //     travelMode: google.maps.TravelMode.DRIVING,
+        //     unitSystem: google.maps.UnitSystem.METRIC,
+        //     avoidHighways: false,
+        //     avoidTolls: false,
+        //   }, callback);
+
+        // function callback(response, status) {
+        //   $scope.r = response;
+        // }
+
+        // var posOptions = {timeout: 20000, enableHighAccuracy: true};
+        // $cordovaGeolocation
+        //   .getCurrentPosition(posOptions)
+        //   .then(function (position) {
+
+        //     var lat  = position.coords.latitude
+        //     var long = position.coords.longitude          
+
+        //     // https://maps.googleapis.com/maps/api/distancematrix/json?origins=-25.877066,28.158993&destinations=-25.98667,30.43556
+
+        //     alert(lat +'+'+ long)
+
+        //   }, function(err) {
+
+        //     alert("We regret that there is a problem retrieving your current location.")
+
+        //   });
+
+      return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+        // e.g. "time taken for request: 1ms"
+      });
     });
-  });
+
+  }, 1000);
 
 }])
 
