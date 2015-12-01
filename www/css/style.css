@@ -9,6 +9,9 @@ h4 {}
 
 .white {color: white;}
 
+.blue { color: #113A84 !important; }
+.yellow { color: #FFC20E !important; }
+
 .bg-blue { background-color: #113A84 !important; }
 .bg-yellow { background-color: #FFC20E; }
 .bg-yellow.activated { background-color: #113A84 !important; }
@@ -142,6 +145,16 @@ h4 {}
   text-align: center;
   pointer-events: visible;
 }
+
+.single-accom-row-wrap .row {padding: 0;}
+.single-accom-rate {height: 50px; justify-content: center;}
+.single-accom-rate img {width: 150px;}
+.single-accom-tabs {margin-top: 10px !important; width: 100%; }
+.single-accom-tabs .tabs {position: relative; justify-content: left !important; border: none; overflow-y: scroll}
+.single-accom-tabs .tabs .tab-item {min-width: 125px; margin-top: 0; color: #FFC20E; border: 0 solid #FFC20E; border-top-width: 2px;}
+.single-accom-tabs .tabs .active {color: #113A84 !important; border-color: #113A84 !important; margin-top: 0 !important;}
+.single-accom-tabs .tabs .tab-item.activated {color: #113A84 !important; border-color: #113A84 !important}
+
 .back-btn i {font-size: 2em}
 .footer-btn-1 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible; }
 .footer-btn-2 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible;}

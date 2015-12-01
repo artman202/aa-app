@@ -1,4 +1,4 @@
-<ion-view view-title="{{state.city}}">
+<ion-view view-title="{{state.cityName}}">
   <ion-content class="padding">
     <h3 class="page-blue-heading">
       {{accommodations.length}} Results
@@ -6,7 +6,7 @@
 	<ion-list class="list-wrap">
 		<div collection-repeat="accommodation in accommodations" item-render-buffer="10">
 			<ion-item>
-				<a type="button" href="" class="accom-btn" go-native>
+				<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn" go-native>
 					<div class="row">
 						<div class="col accom-img-bg">
 							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
@@ -41,6 +41,6 @@
 	</ion-list>
 
 	<div class="bottom-space"></div>
-	
+
   </ion-content>
 </ion-view>

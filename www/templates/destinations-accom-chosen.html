@@ -1,8 +1,45 @@
-<ion-view view-title="Accom">
-  <ion-content class="padding">
-    <h3 class="page-blue-heading">
-      {{accommodations.length}} Results
-    </h3>
+<ion-view view-title="{{accommodation.n}}">
+  <ion-content class="single-accom-row-wrap">
+  	<div class="col home-banner-slider">  			
+	</div>	
+	<div class="row single-accom-rate">
+    	<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
+    </div>
+    <div class="row">
+	    <div class="tabs-striped tabs-color-assertive single-accom-tabs">
+		    <div class="tabs">
+		      <a class="tab-item active" href="#">
+		        Accommodation
+		      </a>
+		      <a class="tab-item" href="#">
+		        Reviews
+		      </a>
+		      <a class="tab-item" href="#">
+		        Amenities
+		      </a>
+		      <a class="tab-item" href="#">
+		        Activities
+		      </a>
+		    </div>
+		</div>
+	</div>
+	<div class="padding">
+	    <h2 class="blue">
+	      	<b>{{accommodation.n}}</b>
+	    </h2>
+	    <h3 class="yellow">
+	      	{{accommodation.t}}
+	    </h3>
+	    <h3 class="yellow">
+	      	{{accommodation.pl}} ZAR
+	    </h3>
+	    <br>
+	    <div class="accom-title-underline"></div>
+	   	<br>
+	    <p class="blue">
+	    	{{accommodation.de}}	    	
+	    </p>
+	</div>
 	<!-- <ion-list class="list-wrap">
 		<div collection-repeat="accommodation in accommodations" item-render-buffer="10">
 			<ion-item>
@@ -39,5 +76,8 @@
 			<div class="collection-repeat-spacer"></div>
 		</div>
 	</ion-list> -->
+
+	<div class="bottom-space"></div>
+
   </ion-content>
 </ion-view>

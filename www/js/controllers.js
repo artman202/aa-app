@@ -127,6 +127,25 @@ angular.module('starter.controllers', [])
 
 }])
 
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope) {
+
+  $scope.state = $stateParams;
+
+  setTimeout(function(){
+
+    cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+
+        $scope.accommodation = data[0];
+
+      return cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+        // e.g. "time taken for request: 1ms"
+      });
+    });
+
+  }, 1000);
+
+}])
+
 .controller('RecommendedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   
   $rootScope.showTabs = true;
