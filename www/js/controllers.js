@@ -106,188 +106,17 @@ angular.module('starter.controllers', [])
 
     cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
+        var distanceArray = [];
+
+        for ( var x = 0; x < data.length; x++) {
+
+          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)))
+
+        }
+
         $scope.accommodations = data;
 
-        // var origin = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);
-        var origin = new google.maps.LatLng(-25.797352, 28.328643);
-
-        var destinationsArrayMax = [];
-        var destinationsArray = [];
-
-        var arrayNumber = Math.ceil(data.length / 24);
-
-        var n = [];
-        var a = [];
-        i = 24;
-
-        for (var x = 1; x <= arrayNumber; x++) {
-
-          var p = 0;
-
-          console.log(i * x);       
-
-          p = i * x;
-
-          n.push(p);
-          a.push("destinationsArray"+x);
-        }
-
-        p = 0;
-        for(var x = 0; x < data.length; x++) {
-
-          console.log(window["a[1]"]);
-
-          window["a[1]"] = [];        
-
-          // console.log(x);
-          // console.log(p);
-
-          var destination = new google.maps.LatLng(data[x].lat, data[x].lon);
-          window["a[1]"].push(destination);
-
-          if (x == n[p]) {
-
-            console.log("n+++++++++++++++++++++++++");
-
-            destinationsArrayMax.push(window["a[1]"]);
-
-            p++;
-          }
-
-        }
-
-        console.log(destinationsArrayMax);
-
-        // var service = new google.maps.DistanceMatrixService();
-        // service.getDistanceMatrix(
-        //   {
-        //     origins: [origin],
-        //     destinations: destinationsArray,
-        //     travelMode: google.maps.TravelMode.DRIVING,
-        //     unitSystem: google.maps.UnitSystem.METRIC,
-        //     avoidHighways: false,
-        //     avoidTolls: false,
-        //   }, callback);
-
-        // function callback(response, status){          
-
-        //   // console.log(response);
-
-        //   if (status == google.maps.DistanceMatrixStatus.OK) {
-
-        //     var origins = response.originAddresses;
-        //     var destinations = response.destinationAddresses;
-
-        //     for (var i = 0; i < destinations.length; i++) {
-
-        //       var results = response.rows[i].elements;
-
-        //       for (var j = 0; j < results.length; j++) {
-
-        //         var element = results[j];
-        //         var distance = element.distance.text;
-
-        //         document.getElementById(data[j].id).innerHTML = distance;             
-
-        //         // if (e != "") {
-        //         //   document.getElementById(e).innerHTML = distance;
-        //         // } else {
-        //         //   document.getElementById(e).innerHTML = 'NA';
-        //         // }                  
-
-        //       }
-        //     }
-        //   }
-
-        // }
-
-        // var origin = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);       
-
-        // for(var x = 0; x < data.length; x++) {
-        
-        //   var destination = new google.maps.LatLng(data[x].lat, data[x].lon);
-
-        //   var service = new google.maps.DistanceMatrixService();
-        //   service.getDistanceMatrix(
-        //     {
-        //       origins: [origin],
-        //       destinations: [destination],
-        //       travelMode: google.maps.TravelMode.DRIVING,
-        //       unitSystem: google.maps.UnitSystem.METRIC,
-        //       avoidHighways: false,
-        //       avoidTolls: false,
-        //     }, callback(data[x].id));
-
-        //   function callback(e){
-        //     return function (response, status) {
-
-        //       if (status == google.maps.DistanceMatrixStatus.OK) {
-
-        //         var origins = response.originAddresses;
-        //         var destinations = response.destinationAddresses;
-
-        //         var distances = [];
-
-        //         for (var i = 0; i < origins.length; i++) {
-
-        //           var results = response.rows[i].elements;
-        //           for (var j = 0; j < results.length; j++) {
-
-        //             var element = results[j];
-        //             var distance = element.distance.text;
-
-        //             document.getElementById(e).innerHTML = distance;
-
-        //             // if (e != "") {
-        //             //   document.getElementById(e).innerHTML = distance;
-        //             // } else {
-        //             //   document.getElementById(e).innerHTML = 'NA';
-        //             // }                  
-
-        //           }
-        //         }
-        //       }          
-        //     }
-        //   }
-        // }
-              
-
-        // console.log(destinationsArray);
-
-        // var origin = new google.maps.LatLng(-25.877066, 28.158993);
-
-        // var service = new google.maps.DistanceMatrixService();
-        // service.getDistanceMatrix(
-        //   {
-        //     origins: [origin],
-        //     destinations: destinationsArray,
-        //     travelMode: google.maps.TravelMode.DRIVING,
-        //     unitSystem: google.maps.UnitSystem.METRIC,
-        //     avoidHighways: false,
-        //     avoidTolls: false,
-        //   }, callback);
-
-        // function callback(response, status) {
-        //   $scope.r = response;
-        // }
-
-        // var posOptions = {timeout: 20000, enableHighAccuracy: true};
-        // $cordovaGeolocation
-        //   .getCurrentPosition(posOptions)
-        //   .then(function (position) {
-
-        //     var lat  = position.coords.latitude
-        //     var long = position.coords.longitude          
-
-        //     // https://maps.googleapis.com/maps/api/distancematrix/json?origins=-25.877066,28.158993&destinations=-25.98667,30.43556
-
-        //     alert(lat +'+'+ long)
-
-        //   }, function(err) {
-
-        //     alert("We regret that there is a problem retrieving your current location.")
-
-        //   });
+        $scope.accommodationsDistances = distanceArray;        
 
       return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
@@ -375,4 +204,22 @@ function buildProvinces() {
     { id: 9, link: 'western-cape', name: 'Western Cape' },
     { id: 11, link: 'limpopo', name: 'Limpopo' }
   ];
+}
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
 }

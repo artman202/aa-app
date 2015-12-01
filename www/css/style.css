@@ -149,3 +149,4 @@ h4 {}
 .footer-bar .tabs {padding: 0; height: 60px; color: white !important;}
 .footer-bar .tab-item {padding: 7.5px 0; opacity: 1}
 .footer-bar .tab-item:active {background-color: rgba(255, 255, 255, 0.2);}
+.bottom-space {height: 130px;}

@@ -132,6 +132,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
     }
   })
 
+  .state('app.destinations-accom-chosen', {
+    url: '/destinations/:provinceName+id=:provinceId/:city+id=:cityId/:accom+id=:accomId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/destinations-accom-chosen.html',
+        controller: 'DestinationsAccomChosenCtrl'
+      }
+    }
+  })
+
   .state('app.recommended', {
     cache : false,
     url: '/recommended',
