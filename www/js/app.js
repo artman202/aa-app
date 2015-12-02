@@ -6,8 +6,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngCordova', 'ionicLazyLoad'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation) {      
-  
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation) {
+
   $ionicPlatform.ready(function() {
 
     if(ionic.Platform.isWebView() && ionic.Platform.isAndroid()){
