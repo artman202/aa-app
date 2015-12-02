@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   
   $ionicPlatform.ready(function() {
 
-    if(ionic.Platform.isWebView()){
+    if(ionic.Platform.isWebView() && ionic.Platform.isAndroid()){
 
       var osVersion = device.version;
 
@@ -27,9 +27,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
         window.plugins.nativepagetransitions.globalOptions.fixedPixelsBottom = 0;
       }
 
-    } else {
+    } else if (ionic.Platform.isIOS()) {
 
-
+      alert("IOS")
 
     }        
 
@@ -78,7 +78,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
-  if(ionic.Platform.isWebView()){
+  if(ionic.Platform.isWebView() && ionic.Platform.isAndroid()){
 
     var osVersion = device.version;
 
@@ -88,11 +88,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       $ionicConfigProvider.views.transition('none');
     } 
 
-  } else {
+  } else if (ionic.Platform.isIOS()) {
 
+    alert("IOS")
 
-
-  }
+  }        
 
   
 
@@ -240,7 +240,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
 .directive('goNative', ['$ionicGesture', '$ionicPlatform', function($ionicGesture, $ionicPlatform) {
 
-  if(ionic.Platform.isWebView()){
+  if(ionic.Platform.isWebView() && ionic.Platform.isAndroid()){
 
     var osVersion = device.version;
 
@@ -347,11 +347,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       
     }   
 
-  } else {
+  } else if (ionic.Platform.isIOS()) {
 
+    alert("IOS")
 
-
-  }
+  }        
 
   
 }]);
