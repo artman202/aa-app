@@ -1,7 +1,12 @@
-<ion-view view-title="{{accommodation.n}}">
+<ion-view view-title="Accomodation">
   <ion-content class="single-accom-row-wrap">
-  	<div class="col home-banner-slider">  			
-	</div>	
+
+	<ion-slide-box delegate-handle="image-viewer" does-continue="true" auto-play="true" show-pager="true" on-slide-changed="slideChanged(index)">
+		<ion-slide class="v-align-parent" ng-repeat="item in accomGallery">
+			<img class="v-align" ng-src="http://www.proportal.co.za/{{item}}">
+		</ion-slide>
+	</ion-slide-box>
+
 	<div class="row single-accom-rate">
     	<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
     </div>
@@ -36,9 +41,23 @@
 	    <br>
 	    <div class="accom-title-underline"></div>
 	   	<br>
-	    <p class="blue">
+	    <p class="gray">
 	    	{{accommodation.de}}	    	
 	    </p>
+	</div>
+	<div class="row single-accom-edit bg-yellow">
+		<div class="col">
+			<i class="icon ion-printer"></i>
+		</div>
+		<div class="col">
+			<i class="icon ion-printer"></i>
+		</div>
+		<div class="col">
+			<i class="icon ion-printer"></i>
+		</div>
+		<div class="col">
+			<i class="icon ion-printer"></i>
+		</div>
 	</div>
 	<!-- <ion-list class="list-wrap">
 		<div collection-repeat="accommodation in accommodations" item-render-buffer="10">

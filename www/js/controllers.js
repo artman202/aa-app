@@ -107,14 +107,17 @@ angular.module('starter.controllers', [])
     cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
         var distanceArray = [];
+        var accommodationsImagesArray = [];
 
         for ( var x = 0; x < data.length; x++) {
 
-          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)))
+          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
 
         }
 
         $scope.accommodations = data;
+      
+        
 
         $scope.accommodationsDistances = distanceArray;        
 
@@ -127,7 +130,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate) {
 
   $scope.state = $stateParams;
 
@@ -136,6 +139,29 @@ angular.module('starter.controllers', [])
     cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
 
         $scope.accommodation = data[0];
+
+        var accomGallery = data[0].g;
+        var accomGalleryArray = accomGallery.split(",");
+
+        $scope.accomGallery = accomGalleryArray;
+        $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
+
+        $scope.slideChanged = function(index) {
+
+
+          var galleryLength = accomGalleryArray.length;
+
+          if(index == galleryLength-1) {
+
+            setTimeout(function(){
+              $ionicSlideBoxDelegate.slide(0);
+            },4000);
+
+          }
+
+        };
+
+        // for(var x = 0; x < accomGallery.legth)
 
       return cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"

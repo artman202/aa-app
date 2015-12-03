@@ -8,6 +8,7 @@ h4 {}
 .nav-bar button { border-radius: 0 !important; }
 
 .white {color: white;}
+.gray {color: #999;}
 
 .blue { color: #113A84 !important; }
 .yellow { color: #FFC20E !important; }
@@ -146,6 +147,9 @@ h4 {}
   pointer-events: visible;
 }
 
+.slider {height: 200px;}
+.slider img {width: 100%;}
+.slider .slider-pager .slider-pager-page {color: white}
 .single-accom-row-wrap .row {padding: 0;}
 .single-accom-rate {height: 50px; justify-content: center;}
 .single-accom-rate img {width: 150px;}
@@ -154,6 +158,9 @@ h4 {}
 .single-accom-tabs .tabs .tab-item {min-width: 125px; margin-top: 0; color: #FFC20E; border: 0 solid #FFC20E; border-top-width: 2px;}
 .single-accom-tabs .tabs .active {color: #113A84 !important; border-color: #113A84 !important; margin-top: 0 !important;}
 .single-accom-tabs .tabs .tab-item.activated {color: #113A84 !important; border-color: #113A84 !important}
+.single-accom-edit {padding: 15px 15px !important}
+.single-accom-edit .col {text-align: center}
+.single-accom-edit .col i {font-size: 2.5em; color: white;}
 
 .back-btn i {font-size: 2em}
 .footer-btn-1 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible; }

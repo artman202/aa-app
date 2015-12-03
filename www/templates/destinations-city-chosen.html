@@ -1,10 +1,10 @@
 <ion-view view-title="{{state.cityName}}">
-  <ion-content class="padding">
+  <ion-content class="padding" lazy-scroll>
     <h3 class="page-blue-heading">
       {{accommodations.length}} Results
     </h3>
 	<ion-list class="list-wrap">
-		<div collection-repeat="accommodation in accommodations" item-render-buffer="10">
+		<div collection-repeat="accommodation in accommodations" item-render-buffer="5"> <!-- item-render-buffer="15" -->
 			<ion-item>
 				<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn" go-native>
 					<div class="row">
