@@ -98,7 +98,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document) {
 
   $scope.state = $stateParams;
 
@@ -106,20 +106,57 @@ angular.module('starter.controllers', [])
 
     cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
-        var distanceArray = [];
-        var accommodationsImagesArray = [];
+        var distanceArray = [];       
 
+        var loadNumItems = 10;
+        var accommodationsArray = [];
+        var loadAccomNum = Math.ceil(data.length / loadNumItems);
+
+        console.log(loadAccomNum);
+
+        // var p = 10;
+        for ( var x = 0; x < loadAccomNum; x++) {
+          accommodationsArray.push(loadNumItems)
+          loadNumItems += 10;
+        }
+
+        // console.log(accommodationsArray); 
+
+        var itemsArrayWrap = [];
+        var itemArray = [];
+
+        n = 0;
         for ( var x = 0; x < data.length; x++) {
 
           distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+          itemArray.push(data[x]);
+
+          if (x == accommodationsArray[n] || x == data.length -1) {
+            itemsArrayWrap.push(itemArray);
+            itemArray = [];
+            n++
+          }           
 
         }
 
-        $scope.accommodations = data;
-      
+        $scope.itemsArray = itemsArrayWrap[0];
         
+        var scrollTrigger = 800;
+        var container = angular.element(document.getElementById('container'));
 
-        $scope.accommodationsDistances = distanceArray;        
+        container.on('scroll', function() {
+
+          
+
+          if(container.scrollTop() > scrollTrigger) {
+            alert("Load Now")
+            scrollTrigger = scrollTrigger + scrollTrigger;
+            console.log(scrollTrigger);
+          }
+          console.log('Container scrolled to ', container.scrollLeft(), container.scrollTop());
+        });
+        // $scope.accommodations = data;
+        // $scope.accommodationsDistances = distanceArray;        
 
       return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
