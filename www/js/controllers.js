@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
     // code if using a login system
     $timeout(function() {
       $scope.closeLogin();
-    }, 1000);
+    }, 500);
   };
 }])
 
@@ -94,7 +94,7 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 1000);
+  }, 500);
 
 }])
 
@@ -172,7 +172,7 @@ angular.module('starter.controllers', [])
 
                   arrayUpdateStart++;
 
-                }, 500);
+                }, 100);
                  
                 scrollHeight = $window.innerHeight;
                 $scope.$apply();
@@ -191,7 +191,7 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 1000);
+  }, 500);
 
 }])
 
@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 1000);
+  }, 500);
 
 }])
 
@@ -261,8 +261,8 @@ angular.module('starter.controllers', [])
 .service('cacheService', function ($q, $http, CacheFactory, $stateParams) {
 
   CacheFactory('dataCache', {
-    maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 week
-    cacheFlushInterval: 15 * 60 * 1000, // This cache will clear itself 15 week
+    maxAge: 15 * 60 * 500, // Items added to this cache expire after 15 week
+    cacheFlushInterval: 15 * 60 * 500, // This cache will clear itself 15 week
     deleteOnExpire: 'aggressive' // Items will be deleted from this cache when they expire
   });
 

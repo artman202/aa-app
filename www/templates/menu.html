@@ -16,7 +16,7 @@
 
     <ion-nav-view name="menuContent"></ion-nav-view>
 
-    <a type="button" class="back-btn" ng-click="$root.goBack()" ng-if="$root.showBack" transitiontype="slide" direction="right" go-native>
+    <a type="button" class="back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
       <i class="icon ion-arrow-return-left"></i>
     </a>
     <ion-footer-bar align-title="left" class="footer-bar" ng-if="$root.showTabs">
@@ -30,19 +30,19 @@
             
         <!-- </div> -->
         <div class="tabs tabs-icon-top bg-blue">
-          <a class="tab-item" href="#/app/destinations" go-native>
+          <a class="tab-item" href="#/app/destinations">
             <i class="icon ion-ios-location"></i>
             Destinations
           </a>
-          <a class="tab-item" href="#/app/recommended" go-native>
+          <a class="tab-item" href="#/app/recommended">
             <i class="icon ion-heart"></i>
             Recommended
           </a>
-          <a class="tab-item" href="#/app/specials" go-native>
+          <a class="tab-item" href="#/app/specials">
             <i class="icon ion-star"></i>
             Specials
           </a>          
-          <a class="tab-item" href="#/app/near-me" go-native>
+          <a class="tab-item" href="#/app/near-me">
             <i class="icon ion-navigate"></i>
             Near Me
           </a>
