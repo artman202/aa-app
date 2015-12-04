@@ -98,7 +98,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$q', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $q) {
 
   $scope.state = $stateParams;
 
@@ -139,22 +139,50 @@ angular.module('starter.controllers', [])
 
         }
 
-        $scope.itemsArray = itemsArrayWrap[0];
+        $scope.itemsArray = itemsArrayWrap[0]; 
+
+        console.log(itemsArrayWrap[0]);   
         
-        var scrollTrigger = 800;
         var container = angular.element(document.getElementById('container'));
 
-        container.on('scroll', function() {
+        // var scrollHeight = $window.innerHeight;
+        var scrollHeight = $window.innerHeight;
+        console.log(scrollHeight);
+        $scope.setScrollHeight = scrollHeight+"px";        
 
-          
+        // var scrollTrigger = 600;
 
-          if(container.scrollTop() > scrollTrigger) {
-            alert("Load Now")
-            scrollTrigger = scrollTrigger + scrollTrigger;
-            console.log(scrollTrigger);
-          }
-          console.log('Container scrolled to ', container.scrollLeft(), container.scrollTop());
-        });
+
+        var arrayUpdateStart = 1;
+
+
+        $scope.scrollFunc = function() {
+
+              if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight) {
+
+                var p = arrayUpdateStart;
+                var n = 0;
+
+                for(var x = 0; x < itemsArrayWrap[p].length; x++) {
+                  itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
+                  n = p;
+                }
+
+                setTimeout(function(){
+
+                  arrayUpdateStart++;
+
+                }, 500);
+                 
+                scrollHeight = $window.innerHeight;
+                $scope.$apply();
+
+              }
+
+        }
+
+
+
         // $scope.accommodations = data;
         // $scope.accommodationsDistances = distanceArray;        
 

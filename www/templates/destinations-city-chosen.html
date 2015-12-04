@@ -1,5 +1,6 @@
 <ion-view view-title="{{state.cityName}}">
-  <ion-content class="padding" id="container">
+  <ion-content id="container" scroll="false">
+  	<ion-scroll class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}"  scroll="false" has-bouncing="true">
     <h3 class="page-blue-heading">
       {{accommodations.length}} Results
     </h3>
@@ -36,7 +37,10 @@
 					</div>
 				</a>
 			</ion-item>
+
 			<div class="collection-repeat-spacer"></div>
+
+
 		</div>
 		<!-- <div collection-repeat="accommodation in accommodations" item-render-buffer="5">
 			<ion-item>
@@ -75,5 +79,7 @@
 	</ion-list>
 
 	<div class="bottom-space"></div>
+
+	</ion-scroll>
   </ion-content>
 </ion-view>
