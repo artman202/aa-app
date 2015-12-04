@@ -1,5 +1,5 @@
 <ion-view view-title="{{state.cityName}}">
-  <ion-content id="container" scroll="false">
+  <ion-content id="container" scroll="false" has-bouncing="true">
   	<ion-scroll class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}"  scroll="false" has-bouncing="true">
     <h3 class="page-blue-heading">
       {{accommodations.length}} Results
@@ -7,7 +7,7 @@
 	<ion-list class="list-wrap" >
 
 		<div ng-repeat="accommodation in itemsArray">
-		
+
 			<ion-item>
 				<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
 					<div class="row">

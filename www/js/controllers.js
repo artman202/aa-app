@@ -172,7 +172,7 @@ angular.module('starter.controllers', [])
 
                   arrayUpdateStart++;
 
-                }, 100);
+                }, 500);
                  
                 scrollHeight = $window.innerHeight;
                 $scope.$apply();
