@@ -24,6 +24,7 @@ h4 {}
 
 .align-left {float: left}
 .align-right {float: right}
+.center {text-align: center}
 .no-padding { padding: 0; }
 .v-align-parent {
 	-webkit-transform-style: preserve-3d;
@@ -170,6 +171,7 @@ h4 {}
 .footer-bar .tab-item {padding: 7.5px 0; opacity: 1}
 .footer-bar .tab-item:active {background-color: rgba(255, 255, 255, 0.2);}
 .bottom-space {height: 130px;}
+.bottom-space-single-accom {height: 160px;}
 
 .there-is-more {
    text-align: center;

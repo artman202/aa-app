@@ -106,29 +106,33 @@ angular.module('starter.controllers', [])
 
     cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
-        var distanceArray = [];       
+        var distanceArray = [];
 
-        var loadNumItems = 10;
+        // the number of results
+        $scope.results = data.length;
+
+        // the number of items loaded (15)
+        var loadNumItems = 15;
         var accommodationsArray = [];
         var loadAccomNum = Math.ceil(data.length / loadNumItems);
 
-        console.log(loadAccomNum);
-
-        // var p = 10;
+        // create grouped number array
         for ( var x = 0; x < loadAccomNum; x++) {
           accommodationsArray.push(loadNumItems)
-          loadNumItems += 10;
+          loadNumItems += 15;
         }
-
-        // console.log(accommodationsArray); 
 
         var itemsArrayWrap = [];
         var itemArray = [];
 
+        // the grouped array counter
         n = 0;
+
+        // create the final multi dimensional array
         for ( var x = 0; x < data.length; x++) {
 
           distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+          
           itemArray.push(data[x]);
 
           if (x == accommodationsArray[n] || x == data.length -1) {
@@ -139,52 +143,67 @@ angular.module('starter.controllers', [])
 
         }
 
-        $scope.itemsArray = itemsArrayWrap[0]; 
+        console.log(itemsArrayWrap)
 
-        console.log(itemsArrayWrap[0]);   
+        $scope.itemsArray = itemsArrayWrap[0]; 
         
         var container = angular.element(document.getElementById('container'));
 
         // var scrollHeight = $window.innerHeight;
         var scrollHeight = $window.innerHeight;
-        console.log(scrollHeight);
-        $scope.setScrollHeight = scrollHeight+"px";        
-
-        // var scrollTrigger = 600;
-
+        $scope.setScrollHeight = scrollHeight+"px";
 
         var arrayUpdateStart = 1;
+        // $scope.show = 1;
 
+        $scope.hide = true;
 
-        $scope.scrollFunc = function() {
+        // create scroll load function
+        $scope.scrollFunc = function() {          
 
-              if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight) {
+          if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight) {
 
-                var p = arrayUpdateStart;
-                var n = 0;
+            var p = arrayUpdateStart;
+            var n = 0;
 
-                for(var x = 0; x < itemsArrayWrap[p].length; x++) {
-                  itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
-                  n = p;
-                }
+            alert(loadAccomNum+" "+ p)
 
-                setTimeout(function(){
+            if(loadAccomNum == p) {
+              $scope.hide = true;
+              $scope.end = true;
+              $scope.$apply();
+            } else {
+              $scope.hide = false;
+              $scope.$apply();
+            }            
 
-                  arrayUpdateStart++;
+            setTimeout(function(){              
 
-                }, 500);
-                 
-                scrollHeight = $window.innerHeight;
-                $scope.$apply();
+              for(var x = 0; x < itemsArrayWrap[p].length; x++) {
 
-              }
+                itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
+                n = p;
+
+              }              
+
+              setTimeout(function(){
+
+                arrayUpdateStart++;
+                $scope.show = 0;
+
+              }, 500);
+             
+              scrollHeight = $window.innerHeight;
+              $scope.hide = true;
+              $scope.$apply();
+
+            }, 500);
+
+          }
 
         }
 
-
-
-        // $scope.accommodations = data;
-        // $scope.accommodationsDistances = distanceArray;        
+        $scope.accommodationsDistances = distanceArray;        
 
       return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"

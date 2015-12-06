@@ -2,9 +2,9 @@
   <ion-content id="container" scroll="false" has-bouncing="true">
   	<ion-scroll class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}"  scroll="false" has-bouncing="true">
     <h3 class="page-blue-heading">
-      {{accommodations.length}} Results
+      {{results}} Results
     </h3>
-	<ion-list class="list-wrap" >
+	<ion-list class="list-wrap" id="itemList">
 
 		<div ng-repeat="accommodation in itemsArray">
 
@@ -38,15 +38,24 @@
 						</div>
 					</div>
 				</a>
-			</ion-item>
+			</ion-item>			
 
 			<div class="collection-repeat-spacer"></div>
 
 		</div>
 
+		<br>
+
+		<div class="center">
+			<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
+			<ion-item ng-if="end">
+				No more results
+			</ion-item>
+		</div>
+
 	</ion-list>
 
-	<div class="bottom-space"></div>
+	<div class="bottom-space-single-accom"></div>
 
 	</ion-scroll>
   </ion-content>
