@@ -166,8 +166,6 @@ angular.module('starter.controllers', [])
             var p = arrayUpdateStart;
             var n = 0;
 
-            alert(loadAccomNum+" "+ p)
-
             if(loadAccomNum == p) {
               $scope.hide = true;
               $scope.end = true;
