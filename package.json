@@ -24,10 +24,6 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-crosswalk-webview",
     "cordova-plugin-geolocation",
-    {
-      "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions",
-      "id": "com.telerik.plugins.nativepagetransitions"
-    },
     "cordova-plugin-statusbar"
   ],
   "cordovaPlatforms": [

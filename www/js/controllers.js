@@ -52,6 +52,31 @@ angular.module('starter.controllers', [])
 
 }])
 
+.controller('SearchCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+  
+  $rootScope.showTabs = true;
+  $rootScope.showBack = true;
+
+  $scope.submitLogin = function() {
+
+    $http({
+      method: 'GET',
+      url: 'http://www.proportal.co.za/_mobi_app/accomm_search.php?q='+$scope.searchQuery
+    }).then(function successCallback(response) {
+
+      $scope.cities = response.data;
+
+    }, function errorCallback(response) {
+
+      alert("We regret that there is no results for this query.");
+
+    });    
+  }
+
+
+
+}])
+
 .controller('DestinationsCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   
   $rootScope.showTabs = true;
@@ -98,9 +123,11 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$q', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $q) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window) {
 
   $scope.state = $stateParams;
+
+  $scope.hide = true;
 
   setTimeout(function(){
 
@@ -143,8 +170,6 @@ angular.module('starter.controllers', [])
 
         }
 
-        console.log(itemsArrayWrap)
-
         $scope.itemsArray = itemsArrayWrap[0]; 
         
         var container = angular.element(document.getElementById('container'));
@@ -155,8 +180,6 @@ angular.module('starter.controllers', [])
 
         var arrayUpdateStart = 1;
         // $scope.show = 1;
-
-        $scope.hide = true;
 
         // create scroll load function
         $scope.scrollFunc = function() {          
@@ -175,7 +198,7 @@ angular.module('starter.controllers', [])
               $scope.$apply();
             }            
 
-            setTimeout(function(){              
+            setTimeout(function(){             
 
               for(var x = 0; x < itemsArrayWrap[p].length; x++) {
 
@@ -198,7 +221,6 @@ angular.module('starter.controllers', [])
             }, 500);
 
           }
-
         }
 
         $scope.accommodationsDistances = distanceArray;        
@@ -212,7 +234,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing) {
 
   $scope.state = $stateParams;
 
@@ -230,7 +252,6 @@ angular.module('starter.controllers', [])
 
         $scope.slideChanged = function(index) {
 
-
           var galleryLength = accomGalleryArray.length;
 
           if(index == galleryLength-1) {
@@ -241,7 +262,112 @@ angular.module('starter.controllers', [])
 
           }
 
-        };
+        };        
+
+        // create line breaks in description
+        var descriptionWrap = angular.element(document.getElementById('desc'));
+        var description = data[0].de;
+        $scope.desc = description.replace(/\r\n\r\n/g, '<br><br>');
+
+        // sanitize amenities, facilities and activities
+        var amenitiesData = data[0].amen;
+        if(amenitiesData != null) {
+          $scope.amenities = amenitiesData.split(",");
+        } else {
+          $scope.amenities = ["Not available"];
+        }    
+
+        var facilitiesData = data[0].fac;
+        if(facilitiesData != null) {
+          $scope.facilities = facilitiesData.split(",");
+        } else {
+          $scope.facilities = ["Not available"];
+        }   
+
+        var activitiesData = data[0].act;
+        if(activitiesData != null) {
+          $scope.activities = activitiesData.split(",");
+        } else {
+          $scope.activities = ["Not available"];
+        }   
+
+        $scope.showContent = "accommodation";
+
+        //change content area
+        $scope.changeContent = function(tabType, currentTab) {
+
+          var tabRemove = angular.element(document.getElementsByClassName("tab-item"));
+          tabRemove.removeClass("active");
+
+          var tab = angular.element(document.getElementById(currentTab));
+          tab.addClass("active");
+
+          switch(tabType) {
+            case "accommodation":
+              $scope.showContent = tabType;                
+              break;
+            case "reviews":
+              $scope.showContent = tabType;
+              break;
+            case "amenities":
+              $scope.showContent = tabType;
+              break;
+            case "activities":
+              $scope.showContent = tabType;
+              break;
+            case "near":
+              $scope.showContent = tabType;
+              break;
+            default:
+              contentWrap.html("There was an error loading the content");
+          }
+
+        } 
+
+        // sanitize number
+        var number = data[0].con;
+        $scope.number = number.replace(/[^a-z0-9\s]/gi, '').substring(0, 10);
+
+        $scope.share = function(message) {
+
+          $cordovaSocialSharing
+            .share(message) // Share via native share sheet
+            .then(function(result) {
+              // Success!
+            }, function(err) {
+              // An error occured. Show a message to the user
+            });
+
+        }
+
+        // load map for single accommodation
+        $timeout(function(){
+
+            $scope.$apply();
+
+            var latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
+            var myOptions = {
+                zoom: 12,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+            };            
+            var map = new google.maps.Map(document.getElementById("single_accom_map_canvas"), myOptions);
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map,
+              title: 'Hello World!'
+            });
+            $scope.map = map
+            $scope.overlay = new google.maps.OverlayView();
+            $scope.overlay.draw = function() {}; // empty function required
+            $scope.overlay.setMap($scope.map);
+            $scope.element = document.getElementById('single_accom_map_canvas');
+            // $scope.hammertime = Hammer($scope.element).on("hold", function(event) {
+            //     $scope.addOnClick(event);
+            // });
+
+        }, 100);
+
 
         // for(var x = 0; x < accomGallery.legth)
 

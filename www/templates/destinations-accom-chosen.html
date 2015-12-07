@@ -13,22 +13,27 @@
     <div class="row">
 	    <div class="tabs-striped tabs-color-assertive single-accom-tabs">
 		    <div class="tabs">
-		      <a class="tab-item active" href="#">
+		      <a type="button" ng-click="changeContent('accommodation', 'tab1')" class="tab-item active" id="tab1" href="#">
 		        Accommodation
 		      </a>
-		      <a class="tab-item" href="#">
+		      <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2" href="#">
 		        Reviews
 		      </a>
-		      <a class="tab-item" href="#">
-		        Amenities
+		      <a type="button" ng-click="changeContent('amenities', 'tab3')" class="tab-item" id="tab3" href="#">
+		        Amenities &amp; Facilities
 		      </a>
-		      <a class="tab-item" href="#">
+		      <a type="button" ng-click="changeContent('activities', 'tab4')" class="tab-item" id="tab4" href="#">
 		        Activities
+		      </a>
+		      <a type="button" ng-click="changeContent('near', 'tab5')" class="tab-item" id="tab5" href="#">
+		        Near You
 		      </a>
 		    </div>
 		</div>
 	</div>
-	<div class="padding">
+
+	<!-- Accommodation template -->
+	<div class="padding" ng-if="showContent == 'accommodation'">
 	    <h2 class="blue">
 	      	<b>{{accommodation.n}}</b>
 	    </h2>
@@ -41,60 +46,100 @@
 	    <br>
 	    <div class="accom-title-underline"></div>
 	   	<br>
-	    <p class="gray">
-	    	{{accommodation.de}}	    	
+	    <p class="gray" ng-bind-html="desc">
+	    	{{de}}
 	    </p>
 	</div>
+
+	<!-- Review template -->
+	<div class="padding" ng-if="showContent == 'reviews'">
+	    <h2 class="blue">
+	      	<b>Reviews</b>
+	    </h2>
+	    <br>
+	    <div class="accom-title-underline"></div>
+	   	<br>
+	</div>
+
+	<!-- Amenities template -->
+	<div class="padding" ng-if="showContent == 'amenities'">
+	    <h2 class="blue">
+	      	<b>Amenities</b>
+	    </h2>
+	    <br>
+	    <div class="accom-title-underline"></div>
+	   	<br>
+	   	<ul>
+   			<li ng-repeat="amenity in amenities" class="gray">
+    			{{amenity}}
+    		</li>
+    	</ul>
+	    <br>
+	    <h2 class="blue">
+	      	<b>Facilities</b>
+	    </h2>
+	    <br>
+	    <div class="accom-title-underline"></div>
+	   	<br>
+   		<ul>
+   			<li ng-repeat="facility in facilities" class="gray">
+    			{{facility}}
+    		</li>
+    	</ul>
+	</div>
+
+	<!-- Review template -->
+	<div class="padding" ng-if="showContent == 'activities'">
+	    <h2 class="blue">
+	      	<b>Activities</b>
+	    </h2>
+	    <br>
+	    <div class="accom-title-underline"></div>
+	   	<br>
+	   	<ul>
+   			<li ng-repeat="activity in activities" class="gray">
+    			{{activity}}
+    		</li>
+    	</ul>
+	</div>
+
+	<!-- Review template -->
+	<div class="padding" ng-if="showContent == 'near'">
+	    <h2 class="blue">
+	      	<b>Near You</b>
+	    </h2>
+	    <br>
+	    <div class="accom-title-underline"></div>
+	   	<br>
+	</div>
+
+	<br>
 	<div class="row single-accom-edit bg-yellow">
-		<div class="col">
+		<a ng-href="tel: {{number}}" class="col">		
+			<i class="icon ion-ios-telephone"></i>
+		</a>
+		<a href="" class="col">
+			<i class="icon ion-email"></i>
+		</a>
+		<a href="" class="col">
 			<i class="icon ion-printer"></i>
-		</div>
-		<div class="col">
-			<i class="icon ion-printer"></i>
-		</div>
-		<div class="col">
-			<i class="icon ion-printer"></i>
-		</div>
-		<div class="col">
-			<i class="icon ion-printer"></i>
+		</a>
+		<a type="button" ng-click="share({{accommodation.n}})" class="col">		
+			<i class="icon ion-share"></i>
+		</a>
+	</div>
+	<div class="row">
+		<div id="single_accom_map_canvas">
 		</div>
 	</div>
-	<!-- <ion-list class="list-wrap">
-		<div collection-repeat="accommodation in accommodations" item-render-buffer="10">
-			<ion-item>
-				<a type="button" href="" class="accom-btn" go-native>
-					<div class="row">
-						<div class="col accom-img-bg">
-							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
-								{{accommodationsDistances[$index]}} km
-							</div>
-							<img ng-src="http://www.proportal.co.za/{{accommodation.tb}}" alt="">
-						</div>
-						<div class="col col-75 accom-content">
-							<h3 class="page-blue-heading">
-								<b>
-									{{accommodation.n}}
-								</b>
-							</h3>
-							<div class="accom-title-underline"></div>
-							<div class="row accom-ratings-row">
-								<div class="col col-50">
-									<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
-								</div>
-								<div class="col col-50 accom-ratings-row-price" ng-if="accommodation.pl != 0.00">
-									<b>{{accommodation.pl}} ZAR</b>
-								</div>
-							</div>
-							<div class="row">
-
-							</div>
-						</div>
-					</div>
-				</a>
-			</ion-item>
-			<div class="collection-repeat-spacer"></div>
-		</div>
-	</ion-list> -->
+	<div class="clear"></div>
+	<br>
+	<div class="padding">
+		<p class="blue">
+			<b>GPS:</b> {{accommodation.lat}}, {{accommodation.lon}}<br>
+			<b>Address:</b> {{accommodation.p}}
+		</p>
+	</div>
 
 	<div class="bottom-space"></div>
 

@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
 .run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation) {
 
-  $ionicPlatform.ready(function() {   
+  $ionicPlatform.ready(function() {
 
     var watchOptions = {
       maximumAge : 5 * 60 * 1000,
@@ -123,6 +123,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations-accom-chosen', {
+    cache : false,
     url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId/:accomName+id=:accomId',
     views: {
       'menuContent': {
@@ -166,10 +167,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.search', {
+    cache : false,
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl'
       }
     }
   })

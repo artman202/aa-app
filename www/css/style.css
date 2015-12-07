@@ -42,20 +42,35 @@ h4 {}
 .nav-bar { height: 60px !important;	padding: 0 !important; color: white; border-bottom: none !important; box-shadow: 0px -4px 5px 5px rgba(0, 0, 0, 0.2);}
 .nav-bar .title { height: 60px; 
 	display: -webkit-box;
-  	display: -moz-box;
-  	display: -ms-flexbox;
-  	display: -webkit-flex;
-  	display: flex;
-    align-items: center;
-    justify-content: center;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .nav-btn { width: 65px;	height: 60px !important; background-color: white !important; color: #113A84 !important; border: none !important;}
 .bar .title + .buttons { top: 0 !important;	right: 0 !important; }
-.nav-btn-right { width: 65px; height: 60px !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
-.nav-btn-right.activated { border-left: 1px solid white !important; background-color: green !important; opacity: 1 !important; color: #113A84 !important; background-color: white !important}
+.nav-btn-right {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px; height: 60px !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
+.nav-btn-right.activated { border-left: 1px solid white !important; opacity: 1 !important; background-color: #0F316F !important}
 
-.nav-menu-item {padding: 0 30px !important; border: none; background-color: transparent; color: white; font-weight: bolder}
-.nav-menu-item .item-content {padding: 23px 30px !important; border-bottom: 2px solid white !important; background-color: transparent;}
+.nav-menu-item { border: none; background-color: transparent; color: white; font-weight: bolder; text-align: }
+.nav-menu-item .item-content {padding: 23px 32px !important; background-color: transparent;}
+.nav-menu-item a.activated {background-color: #EEB203 !important;}
+.menu-border-wrap {padding: 0 30px !important; width: 100%; text-align: center;}
+.menu-item-unerline {border-bottom: 2px solid white !important;}
+
+.search-bar {top: 60px}
+.search-content {margin-top: 45px;}
+.item-input-inset label {background-color: white}
 
 .has-header { top: 59px !important;}
 
@@ -162,6 +177,7 @@ h4 {}
 .single-accom-edit {padding: 15px 15px !important}
 .single-accom-edit .col {text-align: center}
 .single-accom-edit .col i {font-size: 2.5em; color: white;}
+#single_accom_map_canvas {width: 100%; height: 200px;}
 
 .back-btn i {font-size: 2em}
 .footer-btn-1 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible; }
@@ -169,7 +185,7 @@ h4 {}
 .footer-bar {padding: 0; height: 60px !important; background-color: green !important; }
 .footer-bar .tabs {padding: 0; height: 60px; color: white !important;}
 .footer-bar .tab-item {padding: 7.5px 0; opacity: 1}
-.footer-bar .tab-item:active {background-color: rgba(255, 255, 255, 0.2);}
+.footer-bar .tab-item.activated {background-color: #0F316F;}
 .bottom-space {height: 130px;}
 .bottom-space-single-accom {height: 160px;}
 
