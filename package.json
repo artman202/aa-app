@@ -24,7 +24,15 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-crosswalk-webview",
     "cordova-plugin-geolocation",
-    "cordova-plugin-statusbar"
+    "cordova-plugin-statusbar",
+    {
+      "locator": "https://github.com/katzer/cordova-plugin-email-composer.git",
+      "id": "de.appplant.cordova.plugin.email-composer"
+    },
+    {
+      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+      "id": "cordova-plugin-x-socialsharing"
+    }
   ],
   "cordovaPlatforms": [
     {
