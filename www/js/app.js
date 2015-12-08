@@ -6,9 +6,55 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngCordova'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval) {
 
   $ionicPlatform.ready(function() {
+
+    // Check for network connection
+    if(window.Connection) {
+      if(navigator.connection.type == Connection.NONE) {
+        navigator.notification.alert(
+          'This app uses an internet connection to function properly. Please turn on the internet connection.',  // message
+          '',                     // callback
+          'Alert',                // title
+          'Done'                  // buttonName
+        );
+      }
+    }
+
+    // Check for network connection
+    function checkConnection() {
+        var networkState = navigator.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.CELL]     = 'Cell generic connection';
+        states[Connection.NONE]     = 'No network connection';
+
+        console.log('Connection type: ' + states[networkState]);
+    }
+
+    $interval(function(){
+      checkConnection();
+    }, 5000)
+
+    document.addEventListener("offline", onOffline, false);
+
+    function onOffline() {
+
+      navigator.notification.alert(
+        'There is no internet connection. Please turn on the internet connection in order for the app to function properly.',  // message
+        '',                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );
+
+    }
 
     var watchOptions = {
       maximumAge : 5 * 60 * 1000,
@@ -20,7 +66,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
     watch.then(
       null,
       function(err) {
-        alert("We regret that there is a problem retrieving your current location.")
+
+        navigator.notification.alert(
+          'We regret that there is a problem retrieving your current location.',  // message
+          '',                     // callback
+          'Alert',                // title
+          'Done'                  // buttonName
+        );
+        
       },
       function(position) {
         var lat  = position.coords.latitude;
@@ -66,6 +119,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       response: function(response) {
         $rootScope.$broadcast('loading:hide')
         return response
+      },
+      responseError: function(responseError) {
+        $rootScope.$broadcast('loading:hide')
+        return responseError
       }
     }
   })

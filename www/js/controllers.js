@@ -52,23 +52,55 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('SearchCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+.controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService',  function($scope, $rootScope, $http, cacheService, $cordovaNetwork) {
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
 
-  $scope.submitLogin = function() {
+  $scope.search = true;
+
+  setTimeout(function(){
+
+    cacheService.getDataById(0, 'http://www.proportal.co.za/_mobi_app/accomm_search.php').then(function (data) {
+      // e.g. "time taken for request: 2375ms"
+      // Data returned by this next call is already cached.
+
+      $scope.topDestinationArray = data
+
+      return cacheService.getDataById(0, 'http://www.proportal.co.za/_mobi_app/accomm_search.php').then(function (data) {
+        // e.g. "time taken for request: 1ms"
+      });
+    });
+
+  }, 500);
+
+  $scope.searchByCity = function() {
+
+    $scope.search = false;
+    $scope.noResult = false;
 
     $http({
       method: 'GET',
       url: 'http://www.proportal.co.za/_mobi_app/accomm_search.php?q='+$scope.searchQuery
     }).then(function successCallback(response) {
 
+      var searchResults = response.data;
+
+      // if no results are found
+      if(searchResults.length == 0) {
+        $scope.noResult = true;
+      }
+
       $scope.cities = response.data;
 
     }, function errorCallback(response) {
 
-      alert("We regret that there is no results for this query.");
+      navigator.notification.alert(
+        'We regret that there is no results for this query.',  // message
+        '',                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );
 
     });    
   }
@@ -394,10 +426,41 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
+
+  setTimeout(function(){
+
+    $http({
+      method: 'GET',
+      url: 'http://www.proportal.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
+    }).then(function successCallback(response) {
+
+      var accommodations = response.data;
+
+      $scope.accommodations = accommodations;
+      var distanceArray = []; 
+
+      for ( var x = 0; x < accommodations.length; x++) {
+        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
+      }
+
+      $scope.accommodationsDistances = distanceArray;
+
+    }, function errorCallback(response) {
+
+      navigator.notification.alert(
+        'We regret that there is a problem retrieving the cities.',  // message
+        '',                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );
+
+    });
+
+  }, 500);
 
 }])
 
@@ -411,6 +474,13 @@ angular.module('starter.controllers', [])
 
   return {
     getDataById: function (id, apiUrl) {
+
+      var jsonId = id
+
+      if(id == 0) {
+        jsonId = "";
+      }
+
       var deferred = $q.defer();
       var start = new Date().getTime();
       var dataCache = CacheFactory.get('dataCache');
@@ -425,7 +495,7 @@ angular.module('starter.controllers', [])
 
         $http({
           method: 'GET',
-          url: apiUrl+''+id
+          url: apiUrl+''+jsonId
         }).then(function successCallback(response) {
 
           var data = response.data;
@@ -435,7 +505,12 @@ angular.module('starter.controllers', [])
 
         }, function errorCallback(response) {
 
-          alert("We regret that there is a problem retrieving the cities.");
+          navigator.notification.alert(
+            'We regret that there is a problem retrieving the cities.',  // message
+            '',                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
 
         });
 

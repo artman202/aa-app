@@ -68,9 +68,23 @@ h4 {}
 .menu-border-wrap {padding: 0 30px !important; width: 100%; text-align: center;}
 .menu-item-unerline {border-bottom: 2px solid white !important;}
 
-.search-bar {top: 60px}
-.search-content {margin-top: 45px;}
-.item-input-inset label {background-color: white}
+.search-bar {padding: 0; height: 60px; position: relative; box-shadow: 0px -4px 5px 5px rgba(0, 0, 0, 0.2);}
+.search-nav-btn-right-wrap {width: 64px;}
+.search-input {padding-top: -20px; width: 100%; height: 60px; border-radius: 0 !important; background-color: white}
+.search-nav-btn-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px; height: 60px !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
+.search-nav-btn-right.activated { border-left: 1px solid white !important; opacity: 1 !important; background-color: #0F316F !important}
+.search-content {margin-top: 60px;}
 
 .has-header { top: 59px !important;}
 

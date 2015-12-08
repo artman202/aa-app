@@ -1,6 +1,6 @@
 <ion-view view-title="{{state.cityName}}">
   <ion-content id="container" scroll="false" has-bouncing="true">
-  	<ion-scroll class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}"  scroll="false" has-bouncing="true">
+  	<ion-scroll class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}" has-bouncing="true">
     <h3 class="page-blue-heading">
       {{results}} Results
     </h3>
@@ -48,7 +48,7 @@
 
 		<div class="center">
 			<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
-			<ion-item ng-if="end">
+			<ion-item ng-if="end" class="button button-block btn-city">
 				No more results
 			</ion-item>
 		</div>

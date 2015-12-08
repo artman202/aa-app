@@ -1,7 +1,58 @@
 <ion-view view-title="Near Me">
-  <ion-content class="padding" overflow-scroll="true">
-    <!-- <h3 class="page-blue-heading">
-      Select a Province
-    </h3> -->
+  <ion-content class="padding">
+    <h3 class="page-blue-heading">
+      {{accommodations.length}} Results
+    </h3>
+	<ion-list class="list-wrap">
+
+		<div ng-repeat="accommodation in accommodations">
+
+			<ion-item>
+				<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
+					<div class="row">
+						<div class="col accom-img-bg">
+							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
+								{{accommodationsDistances[$index]}} km
+							</div>
+							<img ng-src="http://www.proportal.co.za/{{accommodation.tb}}" alt="">
+						</div>
+						<div class="col col-75 accom-content">
+							<h3 class="page-blue-heading">
+								<b>
+									{{accommodation.n}}
+								</b>
+							</h3>
+							<div class="accom-title-underline"></div>
+							<div class="row accom-ratings-row">
+								<div class="col col-50">
+									<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
+								</div>
+								<div class="col col-50 accom-ratings-row-price" ng-if="accommodation.pl != 0.00">
+									<b>{{accommodation.pl}} ZAR</b>
+								</div>
+							</div>
+							<div class="row">
+
+							</div>
+						</div>
+					</div>
+				</a>
+			</ion-item>			
+
+			<div class="collection-repeat-spacer"></div>
+
+		</div>
+
+		<!-- <div class="center">
+			<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
+			<ion-item ng-if="end" class="button button-block btn-city">
+				No more results
+			</ion-item>
+		</div> -->
+
+	</ion-list>
+
+	<div class="bottom-space-single-accom"></div>
+
   </ion-content>  
 </ion-view>
