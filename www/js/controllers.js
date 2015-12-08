@@ -426,39 +426,59 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', function($scope, $rootScope, $http, $interval, $ionicLoading) {
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
 
+  $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
+
   setTimeout(function(){
 
-    $http({
-      method: 'GET',
-      url: 'http://www.proportal.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
-    }).then(function successCallback(response) {
+    var promise;
 
-      var accommodations = response.data;
+    // test if the location has been updated yet, if not an interval starts
+    promise = $interval(function() {
 
-      $scope.accommodations = accommodations;
-      var distanceArray = []; 
+      console.log("Reloading locations near me")
 
-      for ( var x = 0; x < accommodations.length; x++) {
-        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
+      if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
+
+        $http({
+          method: 'GET',
+          url: 'http://www.proportal.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
+        }).then(function successCallback(response) {
+
+          var accommodations = response.data;
+
+          $scope.accommodations = accommodations;
+          var distanceArray = []; 
+
+          for ( var x = 0; x < accommodations.length; x++) {
+            distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
+          }
+
+          $scope.accommodationsDistances = distanceArray;
+
+          // the interval breaks if location is loaded
+          $interval.cancel();
+
+        }, function errorCallback(response) {
+
+          navigator.notification.alert(
+            'We regret that there is a problem retrieving the cities.',  // message
+            '',                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
+
+        });
+
+        $interval.cancel(promise);
+
       }
 
-      $scope.accommodationsDistances = distanceArray;
-
-    }, function errorCallback(response) {
-
-      navigator.notification.alert(
-        'We regret that there is a problem retrieving the cities.',  // message
-        '',                     // callback
-        'Alert',                // title
-        'Done'                  // buttonName
-      );
-
-    });
+    }, 500);    
 
   }, 500);
 
@@ -550,4 +570,8 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 
 function deg2rad(deg) {
   return deg * (Math.PI/180)
+}
+
+function loadLocationsNearMe() {
+
 }
