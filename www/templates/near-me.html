@@ -5,6 +5,10 @@
     </h3>
 	<ion-list class="list-wrap">
 
+		<div class="center" ng-if="showSpiral == true">
+			<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
+		</div>
+
 		<div ng-repeat="accommodation in accommodations">
 
 			<ion-item>

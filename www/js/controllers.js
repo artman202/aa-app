@@ -431,7 +431,7 @@ angular.module('starter.controllers', [])
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
 
-  $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
+  $scope.showSpiral = true;
 
   setTimeout(function(){
 
@@ -448,6 +448,8 @@ angular.module('starter.controllers', [])
           method: 'GET',
           url: 'http://www.proportal.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
         }).then(function successCallback(response) {
+
+          $scope.showSpiral = false;
 
           var accommodations = response.data;
 

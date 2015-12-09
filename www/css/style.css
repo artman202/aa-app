@@ -82,7 +82,7 @@ h4 {}
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px; height: 60px !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
+  width: 65px; height: 100% !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
 .search-nav-btn-right.activated { border-left: 1px solid white !important; opacity: 1 !important; background-color: #0F316F !important}
 .search-content {margin-top: 60px;}
 
