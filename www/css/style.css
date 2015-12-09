@@ -204,14 +204,17 @@ h4 {}
 .bottom-space-single-accom {height: 160px;}
 
 .there-is-more {
-   text-align: center;
-   position: fixed;
-   bottom: 0;      
-   width:100%;   
-   background:rgb(200,200,200);
-   background:rgba(200,200,200,0.8);
-   color: green;
-   font-weight: bold;
-   padding: 5px;
-   
+  text-align: center;
+  position: fixed;
+  bottom: 0;      
+  width:100%;   
+  background:rgb(200,200,200);
+  background:rgba(200,200,200,0.8);
+  color: green;
+  font-weight: bold;
+  padding: 5px;   
+}
+
+@media only screen and (max-width: 321px) {
+  .province-btn {height: 125px;}
 }
