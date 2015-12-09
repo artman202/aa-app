@@ -170,6 +170,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations-city-chosen', {
+    cache : false,
     url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId',
     views: {
       'menuContent': {

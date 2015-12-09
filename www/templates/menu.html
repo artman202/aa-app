@@ -13,15 +13,18 @@
       </ion-nav-buttons>
     </ion-nav-bar>
 
+    <!-- <button style="position: absolute; top: 200px; z-index: 99; right: 0;" ng-click="controllerMapView()">Map View</button>
+    <button style="position: absolute; top: 250px; z-index: 99; right: 0;" ng-click="controllerListView()">List View</button> -->
+
     <ion-nav-view name="menuContent"></ion-nav-view>
 
-    <a type="button" class="list-view-btn" ng-if="$root.showBack">
+    <a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()" ng-if="$root.showBack">
       <i class="icon ion-ios-list-outline"></i>
     </a>
-    <a type="button" class="map-view-btn" ng-if="$root.showBack">
+    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="$root.showBack">
       <i class="icon ion-map"></i>
     </a>
-    <a type="button" class="back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
+    <a type="button" class="footer-btn back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
       <i class="icon ion-arrow-return-left"></i>
     </a>
     <ion-footer-bar align-title="left" class="footer-bar" ng-if="$root.showTabs">

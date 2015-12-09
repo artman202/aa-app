@@ -155,15 +155,33 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout) {
 
   $scope.state = $stateParams;
 
   $scope.hide = true;
 
+  $scope.showMap = false;
+
   setTimeout(function(){
 
     cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+
+        $rootScope.controllerMapView = function() {
+
+          $scope.showMap = true;
+
+          $timeout(function(){
+            mapView(data, $rootScope, "accommodation-map");
+          }, 100);
+
+        }
+
+        $rootScope.controllerListView = function() {
+
+          $scope.showMap = false;
+
+        }
 
         var distanceArray = [];
 
@@ -426,12 +444,14 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', function($scope, $rootScope, $http, $interval, $ionicLoading) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout) {
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
 
   $scope.showSpiral = true;
+
+  $scope.showMap = false; 
 
   setTimeout(function(){
 
@@ -452,6 +472,22 @@ angular.module('starter.controllers', [])
           $scope.showSpiral = false;
 
           var accommodations = response.data;
+
+          $rootScope.controllerMapView = function() {
+
+          $scope.showMap = true;
+
+            $timeout(function(){
+              mapView(accommodations, $rootScope, "nearme-map");
+            }, 100);
+
+          }
+
+          $rootScope.controllerListView = function() {
+
+            $scope.showMap = false;
+
+          }
 
           $scope.accommodations = accommodations;
           var distanceArray = []; 
@@ -574,6 +610,111 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
-function loadLocationsNearMe() {
+function mapView(data, $rootScope, mapType) {
+
+  if(mapType == 'accommodation-map') {
+
+    var Latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
+
+  } else if(mapType == 'nearme-map') {
+
+    var Latlng = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);
+
+  }
+
+  
+  var mapOptions = {
+    zoom: 11,
+    center: Latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true
+  };
+  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+  var markersArray = [];
+  for(var x = 0; x < data.length; x++) {
+    
+    var LatLng = new google.maps.LatLng(data[x].lat,data[x].lon);
+    var marker = new google.maps.Marker({
+      position: LatLng,
+      map: map,
+      id: data[x].id,
+      title: data[x].n,
+    });
+    marker.addListener('click', markerId);
+
+    markersArray.push(marker);
+
+  }
+
+  var infowindow = new google.maps.InfoWindow();
+
+  function markerId() {
+
+    if (infowindow) {
+        infowindow.close();
+    }
+
+    var markerObj = {};
+
+    for(var x = 0; x < data.length; x++) {
+
+      if(this.id == data[x].id) {
+        markerObj = data[x];
+        marker = markersArray[x]
+      }
+
+    }
+
+    infowindow.close()
+    infowindow.setContent(markerObj.n);
+    infowindow.open(map, marker);
+
+    var markerLink = angular.element(document.getElementById('map-list-item-wrap'));
+
+    markerLink.html("\
+      <div class='padding map-list-item-wrap' id='"+markerObj.tb+"'>\
+        <a type='button' class='map-item-close-btn' onclick='closeMapListItem()'>\
+          <i class='icon ion-close'></i>\
+        </a>\
+        <a type='button' id='map-list-box' class='map-list-item padding' href='#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/"+markerObj.n+"+id="+markerObj.id+"' class='accom-btn'>\
+          <div class='row'>\
+            <div class='col accom-img-bg'>\
+              <div class='accom-distance bg-yellow white'>\
+                "+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km\
+              </div>\
+              <img src='http://www.proportal.co.za/"+markerObj.tb+"'>\
+            </div>\
+            <div class='col col-75 accom-content'>\
+              <h3 class='page-blue-heading'>\
+                <b>\
+                  "+markerObj.n+"\
+                </b>\
+              </h3>\
+              <div class='accom-title-underline'></div>\
+              <div class='row accom-ratings-row'>\
+                <div class='col col-50'>\
+                  <img src='img/ratings/ratings-"+markerObj.r+".svg'>\
+                </div>\
+                <div class='col col-50 accom-ratings-row-price' ng-if='"+markerObj.pl+" != 0.00'>\
+                  <b>"+markerObj.pl+" ZAR</b>\
+                </div>\
+              </div>\
+              <div class='row'>\
+              </div>\
+            </div>\
+          </div>\
+        </a>\
+      </div>\
+    ")
+
+  }
+
+}
+
+function closeMapListItem() {
+
+  var markerLink = angular.element(document.getElementById('map-list-item-wrap'));
+  markerLink.html("");
 
 }
