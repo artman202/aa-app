@@ -155,6 +155,48 @@ h4 {}
   height: 25px;
 }
 
+.list-view-btn {
+  position: absolute;
+  z-index: 99;
+  bottom: 70px; left: 10px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #113A84;
+  color: white !important;
+  border: 5px white solid;
+  border-radius: 10px;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  pointer-events: visible;
+}
+.map-view-btn {
+  position: absolute;
+  z-index: 99;
+  bottom: 70px; left: 70px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #113A84;
+  color: white !important;
+  border: 5px white solid;
+  border-radius: 10px;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  pointer-events: visible;
+}
 .back-btn {
   position: absolute;
   z-index: 99;
@@ -184,7 +226,7 @@ h4 {}
 .single-accom-rate {height: 50px; justify-content: center;}
 .single-accom-rate img {width: 150px;}
 .single-accom-tabs {margin-top: 10px !important; width: 100%; }
-.single-accom-tabs .tabs {position: relative; justify-content: left !important; border: none; overflow-y: scroll}
+.single-accom-tabs .tabs {position: relative; justify-content: left !important; border: none;}
 .single-accom-tabs .tabs .tab-item {min-width: 125px; margin-top: 0; color: #FFC20E; border: 0 solid #FFC20E; border-top-width: 2px;}
 .single-accom-tabs .tabs .active {color: #113A84 !important; border-color: #113A84 !important; margin-top: 0 !important;}
 .single-accom-tabs .tabs .tab-item.activated {color: #113A84 !important; border-color: #113A84 !important}
@@ -193,7 +235,7 @@ h4 {}
 .single-accom-edit .col i {font-size: 2.5em; color: white;}
 #single_accom_map_canvas {width: 100%; height: 200px;}
 
-.back-btn i {font-size: 2em}
+.back-btn,.list-view-btn,.map-view-btn i {font-size: 2em}
 .footer-btn-1 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible; }
 .footer-btn-2 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible;}
 .footer-bar {padding: 0; height: 60px !important; background-color: green !important; }

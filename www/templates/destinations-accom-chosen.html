@@ -11,25 +11,29 @@
     	<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
     </div>
     <div class="row">
-	    <div class="tabs-striped tabs-color-assertive single-accom-tabs">
-		    <div class="tabs">
-		      <a type="button" ng-click="changeContent('accommodation', 'tab1')" class="tab-item active" id="tab1" href="#">
-		        Accommodation
-		      </a>
-		      <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2" href="#">
-		        Reviews
-		      </a>
-		      <a type="button" ng-click="changeContent('amenities', 'tab3')" class="tab-item" id="tab3" href="#">
-		        Amenities &amp; Facilities
-		      </a>
-		      <a type="button" ng-click="changeContent('activities', 'tab4')" class="tab-item" id="tab4" href="#">
-		        Activities
-		      </a>
-		      <a type="button" ng-click="changeContent('near', 'tab5')" class="tab-item" id="tab5" href="#">
-		        Near You
-		      </a>
-		    </div>
-		</div>
+    	<ion-scroll zooming="true" direction="x" style="width: 100%; height: auto">
+		    <div class="tabs-striped tabs-color-assertive single-accom-tabs">
+		    	
+			    <div class="tabs">
+			      <a type="button" ng-click="changeContent('accommodation', 'tab1')" class="tab-item active" id="tab1" href="#">
+			        Accommodation
+			      </a>
+			      <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2" href="#">
+			        Reviews
+			      </a>
+			      <a type="button" ng-click="changeContent('amenities', 'tab3')" class="tab-item" id="tab3" href="#">
+			        Amenities &amp; Facilities
+			      </a>
+			      <a type="button" ng-click="changeContent('activities', 'tab4')" class="tab-item" id="tab4" href="#">
+			        Activities
+			      </a>
+			      <a type="button" ng-click="changeContent('near', 'tab5')" class="tab-item" id="tab5" href="#">
+			        Near You
+			      </a>
+			    </div>
+				
+			</div>
+		</ion-scroll>
 	</div>
 
 	<!-- Accommodation template -->
