@@ -476,8 +476,6 @@ angular.module('starter.controllers', [])
     };
 
     $scope.runDatePickerCheckin = function() {
-
-      alert("hello")
       
       $cordovaDatePicker.show(options).then(function(date){
 
