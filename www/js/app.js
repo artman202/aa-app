@@ -12,7 +12,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
     navigator.notification.alert(
       'The app has started',  // message
-      '',                     // callback
+      null,                     // callback
       'Alert',                // title
       'Done'                  // buttonName
     );
@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       if(navigator.connection.type == Connection.NONE) {
         navigator.notification.alert(
           'This app uses an internet connection to function properly. Please turn on the internet connection.',  // message
-          '',                     // callback
+          null,                     // callback
           'Alert',                // title
           'Done'                  // buttonName
         );
@@ -56,7 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
       navigator.notification.alert(
         'There is no internet connection. Please re enable the internet connection in order for the app to function properly.',  // message
-        '',                     // callback
+        null,                     // callback
         'Alert',                // title
         'Done'                  // buttonName
       );
@@ -75,8 +75,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       function(err) {
 
         navigator.notification.alert(
-          'We regret that there is a problem retrieving your current location. Turn on your location for a better browsing experience.',  // message
-          '',                     // callback
+          'We regret that there is a problem retrieving your current location. This app does not require your location but turning it allows for a better browsing experience.',  // message
+          null,                     // callback
           'Alert',                // title
           'Done'                  // buttonName
         );
