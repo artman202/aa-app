@@ -547,10 +547,9 @@ angular.module('starter.controllers', [])
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
+  $rootScope.showMapBtn = true;
 
-  $scope.showSpiral = true;
-
-  $scope.showMap = false;   
+  $scope.showSpiral = true;     
 
   setTimeout(function(){
 
