@@ -47,17 +47,23 @@ angular.module('starter.controllers', [])
 
 .controller('HomeCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
-  $rootScope.showTabs = false;
-  $rootScope.showBack = false;
-  $rootScope.showMapBtn = false;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = false;
+    $rootScope.showBack = false;
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });
 
 }])
 
 .controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService',  function($scope, $rootScope, $http, cacheService, $cordovaNetwork) {
   
-  $rootScope.showTabs = true;
-  $rootScope.showBack = true;
-  $rootScope.showMapBtn = false;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });  
 
   $scope.search = true;
 
@@ -112,10 +118,13 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('DestinationsCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-  
-  $rootScope.showTabs = true;
-  $rootScope.showBack = true;
-  $rootScope.showMapBtn = false;
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });
 
   // Create province array
   var provinces = buildProvinces(); 
@@ -128,7 +137,12 @@ angular.module('starter.controllers', [])
 
 .controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', function($scope, $stateParams, cacheService, $rootScope) {
 
-  $rootScope.showMapBtn = false;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });
  
   var provinceId = null;
 
@@ -160,9 +174,14 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory) {
 
-  $rootScope.showMapBtn = true;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = true;
+  });
 
   $scope.state = $stateParams;
 
@@ -176,10 +195,11 @@ angular.module('starter.controllers', [])
 
         $rootScope.controllerMapView = function() {
 
+          $ionicHistory.clearCache();
           $scope.showMap = true;
 
           $timeout(function(){
-            mapView(data, $rootScope, "accommodation-map");
+            mapView(data, $rootScope, "accommodation-map", $ionicHistory);
           }, 100);
 
         }
@@ -299,11 +319,11 @@ angular.module('starter.controllers', [])
 
 .controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state) {
 
-  $rootScope.showMapBtn = false;
-  $rootScope.enquireBtn = true;
-
-  $scope.$on('$ionicView.beforeLeave', function() {
-    $rootScope.enquireBtn = false;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = true;
+    $rootScope.showMapBtn = false;
   });
 
   $scope.state = $stateParams;  
@@ -457,9 +477,12 @@ angular.module('starter.controllers', [])
 
 .controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory) {
 
-  $rootScope.showTabs = true;
-  $rootScope.showBack = true;
-  $rootScope.showMap = false;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });
 
   setTimeout(function(){
 
@@ -534,23 +557,34 @@ angular.module('starter.controllers', [])
 
 .controller('RecommendedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   
-  $rootScope.showTabs = true;
-  $rootScope.showBack = true;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });
 
 }])
 
 .controller('SpecialsCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   
-  $rootScope.showTabs = true;
-  $rootScope.showBack = true;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = false;
+  });
 
 }])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory) {
   
-  $rootScope.showTabs = true;
-  $rootScope.showBack = true;
-  $rootScope.showMapBtn = true;
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $rootScope.showTabs = true;
+    $rootScope.showBack = true;    
+    $rootScope.enquireBtn = false;
+    $rootScope.showMapBtn = true;
+  });
 
   $scope.showSpiral = true;     
 
@@ -576,10 +610,11 @@ angular.module('starter.controllers', [])
 
           $rootScope.controllerMapView = function() {
 
-          $scope.showMap = true;
+            $ionicHistory.clearCache();
+            $scope.showMap = true;
 
             $timeout(function(){
-              mapView(accommodations, $rootScope, "nearme-map");
+              mapView(accommodations, $rootScope, "nearme-map", $ionicHistory);
             }, 100);
 
           }
@@ -720,7 +755,7 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
-function mapView(data, $rootScope, mapType) {
+function mapView(data, $rootScope, mapType) {  
 
   // show loader
   $rootScope.$broadcast('loading:show');

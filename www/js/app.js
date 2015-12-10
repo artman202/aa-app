@@ -140,7 +140,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.home', {
-    cache : false,
     url: '/home',
     views: {
       'menuContent': {
@@ -151,7 +150,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations', {
-    cache : false,
     url: '/destinations',
     views: {
       'menuContent': {
@@ -162,7 +160,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations-province-chosen', {
-    cache : false,
     url: '/destinations/:provinceName+id=:provinceId',
     data: {'context':'login'},
     views: {
@@ -174,7 +171,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations-city-chosen', {
-    cache : false,
     url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId',
     views: {
       'menuContent': {
@@ -185,7 +181,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations-accom-chosen', {
-    cache : false,
     url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId/:accomName+id=:accomId',
     views: {
       'menuContent': {
@@ -196,7 +191,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.recommended', {
-    cache : false,
     url: '/recommended',
     views: {
       'menuContent': {
@@ -207,7 +201,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.specials', {
-    cache : false,
     url: '/specials',
     views: {
       'menuContent': {
@@ -218,7 +211,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.near-me', {
-    cache : false,
     url: '/near-me',
     views: {
       'menuContent': {
@@ -229,7 +221,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.search', {
-    cache : false,
     url: '/search',
     views: {
       'menuContent': {

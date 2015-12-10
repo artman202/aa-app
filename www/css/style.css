@@ -322,7 +322,7 @@ input[disabled] {background-color: white !important}
 .footer-bar .tab-item {padding: 7.5px 0; opacity: 1}
 .footer-bar .tab-item.activated {background-color: #0F316F;}
 .bottom-space {height: 130px;}
-.bottom-space-single-accom {height: 160px;}
+.bottom-space-single-accom {height: 200px;}
 
 .there-is-more {
   text-align: center;
