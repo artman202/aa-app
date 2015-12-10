@@ -17,11 +17,15 @@
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label blue">Check In *</span>
-          <input type="text" ng-click="runDatePickerCheckin()" ng-model="checkIn" placeholder="Check In *">
+          <a type="button" ng-click="runDatePickerCheckin()">
+            <input type="text" ng-model="checkIn" placeholder="Check In *" disabled>
+          </a>
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label blue">Check Out *</span>
-          <input type="text" ng-click="runDatePickerCheckout()" ng-model="checkOut" placeholder="Check Out *">
+          <a type="button" ng-click="runDatePickerCheckout()">
+            <input type="text" ng-model="checkOut" placeholder="Check Out *" disabled>
+          </a>
         </label>
       </div>
 

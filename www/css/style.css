@@ -6,7 +6,8 @@ h3 {font-size: 1.3em !important}
 h4 {}
 
 .nav-bar button { border-radius: 0 !important; }
-.button:hover {color: white}
+/*.button:hover {color: white}*/
+input[disabled] {background-color: white !important}
 
 .white {color: white;}
 .gray {color: #999;}
