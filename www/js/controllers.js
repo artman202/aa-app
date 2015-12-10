@@ -49,6 +49,7 @@ angular.module('starter.controllers', [])
 
   $rootScope.showTabs = false;
   $rootScope.showBack = false;
+  $rootScope.showMapBtn = false;
 
 }])
 
@@ -56,6 +57,7 @@ angular.module('starter.controllers', [])
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
+  $rootScope.showMapBtn = false;
 
   $scope.search = true;
 
@@ -72,7 +74,7 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 500);
+  }, $rootScope.contentTimeOut);
 
   $scope.searchByCity = function() {
 
@@ -97,7 +99,7 @@ angular.module('starter.controllers', [])
 
       navigator.notification.alert(
         'We regret that there is no results for this query.',  // message
-        '',                     // callback
+        null,                     // callback
         'Alert',                // title
         'Done'                  // buttonName
       );
@@ -113,6 +115,7 @@ angular.module('starter.controllers', [])
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
+  $rootScope.showMapBtn = false;
 
   // Create province array
   var provinces = buildProvinces(); 
@@ -123,7 +126,9 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', function($scope, $stateParams, cacheService) {
+.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', function($scope, $stateParams, cacheService, $rootScope) {
+
+  $rootScope.showMapBtn = false;
  
   var provinceId = null;
 
@@ -151,11 +156,13 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 500);
+  }, $rootScope.contentTimeOut);
 
 }])
 
 .controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout) {
+
+  $rootScope.showMapBtn = true;
 
   $scope.state = $stateParams;
 
@@ -180,6 +187,12 @@ angular.module('starter.controllers', [])
         $rootScope.controllerListView = function() {
 
           $scope.showMap = false;
+
+          $rootScope.$broadcast('loading:show');
+
+          setTimeout(function(){
+            $rootScope.$broadcast('loading:hide');
+          }, 500);
 
         }
 
@@ -280,17 +293,29 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 500);
+  }, $rootScope.contentTimeOut);
 
 }])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state) {
 
-  $scope.state = $stateParams;
+  $rootScope.showMapBtn = false;
+  $rootScope.enquireBtn = true;
+
+  $scope.$on('$ionicView.beforeLeave', function() {
+    $rootScope.enquireBtn = false;
+  });
+
+  $scope.state = $stateParams;  
 
   setTimeout(function(){
 
     cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+
+        $rootScope.goToEnquireForm = function() {
+          console.log(data[0].n);
+          $state.go('app.enquire-form', {accomName: data[0].n, accomId: data[0].id}); 
+        }
 
         $scope.accommodation = data[0];
 
@@ -426,7 +451,81 @@ angular.module('starter.controllers', [])
       });
     });
 
-  }, 500);
+  }, $rootScope.contentTimeOut);
+
+}])
+
+.controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory) {
+
+  $rootScope.showTabs = true;
+  $rootScope.showBack = true;
+  $rootScope.showMap = false;
+
+  setTimeout(function(){
+
+    var options = {
+      date: new Date(),
+      mode: 'date', // or 'time'
+      minDate: new Date(),
+      allowOldDates: true,
+      allowFutureDates: false,
+      doneButtonLabel: 'DONE',
+      doneButtonColor: '#F2F3F4',
+      cancelButtonLabel: 'CANCEL',
+      cancelButtonColor: '#000000'
+    };
+
+    $scope.runDatePickerCheckin = function() {
+      
+      $cordovaDatePicker.show(options).then(function(date){
+
+        console.log(date);
+        var dateStr = String(date);
+        $scope.checkIn = dateStr.substr(0, 15);
+        
+      });
+    }
+
+    $scope.runDatePickerCheckout = function() {
+      
+      $cordovaDatePicker.show(options).then(function(date){
+
+        console.log(date);
+        var dateStr = String(date);
+        $scope.checkOut = dateStr.substr(0, 15);
+        
+      });
+    }
+
+    $scope.submitEnquire = function(name, email, mobile, checkIn, checkOut) {
+
+      var enquiryFormObj = {
+        "mobile" : mobile,
+        "accomm_id" : $stateParams.accomId,
+        "checkin" : checkIn,
+        "udid" : "E8AB9C2E-520A-4DFD-B024-8D1B02989B04",
+        "email" : email,
+        "type" : "enquire",
+        "name" : name,
+        "checkout" : checkOut
+      }
+
+      function enquirySubmit() {
+        alert("Submitted");
+        // $ionicHistory.backView();
+      }
+
+      navigator.notification.alert(
+        'Your enquiry form has been sent to the establishment successfully.',  // message
+        enquirySubmit,                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );      
+
+      console.log(enquiryFormObj);
+    }
+
+  }, $rootScope.contentTimeOut);
 
 }])
 
@@ -487,6 +586,12 @@ angular.module('starter.controllers', [])
 
             $scope.showMap = false;
 
+            $rootScope.$broadcast('loading:show');
+
+            setTimeout(function(){
+              $rootScope.$broadcast('loading:hide');
+            }, 500);
+
           }
 
           $scope.accommodations = accommodations;
@@ -508,7 +613,7 @@ angular.module('starter.controllers', [])
 
           navigator.notification.alert(
             'We regret that there is a problem retrieving the cities.',  // message
-            '',                     // callback
+            null,                     // callback
             'Alert',                // title
             'Done'                  // buttonName
           );
@@ -568,7 +673,7 @@ angular.module('starter.controllers', [])
 
           navigator.notification.alert(
             'We regret that there is a problem retrieving the cities.',  // message
-            '',                     // callback
+            null,                     // callback
             'Alert',                // title
             'Done'                  // buttonName
           );
@@ -614,6 +719,13 @@ function deg2rad(deg) {
 }
 
 function mapView(data, $rootScope, mapType) {
+
+  // show loader
+  $rootScope.$broadcast('loading:show');
+
+  setTimeout(function(){
+    $rootScope.$broadcast('loading:hide');
+  }, 1000);
 
   var Latlng = "";
 

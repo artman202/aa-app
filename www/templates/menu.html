@@ -18,10 +18,13 @@
 
     <ion-nav-view name="menuContent"></ion-nav-view>
 
-    <a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()" ng-if="$root.showBack">
+    <a type="button" class="footer-btn enquire-btn" ng-click="goToEnquireForm()" ng-if="$root.enquireBtn">
+      ENQUIRE
+    </a>
+    <a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()" ng-if="$root.showMapBtn">
       <i class="icon ion-ios-list-outline"></i>
     </a>
-    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="$root.showBack">
+    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="$root.showMapBtn">
       <i class="icon ion-map"></i>
     </a>
     <a type="button" class="footer-btn back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">

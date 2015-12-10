@@ -10,18 +10,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
   $ionicPlatform.ready(function() {
 
-    navigator.notification.alert(
-      'The app has started',  // message
-      null,                     // callback
-      'Alert',                // title
-      'Done'                  // buttonName
-    );
+    // set content load time out
+    $rootScope.contentTimeOut = 500;
 
-    // Check for network connection
+    // // Check for network connection
     if(window.Connection) {
       if(navigator.connection.type == Connection.NONE) {
         navigator.notification.alert(
-          'This app uses an internet connection to function properly. Please turn on the internet connection.',  // message
+          'There is no internet connection. Please re enable the internet connection in order for the app to function properly.',  // message
           null,                     // callback
           'Alert',                // title
           'Done'                  // buttonName
@@ -124,7 +120,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
         return config
       },
       response: function(response) {
-        $rootScope.$broadcast('loading:hide')
+        $rootScope.$broadcast('loading:hide');
         return response
       },
       responseError: function(responseError) {
@@ -166,6 +162,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   })
 
   .state('app.destinations-province-chosen', {
+    cache : false,
     url: '/destinations/:provinceName+id=:provinceId',
     data: {'context':'login'},
     views: {
@@ -238,6 +235,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       'menuContent': {
         templateUrl: 'templates/search.html',
         controller: 'SearchCtrl'
+      }
+    }
+  })
+
+  .state('app.enquire-form', {
+    url: '/destinations/enquire-form/:accomName+id=:accomId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/enquire-form.html',
+        controller: 'EnquireFormCtrl'
       }
     }
   })

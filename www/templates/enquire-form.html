@@ -1,0 +1,44 @@
+<ion-view view-title="Enquiry Form">
+  <ion-content>
+
+    <form ng-submit="submitEnquire(name, email, mobile, checkIn, checkOut)">
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label blue">First Name *</span>
+          <input type="text" placeholder="First Name *" ng-model="name">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label blue">Email *</span>
+          <input type="text" placeholder="Email *" ng-model="email">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label blue">Mobile</span>
+          <input type="text" placeholder="Mobile" ng-model="mobile">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label blue">Check In *</span>
+          <input type="text" ng-click="runDatePickerCheckin()" ng-model="checkIn" placeholder="Check In *">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label blue">Check Out *</span>
+          <input type="text" ng-click="runDatePickerCheckout()" ng-model="checkOut" placeholder="Check Out *">
+        </label>
+      </div>
+
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+          <a type="button" ng-click="submitEnquire(name, email, mobile, checkIn, checkOut)" class="button button-block enquire-subm-btn bg-blue white">
+            Send
+          </a>
+        </div>
+        <div class="col">
+        </div>
+      </div>
+    </form>
+
+      <div class="bottom-space"></div>
+
+  </ion-content>
+</ion-view>
