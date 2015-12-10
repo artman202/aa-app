@@ -15,7 +15,7 @@
           <span class="input-label blue">Mobile</span>
           <input type="text" placeholder="Mobile" ng-model="mobile">
         </label>
-        <div style="background-color: yellow; position: relative">
+        <div style="position: relative">
           <a type="button" class="date-link" ng-click="runDatePickerCheckin()">
           </a>      
           <label class="item item-input item-floating-label">          
@@ -23,12 +23,14 @@
             <input type="text" ng-model="checkIn" placeholder="Check In *" disabled>
           </label>
         </div>
-        <a type="button" style="display: inherit" ng-click="runDatePickerCheckout()">
+        <div style="position: relative">
+          <a type="button" class="date-link" ng-click="runDatePickerCheckout()">
+          </a>
           <label class="item item-input item-floating-label">
             <span class="input-label blue">Check Out *</span>          
             <input type="text" ng-model="checkOut" placeholder="Check Out *" disabled>
           </label>
-        </a>
+        </div>
       </div>
 
       <div class="row">

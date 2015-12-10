@@ -467,8 +467,9 @@ angular.module('starter.controllers', [])
       date: new Date(),
       mode: 'date', // or 'time'
       minDate: new Date(),
-      allowOldDates: true,
-      allowFutureDates: false,
+      maxDate: new Date() + 10000,
+      allowOldDates: false,
+      allowFutureDates: true,
       doneButtonLabel: 'DONE',
       doneButtonColor: '#F2F3F4',
       cancelButtonLabel: 'CANCEL',
@@ -476,8 +477,6 @@ angular.module('starter.controllers', [])
     };
 
     $scope.runDatePickerCheckin = function($event) {
-
-      alert("Hello");
       
       $cordovaDatePicker.show(options).then(function(date){
 
