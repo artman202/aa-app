@@ -475,7 +475,9 @@ angular.module('starter.controllers', [])
       cancelButtonColor: '#000000'
     };
 
-    $scope.runDatePickerCheckin = function() {
+    $scope.runDatePickerCheckin = function($event) {
+
+      alert("Hello");
       
       $cordovaDatePicker.show(options).then(function(date){
 
@@ -484,9 +486,10 @@ angular.module('starter.controllers', [])
         $scope.checkIn = dateStr.substr(0, 15);
         
       });
+      $event.stopPropagation(); 
     }
 
-    $scope.runDatePickerCheckout = function() {
+    $scope.runDatePickerCheckout = function($event) {
       
       $cordovaDatePicker.show(options).then(function(date){
 
@@ -495,6 +498,7 @@ angular.module('starter.controllers', [])
         $scope.checkOut = dateStr.substr(0, 15);
         
       });
+      $event.stopPropagation();
     }
 
     $scope.submitEnquire = function(name, email, mobile, checkIn, checkOut) {
