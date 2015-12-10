@@ -444,14 +444,14 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window) {
   
   $rootScope.showTabs = true;
   $rootScope.showBack = true;
 
   $scope.showSpiral = true;
 
-  $scope.showMap = false; 
+  $scope.showMap = false;   
 
   setTimeout(function(){
 
@@ -500,6 +500,9 @@ angular.module('starter.controllers', [])
 
           // the interval breaks if location is loaded
           $interval.cancel();
+
+          var scrollHeight = $window.innerHeight;
+          $scope.setScrollHeight = scrollHeight+"px";
 
         }, function errorCallback(response) {
 
