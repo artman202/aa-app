@@ -10,6 +10,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
   $ionicPlatform.ready(function() {
 
+    navigator.notification.alert(
+      'The app has started',  // message
+      '',                     // callback
+      'Alert',                // title
+      'Done'                  // buttonName
+    );
+
     // Check for network connection
     if(window.Connection) {
       if(navigator.connection.type == Connection.NONE) {
@@ -48,7 +55,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
     function onOffline() {
 
       navigator.notification.alert(
-        'There is no internet connection. Please turn on the internet connection in order for the app to function properly.',  // message
+        'There is no internet connection. Please re enable the internet connection in order for the app to function properly.',  // message
         '',                     // callback
         'Alert',                // title
         'Done'                  // buttonName
@@ -68,7 +75,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       function(err) {
 
         navigator.notification.alert(
-          'We regret that there is a problem retrieving your current location.',  // message
+          'We regret that there is a problem retrieving your current location. Turn on your location for a better browsing experience.',  // message
           '',                     // callback
           'Alert',                // title
           'Done'                  // buttonName

@@ -615,26 +615,48 @@ function deg2rad(deg) {
 
 function mapView(data, $rootScope, mapType) {
 
+  var Latlng = "";
+
   if(mapType == 'accommodation-map') {
 
+    // run normal add marker script    
     var Latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
+    var mapOptions = {
+      zoom: 11,
+      center: Latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+    };
+
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
   } else if(mapType == 'nearme-map') {
 
     var Latlng = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);
 
-  }
+    var mapOptions = {
+      zoom: 11,
+      center: Latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+    };
 
-  
-  var mapOptions = {
-    zoom: 11,
-    center: Latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    disableDefaultUI: true
-  };
-  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    // add your location with unique marker
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    var myLocImage = 'img/markers/accom-marker-location.svg';
+    var marker = new google.maps.Marker({
+      position: Latlng,
+      map: map,
+      icon: myLocImage,
+      title: "You are here!"
+    });
+    marker.addListener('click', markerMyLocation);
+
+  }  
 
   var markersArray = [];
+  var image = 'img/markers/accom-marker.svg';
   for(var x = 0; x < data.length; x++) {
     
     var LatLng = new google.maps.LatLng(data[x].lat,data[x].lon);
@@ -643,6 +665,7 @@ function mapView(data, $rootScope, mapType) {
       map: map,
       id: data[x].id,
       title: data[x].n,
+      icon: image
     });
     marker.addListener('click', markerId);
 
@@ -651,6 +674,12 @@ function mapView(data, $rootScope, mapType) {
   }
 
   var infowindow = new google.maps.InfoWindow();
+
+  function markerMyLocation() {
+    infowindow.close()
+    infowindow.setContent(this.title);
+    infowindow.open(map, this);
+  }
 
   function markerId() {
 
