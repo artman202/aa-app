@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       function(err) {
 
         navigator.notification.alert(
-          'We regret that there is a problem retrieving your current location. This app does not require your location but turning it allows for a better browsing experience.',  // message
+          'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
           null,                     // callback
           'Alert',                // title
           'Done'                  // buttonName

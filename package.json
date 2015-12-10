@@ -34,7 +34,11 @@
       "id": "cordova-plugin-x-socialsharing"
     },
     "cordova-plugin-network-information",
-    "cordova-plugin-dialogs"
+    "cordova-plugin-dialogs",
+    {
+      "locator": "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git",
+      "id": "cordova-plugin-datepicker"
+    }
   ],
   "cordovaPlatforms": [
     {
