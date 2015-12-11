@@ -12,7 +12,7 @@
     </h3>
 	<ion-list class="list-wrap" id="itemList">
 
-		<div collection-repeat="accommodation in itemsArray" item-render-buffer="8">
+		<div ng-repeat="accommodation in itemsArray">
 
 			<ion-item>
 				<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
@@ -48,19 +48,17 @@
 
 			<div class="collection-repeat-spacer"></div>
 
-		</div>
+		</div>		
 
-		<br>
+	</ion-list>
 
-		<div class="clear"></div>
-
+	<ion-list class="list-wrap">
 		<div class="center">
 			<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
 			<ion-item ng-if="end" class="button button-block btn-city">
 				No more results
 			</ion-item>
 		</div>
-
 	</ion-list>
 
 	<div class="bottom-space-single-accom"></div>

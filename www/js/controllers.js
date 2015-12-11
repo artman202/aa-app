@@ -264,10 +264,15 @@ angular.module('starter.controllers', [])
         var arrayUpdateStart = 1;
         // $scope.show = 1;
 
-        // create scroll load function
-        $scope.scrollFunc = function() {          
+        $ionicScrollDelegate.$getByHandle('scroll').resize();
 
-          if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight) {
+        // create scroll load function
+        $scope.scrollFunc = function() { 
+
+          console.log($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight);
+          console.log($ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight);    
+
+          if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight + 10) {
 
             var p = arrayUpdateStart;
             var n = 0;
@@ -301,6 +306,8 @@ angular.module('starter.controllers', [])
               $scope.hide = true;
               $scope.$apply();
 
+              $ionicScrollDelegate.$getByHandle('scroll').resize();
+
             }, 500);
 
           }
@@ -317,7 +324,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
@@ -437,8 +444,6 @@ angular.module('starter.controllers', [])
 
         // load map for single accommodation
         $timeout(function(){
-
-            $scope.$apply();
 
             var latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
             var myOptions = {
