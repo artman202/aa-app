@@ -59,7 +59,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
     }
 
-    var promise;
     var watchOptions = {
       maximumAge : 1 * 60 * 1000,
       timeout : 30000,
@@ -70,41 +69,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
     watch.then(
       null,
       function(err) {
+
+        navigator.notification.alert(
+          'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+          null,                     // callback
+          'Alert',                // title
+          'Done'                  // buttonName
+        );
         
-        var posOptions = {timeout: 30000, enableHighAccuracy: true};
-
-        promise = $interval(function() {
-
-          alert("Get current position triggered")
-
-          $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-
-            alert("Get current position retrieved")
-
-            var lat  = position.coords.latitude
-            var long = position.coords.longitude
-
-            $rootScope.myLat = lat;
-            $rootScope.myLong = long;
-
-          }, function(err) {
-            
-            navigator.notification.alert(
-              'We regret that there is a problem retrieving your current location. This app does not require your location to funtion but using your location allows for a better browsing experience.',  // message
-              null,                     // callback
-              'Alert',                // title
-              'Done'                  // buttonName
-            );
-
-          });
-        }, 30000);
-
       },
       function(position) {
-
-        $interval.cancel(promise);
 
         alert("Watch position retrieved")
 
@@ -113,7 +87,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
         $rootScope.myLat = lat;
         $rootScope.myLong = long;
-
     });
 
     $rootScope.$on('loading:show', function() {
