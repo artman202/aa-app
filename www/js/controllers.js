@@ -869,7 +869,7 @@ function mapView(data, $rootScope, mapType) {
               <div class='accom-distance bg-yellow white'>\
                 "+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km\
               </div>\
-              <img src='http://www.proportal.co.za/"+markerObj.tb+"'>\
+              <img src='"+markerObj.tb+"'>\
             </div>\
             <div class='col col-75 accom-content'>\
               <h3 class='page-blue-heading'>\
