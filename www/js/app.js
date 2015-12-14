@@ -59,6 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
     }
 
+    var promise
     var watchOptions = {
       maximumAge : 1 * 60 * 1000,
       timeout : 30000,
@@ -70,15 +71,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       null,
       function(err) {
 
-        navigator.notification.alert(
-          'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-          null,                     // callback
-          'Alert',                // title
-          'Done'                  // buttonName
-        );
+        if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+
+          var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
+          promise = $interval(function() { 
+            $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+
+              alert("Get current position retrieved");
+
+              var lat  = position.coords.latitude
+              var long = position.coords.longitude
+
+              $rootScope.myLat = lat;
+              $rootScope.myLong = long;
+
+            }, function(err) {
+
+              navigator.notification.alert(
+
+                'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+                null,                     // callback
+                'Alert',                // title
+                'Done'                  // buttonName
+              );
+
+            });
+          }, 30000);
+
+        } else {
+
+          navigator.notification.alert(
+            'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+            null,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
+
+        }        
         
       },
       function(position) {
+
+        $interval.cancel(promise);
 
         alert("Watch position retrieved")
 
