@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       null,
       function(err) {
 
-        if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+        if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
 
           var posOptions = {timeout: 10000, enableHighAccuracy: false};
 
