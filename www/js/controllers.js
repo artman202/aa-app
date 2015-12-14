@@ -69,13 +69,13 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById(0, 'http://www.proportal.co.za/_mobi_app/accomm_search.php').then(function (data) {
+    cacheService.getDataById(0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
       // e.g. "time taken for request: 2375ms"
       // Data returned by this next call is already cached.
 
       $scope.topDestinationArray = data
 
-      return cacheService.getDataById(0, 'http://www.proportal.co.za/_mobi_app/accomm_search.php').then(function (data) {
+      return cacheService.getDataById(0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -89,7 +89,7 @@ angular.module('starter.controllers', [])
 
     $http({
       method: 'GET',
-      url: 'http://www.proportal.co.za/_mobi_app/accomm_search.php?q='+$scope.searchQuery
+      url: 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?q='+$scope.searchQuery
     }).then(function successCallback(response) {
 
       var searchResults = response.data;
@@ -150,7 +150,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+    cacheService.getDataById($stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
       // e.g. "time taken for request: 2375ms"
       // Data returned by this next call is already cached.
 
@@ -165,7 +165,7 @@ angular.module('starter.controllers', [])
 
         $scope.cities = cities;
 
-      return cacheService.getDataById($stateParams.provinceId, 'http://www.proportal.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+      return cacheService.getDataById($stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -191,7 +191,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+    cacheService.getDataById($stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
         $rootScope.controllerMapView = function() {
 
@@ -315,7 +315,7 @@ angular.module('starter.controllers', [])
 
         $scope.accommodationsDistances = distanceArray;        
 
-      return cacheService.getDataById($stateParams.cityId, 'http://www.proportal.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+      return cacheService.getDataById($stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -337,7 +337,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+    cacheService.getDataById($stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
 
         $rootScope.goToEnquireForm = function() {
           console.log(data[0].n);
@@ -471,7 +471,7 @@ angular.module('starter.controllers', [])
 
         // for(var x = 0; x < accomGallery.legth)
 
-      return cacheService.getDataById($stateParams.accomId, 'http://www.proportal.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+      return cacheService.getDataById($stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -606,7 +606,7 @@ angular.module('starter.controllers', [])
 
         $http({
           method: 'GET',
-          url: 'http://www.proportal.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
+          url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
         }).then(function successCallback(response) {
 
           $scope.showSpiral = false;

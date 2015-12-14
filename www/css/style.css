@@ -17,6 +17,7 @@ input[disabled] {background-color: white !important}
 
 .bg-blue { background-color: #113A84 !important; }
 .bg-yellow { background-color: #FFC20E; }
+.bg-blue.activated { background-color: #FFC20E !important; }
 .bg-yellow.activated { background-color: #113A84 !important; }
 
 .display {display: inline-block !important}
@@ -62,7 +63,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px; height: 60px !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
+  width: 65px; height: 60px !important; border-radius: 0px; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
 .nav-btn-right.activated { border-left: 1px solid white !important; opacity: 1 !important; background-color: #0F316F !important}
 
 .nav-menu-item { border: none; background-color: transparent; color: white; font-weight: bolder; text-align: }
@@ -85,7 +86,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px; height: 100% !important; border-left: 1px solid white; color: white !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
+  width: 65px; height: 100% !important; border-left: 1px solid white; color: white !important; border-radius: 0px; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important;}
 .search-nav-btn-right.activated { border-left: 1px solid white !important; opacity: 1 !important; background-color: #0F316F !important}
 .search-content {margin-top: 60px;}
 

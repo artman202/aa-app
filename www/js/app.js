@@ -60,7 +60,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
     }
 
     var watchOptions = {
-      maximumAge : 10000,
+      maximumAge : 1 * 60 * 1000,
       timeout : 30000,
       enableHighAccuracy: true // may cause errors if true
     };
@@ -82,13 +82,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
       },
       function(position) {
 
-        alert("Finding location")
+        alert("Location retrieved")
 
         var lat  = position.coords.latitude;
         var long = position.coords.longitude;
 
         $rootScope.myLat = lat;
         $rootScope.myLong = long;
+
     });
 
     $rootScope.$on('loading:show', function() {
