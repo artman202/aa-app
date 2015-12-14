@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
   };
 }])
 
-.controller('HomeCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$timeout', '$interval', '$http', '$window', '$ionicLoading', function($scope, $rootScope, $ionicHistory, $timeout, $interval, $http, $window, $ionicLoading) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = false;
@@ -54,10 +54,19 @@ angular.module('starter.controllers', [])
     $rootScope.showMapBtn = false;
   });
 
+  $scope.item = "img/homepage-banner/homepage-banner-1.png"
+
+  setTimeout(function(){
+
+    $scope.showSpiral = true;
+    findAccomNearMe("home", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
+
+  }, $rootScope.contentTimeOut);
+
 }])
 
-.controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService',  function($scope, $rootScope, $http, cacheService, $cordovaNetwork) {
-  
+.controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService', '$ionicLoading', '$ionicHistory',  function($scope, $rootScope, $http, cacheService, $ionicLoading, $ionicHistory) {
+
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
@@ -69,13 +78,14 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById(0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
+    cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
+
       // e.g. "time taken for request: 2375ms"
       // Data returned by this next call is already cached.
 
       $scope.topDestinationArray = data
 
-      return cacheService.getDataById(0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
+      return cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -113,7 +123,9 @@ angular.module('starter.controllers', [])
     });    
   }
 
-
+  $scope.closeSearch = function() {
+    $ionicHistory.goBack();
+  }
 
 }])
 
@@ -135,7 +147,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', function($scope, $stateParams, cacheService, $rootScope) {
+.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', '$ionicLoading', function($scope, $stateParams, cacheService, $rootScope, $ionicLoading) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
@@ -150,7 +162,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById($stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+    cacheService.getDataById($ionicLoading, $stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
       // e.g. "time taken for request: 2375ms"
       // Data returned by this next call is already cached.
 
@@ -165,7 +177,7 @@ angular.module('starter.controllers', [])
 
         $scope.cities = cities;
 
-      return cacheService.getDataById($stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
+      return cacheService.getDataById($ionicLoading, $stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -174,7 +186,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', '$ionicLoading', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory, $ionicLoading) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
@@ -191,7 +203,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById($stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+    cacheService.getDataById($ionicLoading, $stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
         $rootScope.controllerMapView = function() {
 
@@ -315,7 +327,7 @@ angular.module('starter.controllers', [])
 
         $scope.accommodationsDistances = distanceArray;        
 
-      return cacheService.getDataById($stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
+      return cacheService.getDataById($ionicLoading, $stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -324,7 +336,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
@@ -337,7 +349,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    cacheService.getDataById($stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+    cacheService.getDataById($ionicLoading, $stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
 
         $rootScope.goToEnquireForm = function() {
           console.log(data[0].n);
@@ -471,7 +483,7 @@ angular.module('starter.controllers', [])
 
         // for(var x = 0; x < accomGallery.legth)
 
-      return cacheService.getDataById($stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+      return cacheService.getDataById($ionicLoading, $stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"
       });
     });
@@ -595,78 +607,7 @@ angular.module('starter.controllers', [])
 
   setTimeout(function(){
 
-    var promise;
-
-    // test if the location has been updated yet, if not an interval starts
-    promise = $interval(function() {
-
-      console.log("Reloading locations near me")
-
-      if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
-
-        $http({
-          method: 'GET',
-          url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
-        }).then(function successCallback(response) {
-
-          $scope.showSpiral = false;
-
-          var accommodations = response.data;
-
-          $rootScope.controllerMapView = function() {
-
-            $ionicHistory.clearCache();
-            $scope.showMap = true;
-
-            $timeout(function(){
-              mapView(accommodations, $rootScope, "nearme-map", $ionicHistory);
-            }, 100);
-
-          }
-
-          $rootScope.controllerListView = function() {
-
-            $scope.showMap = false;
-
-            $rootScope.$broadcast('loading:show');
-
-            setTimeout(function(){
-              $rootScope.$broadcast('loading:hide');
-            }, 500);
-
-          }
-
-          $scope.accommodations = accommodations;
-          var distanceArray = []; 
-
-          for ( var x = 0; x < accommodations.length; x++) {
-            distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
-          }
-
-          $scope.accommodationsDistances = distanceArray;
-
-          // the interval breaks if location is loaded
-          $interval.cancel();
-
-          var scrollHeight = $window.innerHeight;
-          $scope.setScrollHeight = scrollHeight+"px";
-
-        }, function errorCallback(response) {
-
-          navigator.notification.alert(
-            'We regret that there is a problem retrieving the cities.',  // message
-            null,                     // callback
-            'Alert',                // title
-            'Done'                  // buttonName
-          );
-
-        });
-
-        $interval.cancel(promise);
-
-      }
-
-    }, 500);    
+    findAccomNearMe("near-me", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);        
 
   }, 500);
 
@@ -681,7 +622,9 @@ angular.module('starter.controllers', [])
   });
 
   return {
-    getDataById: function (id, apiUrl) {
+    getDataById: function ($ionicLoading, id, apiUrl) {
+
+      $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
 
       var jsonId = id
 
@@ -698,13 +641,18 @@ angular.module('starter.controllers', [])
       // e.g. Modify the data after it has been returned from the server and
       // save those modifications to the cache.
       if (dataCache.get(id)) {
+
+        $ionicLoading.hide()
+
         deferred.resolve(dataCache.get(id));
       } else {
 
         $http({
           method: 'GET',
           url: apiUrl+''+jsonId
-        }).then(function successCallback(response) {
+        }).then(function successCallback(response) {  
+
+        $ionicLoading.hide()        
 
           var data = response.data;
 
@@ -727,6 +675,89 @@ angular.module('starter.controllers', [])
     }
   };
 })
+
+function findAccomNearMe(pageType, $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window) {
+
+  var promise;
+
+    // test if the location has been updated yet, if not an interval starts
+  promise = $interval(function() {        
+
+    var pageType = pageType
+
+    if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
+
+      // if(pageType == "near-me") {
+
+      // } else if(pageType == "home") {      
+      //   $rootScope.$broadcast('loading:hide');
+      // }
+
+      $http({
+        method: 'GET',
+        url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
+      }).then(function successCallback(response) {
+
+        $scope.showSpiral = false;
+
+        var accommodations = response.data;
+
+        $rootScope.controllerMapView = function() {
+
+          $ionicHistory.clearCache();
+          $scope.showMap = true;
+
+          $timeout(function(){
+            mapView(accommodations, $rootScope, "nearme-map", $ionicHistory);
+          }, 100);
+
+        }
+
+        $rootScope.controllerListView = function() {
+
+          $scope.showMap = false;
+
+          $rootScope.$broadcast('loading:show');
+
+          setTimeout(function(){
+            $rootScope.$broadcast('loading:hide');
+          }, 500);
+
+        }
+
+        $scope.accommodations = accommodations;
+        var distanceArray = []; 
+
+        for ( var x = 0; x < accommodations.length; x++) {
+          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
+        }
+
+        $scope.accommodationsDistances = distanceArray;
+
+        // the interval breaks if location is loaded
+        $interval.cancel();
+
+        var scrollHeight = $window.innerHeight;
+        $scope.setScrollHeight = scrollHeight+"px";
+
+      }, function errorCallback(response) {
+
+        navigator.notification.alert(
+          'We regret that there is a problem retrieving the accommodations near you',  // message
+          null,                     // callback
+          'Alert',                // title
+          'Done'                  // buttonName
+        );
+
+      });
+
+      $interval.cancel(promise);
+
+    }
+
+  }, 500);
+
+}
 
 function buildProvinces() {
   return [

@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngCordova'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory) {
 
   $ionicPlatform.ready(function() {
 
@@ -80,7 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
             .getCurrentPosition(posOptions)
             .then(function (position) {
 
-              alert("Get current position retrieved");
+              // alert("Get current position retrieved");
 
               var lat  = position.coords.latitude
               var long = position.coords.longitude
@@ -93,13 +93,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
               navigator.notification.alert(
 
                 'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-                null,                     // callback
+                null,                    // callback
                 'Alert',                // title
                 'Done'                  // buttonName
               );
 
             });
-          }, 30000);
+          }, 5 * 60 * 1000);
 
         } else {
 
@@ -117,7 +117,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
         $interval.cancel(promise);
 
-        alert("Watch position retrieved")
+        // alert("Watch position retrieved")
 
         var lat  = position.coords.latitude;
         var long = position.coords.longitude;
@@ -125,14 +125,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
         $rootScope.myLat = lat;
         $rootScope.myLong = long;
     });
-
-    $rootScope.$on('loading:show', function() {
-      $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
-    })
-
-    $rootScope.$on('loading:hide', function() {
-      $ionicLoading.hide()
-    })
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -153,152 +145,115 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
 
   if(!ionic.Platform.isIOS() || ionic.Platform.isIPad())$ionicConfigProvider.scrolling.jsScrolling(false);
 
-  $httpProvider.interceptors.push(function($rootScope) {
-    return {
-      request: function(config) {
-        $rootScope.$broadcast('loading:show');
-        return config
-      },
-      response: function(response) {
-        $rootScope.$broadcast('loading:hide');
-        return response
-      },
-      responseError: function(responseError) {
-        $rootScope.$broadcast('loading:hide')
-        return responseError
-      }
-    }
-  })
-
   $stateProvider
+    .state('app', {
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+    })
 
-  .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.home', {
-    url: '/home',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/home.html',
-        controller: 'HomeCtrl'
+    .state('app.home', {
+      url: '/home',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/home.html',
+          controller: 'HomeCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.destinations', {
-    url: '/destinations',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/destinations.html',
-        controller: 'DestinationsCtrl'
+    .state('app.destinations', {
+      url: '/destinations',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/destinations.html',
+          controller: 'DestinationsCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.destinations-province-chosen', {
-    url: '/destinations/:provinceName+id=:provinceId',
-    data: {'context':'login'},
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/destinations-province-chosen.html',
-        controller: 'DestinationsProvinceChosenCtrl'
+    .state('app.destinations-province-chosen', {
+      url: '/destinations/:provinceName+id=:provinceId',
+      data: {'context':'login'},
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/destinations-province-chosen.html',
+          controller: 'DestinationsProvinceChosenCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.destinations-city-chosen', {
-    url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/destinations-city-chosen.html',
-        controller: 'DestinationsCityChosenCtrl'
+    .state('app.destinations-city-chosen', {
+      url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/destinations-city-chosen.html',
+          controller: 'DestinationsCityChosenCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.destinations-accom-chosen', {
-    url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId/:accomName+id=:accomId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/destinations-accom-chosen.html',
-        controller: 'DestinationsAccomChosenCtrl'
+    .state('app.destinations-accom-chosen', {
+      url: '/destinations/:provinceName+id=:provinceId/:cityName+id=:cityId/:accomName+id=:accomId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/destinations-accom-chosen.html',
+          controller: 'DestinationsAccomChosenCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.recommended', {
-    url: '/recommended',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/recommended.html',
-        controller: 'RecommendedCtrl'
+    .state('app.recommended', {
+      url: '/recommended',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/recommended.html',
+          controller: 'RecommendedCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.specials', {
-    url: '/specials',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/specials.html',
-        controller: 'SpecialsCtrl'
+    .state('app.specials', {
+      url: '/specials',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/specials.html',
+          controller: 'SpecialsCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.near-me', {
-    url: '/near-me',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/near-me.html',
-        controller: 'NearMeCtrl'
+    .state('app.near-me', {
+      url: '/near-me',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/near-me.html',
+          controller: 'NearMeCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html',
-        controller: 'SearchCtrl'
+    .state('app.search', {
+      url: '/search',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/search.html',
+          controller: 'SearchCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.enquire-form', {
-    url: '/destinations/enquire-form/:accomName+id=:accomId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/enquire-form.html',
-        controller: 'EnquireFormCtrl'
+    .state('app.enquire-form', {
+      url: '/destinations/enquire-form/:accomName+id=:accomId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/enquire-form.html',
+          controller: 'EnquireFormCtrl'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.playlists', {
-    url: '/playlists',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlists.html',
-        controller: 'PlaylistsCtrl'
-      }
-    }
-  })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/province.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 })

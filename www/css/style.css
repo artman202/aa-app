@@ -92,12 +92,29 @@ input[disabled] {background-color: white !important}
 
 .has-header { top: 59px !important;}
 
-.home-banner-slider { height: 160px; background-color: #FFC20E; }
-.home-sub-heading {	text-align: center; }
-.home-col-1 { height: 400px; text-align: center; background-color: #17479E; }
+
+.homepage-slider {  height: 160px; background-color: #FFC20E; }
+.homepage-slider .swiper-pagination {display: none}
+.homepage-slider .swiper-container {height: 160px; text-align: center}
+.homepage-slider img {max-width: none; height: 100%;}
+.home-sub-heading {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:75px; text-align: center; margin-bottom: 0 !important;}
+.home-col .col { padding-top: 10px !important; padding-bottom: 10px !important;}
+.home-icon-link { margin-bottom: 10px }
+.home-col-1 {  min-height: 400px; text-align: center; background-color: #17479E; }
 .home-col-2 { text-align: center; background-color: #3C68B8; }
 .home-col-3 { text-align: center; background-color: #EEB203; }
 .home-col-4 { text-align: center; background-color: #FFC20E; }
+.home-col-content-block {position: relative; margin-bottom: 5px; width: 100%; overflow: hidden; border-radius: 5px; height: 80px;}
+.home-col-content-block-distance-wrap {position: absolute; width: 100%; background-color: rgba(0, 0, 0, 0.7); color: white}
+.home-col-content-block img {height: 100%; }
 
 .list-wrap .item { padding: 0; height: auto !important; border: none !important; border-radius: 5px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);}
 .list-wrap .item a {border: none !important;}
@@ -109,13 +126,13 @@ input[disabled] {background-color: white !important}
 .btn-city-view-name {	
 	float: left;
 	display: -webkit-box;
-  	display: -moz-box;
-  	display: -ms-flexbox;
-  	display: -webkit-flex;
-  	display: flex;
-    align-items: center;
-    justify-content: left;
-    padding-left: 10px;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 10px;
 	width: 70%;
 	height: 50px;
 }
@@ -313,9 +330,9 @@ input[disabled] {background-color: white !important}
 #single_accom_map_canvas {width: 100%; height: 200px;}
 
 .single-accom-slider {height: 200px}
-.swiper-container {height: 200px}
-.swiper-container img {max-height: none !important; max-width: none !important; width: 150% !important}
-.swiper-pagination .swiper-pagination-bullet {background-color: white !important}
+.single-accom-slider .swiper-container {height: 200px}
+.single-accom-slider .swiper-container img {max-height: none !important; max-width: none !important; width: 150% !important}
+.single-accom-slider .swiper-pagination .swiper-pagination-bullet {background-color: white !important}
 
 .enquire-subm-btn {border: none;}
 .enquire-subm-btn.activated {background-color: #FFC20E !important;}

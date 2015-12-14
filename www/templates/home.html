@@ -1,9 +1,15 @@
 <ion-view view-title="AA Accommodation">
-  <ion-content has-bouncing="true">
-    <div class="row no-padding responsive-sm">
-  		<div class="col home-banner-slider">
-  			
-  		</div>
+  <ion-content has-bouncing="true"> 
+
+    <div class="homepage-slider">
+			<ion-slides options="">
+        <ion-slide-page>
+          <img ng-src="{{item}}">
+        </ion-slide-page>
+      </ion-slides>
+    </div>
+
+    <div class="row no-padding">
   		<div class="col home-sub-heading">
   			<h3 class="page-blue-heading">
   				<b>
@@ -11,31 +17,52 @@
   				</b>
   			</h3>
   		</div>
-  	</div>
-  	<div class="row no-padding">
+    </div>
+  	<div class="row no-padding home-col">
   		<div class="col home-col-1">
   			<a class="tab-item icon-font home-icon-link" href="#/app/destinations" go-native>
   				<i class="icon ion-ios-location"></i>
   				Destinations
   			</a>
   		</div>
-		<div class="col home-col-2">
-			<a class="tab-item icon-font home-icon-link" href="#/app/recommended" go-native>
+  		<div class="col home-col-2">
+  			<a class="tab-item icon-font home-icon-link" href="#/app/recommended" go-native>
   				<i class="icon ion-heart"></i>
   				Recommended
   			</a>
-		</div>
-		<div class="col home-col-3">
-			<a class="tab-item icon-font home-icon-link" href="#/app/specials" go-native>
+  		</div>
+  		<div class="col home-col-3">
+  			<a class="tab-item icon-font home-icon-link" href="#/app/specials" go-native>
   				<i class="icon ion-ios-location"></i>
   				Specials
   			</a>
-		</div>
-		<div class="col home-col-4">
-			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" go-native>
+  		</div>
+  		<div class="col home-col-4">
+  			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" go-native>
   				<i class="icon ion-navigate"></i>
   				Near Me
   			</a>
-		</div>     
+        <div class="center" ng-if="showSpiral == true">
+          <ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>      
+        </div>
+        <div ng-repeat="accommodation in accommodations | limitTo : 5">
+
+          <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
+            <div class="home-col-content-block">
+              <div class="home-col-content-block-distance-wrap">
+                <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}km
+              </div>
+              <img ng-src="{{accommodation.tb}}" alt="">
+            </div>
+          </a>
+
+          <!-- {{accommodationsDistances[$index]}} km -->
+          <!-- <div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
+            
+          </div>
+          <img ng-src="{{accommodation.tb}}" alt=""> -->
+        </div>
+  		</div>  
+    </div>   
   </ion-content>
 </ion-view>
