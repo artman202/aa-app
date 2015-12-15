@@ -336,20 +336,44 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', '$window', '$ionicScrollDelegate', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading, $window, $ionicScrollDelegate) {
+
+  var enquireBtn = angular.element(document.getElementById('enquire-btn'));
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
-    $rootScope.enquireBtn = true;
+    $rootScope.enquireBtn = false;
     $rootScope.showMapBtn = false;
+
+    if($ionicHistory.viewHistory().forwardView.stateName == "app.enquire-form") {
+      enquireBtn.removeClass("ng-hide")
+    }
+    
+  }); 
+
+  $scope.$on('$ionicView.afterLeave', function() {    
+    enquireBtn.addClass("ng-hide")
   });
 
-  $scope.state = $stateParams;  
+  $scope.state = $stateParams; 
 
   setTimeout(function(){
 
     cacheService.getDataById($ionicLoading, $stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
+
+        var scrollHeight = $window.innerHeight;
+        $scope.setScrollHeight = scrollHeight+"px";        
+
+        $ionicScrollDelegate.$getByHandle('scroll-accom-chosen').resize();
+
+        $scope.scrollFunc = function() {
+
+          if($ionicScrollDelegate.$getByHandle('scroll-accom-chosen').getScrollPosition().top + $window.innerHeight > $ionicScrollDelegate.$getByHandle('scroll-accom-chosen').getScrollView().__contentHeight - 600) {
+            enquireBtn.removeClass("ng-hide")
+          };
+
+        }
 
         $rootScope.goToEnquireForm = function() {
           console.log(data[0].n);
@@ -442,14 +466,34 @@ angular.module('starter.controllers', [])
         var number = data[0].con;
         $scope.number = number.replace(/[^a-z0-9\s]/gi, '').substring(0, 10);
 
-        $scope.share = function(message) {
+        $scope.share = function(name, type, accomId) {
+
+          var message = name+", "+type+", ";
+          var link = "http://www.aatravel.co.za/PA"+accomId;
+          var image;
+
+          // $cordovaSocialSharing
+          //   .shareViaTwitter(message, image, link)
+          //   .then(function(result) {
+          //     // Success!
+          //   }, function(err) {
+          //     // An error occurred. Show a message to the user
+          //   });
 
           $cordovaSocialSharing
-            .share(message) // Share via native share sheet
+
+            .shareViaWhatsApp(message, image, link)
             .then(function(result) {
-              // Success!
+              console.log("Whatsapp share successful")
             }, function(err) {
-              // An error occured. Show a message to the user
+              console.log("Whatsapp share failed")
+            })
+
+            .shareViaTwitter(message, image, link)
+            .then(function(result) {
+              console.log("Twitter share successful")
+            }, function(err) {
+              console.log("Twitter share failed")
             });
 
         }
@@ -457,31 +501,27 @@ angular.module('starter.controllers', [])
         // load map for single accommodation
         $timeout(function(){
 
-            var latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
-            var myOptions = {
-                zoom: 12,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-            };            
-            var map = new google.maps.Map(document.getElementById("single_accom_map_canvas"), myOptions);
-            var marker = new google.maps.Marker({
-              position: latlng,
-              map: map,
-              title: 'Hello World!'
-            });
-            $scope.map = map
-            $scope.overlay = new google.maps.OverlayView();
-            $scope.overlay.draw = function() {}; // empty function required
-            $scope.overlay.setMap($scope.map);
-            $scope.element = document.getElementById('single_accom_map_canvas');
-            // $scope.hammertime = Hammer($scope.element).on("hold", function(event) {
-            //     $scope.addOnClick(event);
-            // });
+          var latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
+          var myOptions = {
+              zoom: 12,
+              center: latlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+          };            
+          var map = new google.maps.Map(document.getElementById("single_accom_map_canvas"), myOptions);
 
-        }, 100);
+          var image = 'img/markers/accom-marker.svg';
+          var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            icon: image
+          });
+          $scope.map = map
+          $scope.overlay = new google.maps.OverlayView();
+          $scope.overlay.draw = function() {}; // empty function required
+          $scope.overlay.setMap($scope.map);
+          $scope.element = document.getElementById('single_accom_map_canvas');
 
-
-        // for(var x = 0; x < accomGallery.legth)
+        }, 500);
 
       return cacheService.getDataById($ionicLoading, $stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
         // e.g. "time taken for request: 1ms"

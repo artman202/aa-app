@@ -53,7 +53,8 @@ input[disabled] {background-color: white !important}
   align-items: center;
   justify-content: center;
 }
-.nav-btn { width: 65px;	height: 60px !important; background-color: white !important; color: #113A84 !important; border: none !important;}
+.nav-btn { width: 65px;	height: 60px !important; background-color: #113A84 !important; color: white !important; border: none ; border-right: 1px white solid ;}
+.nav-btn.activated { border-right: 1px solid white !important; opacity: 1 !important; background-color: #0F316F !important}
 .bar .title + .buttons { top: 0 !important;	right: 0 !important; }
 .nav-btn-right {
   display: -webkit-box;

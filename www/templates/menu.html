@@ -18,7 +18,7 @@
 
     <ion-nav-view name="menuContent"></ion-nav-view>
 
-    <a type="button" class="footer-btn enquire-btn" ng-click="goToEnquireForm()" ng-if="$root.enquireBtn">
+    <a type="button" class="footer-btn enquire-btn" id="enquire-btn" ng-click="goToEnquireForm()" ng-show="$root.enquireBtn">
       ENQUIRE
     </a>
     <a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()" ng-if="$root.showMapBtn">
