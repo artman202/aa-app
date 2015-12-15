@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.aaapp413929" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>aaApp</name>
+<widget id="com.ionicframework.aaapp413929" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>AA Quality Assured Accommodation App</name>
     <description>
-        An Ionic Framework and Cordova project.
+        An AA quality assured accommodation listing app.
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+      Prospero Digital Mobile Team
     </author>
     <content src="index.html" />
     <access origin="*" />
