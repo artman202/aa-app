@@ -6,14 +6,19 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngCordova'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory, $ionicSideMenuDelegate) {
 
   $ionicPlatform.ready(function() {
+
+    // disable content drag opens menu on ios
+    if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+      $ionicSideMenuDelegate.canDragContent(false);
+    }
 
     // set content load time out
     $rootScope.contentTimeOut = 500;
 
-    // // Check for network connection
+    // Check for network connection
     if(window.Connection) {
       if(navigator.connection.type == Connection.NONE) {
         navigator.notification.alert(
