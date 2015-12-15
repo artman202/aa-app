@@ -468,33 +468,17 @@ angular.module('starter.controllers', [])
 
         $scope.share = function(name, type, accomId) {
 
-          var message = name+", "+type+", ";
-          var link = "http://www.aatravel.co.za/PA"+accomId;
+          var message = name+", "+type+", http://www.aatravel.co.za/PA"+accomId;
+          var link;
           var image;
 
-          // $cordovaSocialSharing
-          //   .shareViaTwitter(message, image, link)
-          //   .then(function(result) {
-          //     // Success!
-          //   }, function(err) {
-          //     // An error occurred. Show a message to the user
-          //   });
-
           $cordovaSocialSharing
-
-            .shareViaWhatsApp(message, image, link)
+            .share(message, image, link)
             .then(function(result) {
-              console.log("Whatsapp share successful")
+              console.log("Social share successful")
             }, function(err) {
-              console.log("Whatsapp share failed")
+              console.log("Social share failed")
             })
-
-            .shareViaTwitter(message, image, link)
-            .then(function(result) {
-              console.log("Twitter share successful")
-            }, function(err) {
-              console.log("Twitter share failed")
-            });
 
         }
 
