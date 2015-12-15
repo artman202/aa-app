@@ -252,20 +252,6 @@ angular.module('starter.controllers', [])
 
         var ratingArray = [];
 
-        // switch($rating){
-        //   case '1' : $txt='AA Recommended'; $img='img/aaqa/1.png'; break;
-        //   case '2' : $txt='AA Highly Recommended'; $img='img/aaqa/2.png'; break;
-        //   case '3' : $txt='AA Superior'; $img='img/aaqa/3.png'; break;
-        //   case '4' : $txt='AA Recommended/Highly Recommended'; $img='img/aaqa/2.png'; break;
-        //   case '5' : $txt='AA Highly Recommended/Superior'; $img='img/aaqa/3.png'; break;
-        //   case '6' : $txt='AA Eco'; $img='img/aaqa/4.png'; break;
-
-        //   case '7' : $txt='AA Quality Assured'; $img='img/aaqa/9.png'; break;
-        //   case '8' : $txt='AA Quality Assured'; $img='img/aaqa/9.png'; break;
-        //   case '9' : $txt='Status Pending'; $img='img/aaqa/9.png'; break;
-        //   default : $txt=''; $img=''; break;
-        // }
-
         // create the final multi dimensional array
         for ( var x = 0; x < data.length; x++) {
 
@@ -820,15 +806,15 @@ function findAccomNearMe(pageType, $rootScope, $ionicHistory, $scope, $timeout, 
 
 function buildProvinces() {
   return [
-    { id: 1, link: 'eastern-cape', name: 'Eastern Cape' },
-    { id: 2, link: 'free-state', name: 'Free State' },
-    { id: 3, link: 'gauteng', name: 'Gauteng' },
-    { id: 4, link: 'kwazulu-natal', name: 'KwaZulu Natal' },    
-    { id: 5, link: 'mpumalanga', name: 'Mpumalanga' },
-    { id: 6, link: 'northern-cape', name: 'Northern Cape' },    
-    { id: 8, link: 'north-west', name: 'North West' },
-    { id: 9, link: 'western-cape', name: 'Western Cape' },
-    { id: 11, link: 'limpopo', name: 'Limpopo' }
+    { id: 1, link: 'eastern-cape', name: 'Eastern Cape', image: 'img/provinces/eastern-cape.svg' },
+    { id: 2, link: 'free-state', name: 'Free State', image: 'img/provinces/freestate.svg' },
+    { id: 3, link: 'gauteng', name: 'Gauteng', image: 'img/provinces/gauteng.svg' },
+    { id: 4, link: 'kwazulu-natal', name: 'KwaZulu Natal', image: 'img/provinces/kwazulu-natal.svg'  },    
+    { id: 5, link: 'mpumalanga', name: 'Mpumalanga', image: 'img/provinces/mpumalanga.svg'  },
+    { id: 6, link: 'northern-cape', name: 'Northern Cape', image: 'img/provinces/northern-cape.svg'  },    
+    { id: 8, link: 'north-west', name: 'North West', image: 'img/provinces/north-west.svg'  },
+    { id: 9, link: 'western-cape', name: 'Western Cape', image: 'img/provinces/western-cape.svg'  },
+    { id: 11, link: 'limpopo', name: 'Limpopo', image: 'img/provinces/limpopo.svg'  }
   ];
 }
 

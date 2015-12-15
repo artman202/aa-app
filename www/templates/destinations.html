@@ -6,19 +6,19 @@
     <div class="row no-padding" ng-repeat="province in provinces" ng-if="$index % 3 === 0">       
       <div class="col col-33" ng-if="$index < provinces.length">
         <a type="button" href="#/app/destinations/{{provinces[$index].name}}+id={{provinces[$index].id}}" class="province-btn button button-block icon-font bg-blue padding">
-          <img src="img/provinces/eastern-cape.svg" width="80%" alt=""><br>
+          <img ng-src="{{provinces[$index].image}}" width="80%" alt=""><br>
           {{provinces[$index].name}}
         </a>
       </div>
       <div class="col col-33" ng-if="$index + 1 < provinces.length">
         <a type="button" href="#/app/destinations/{{provinces[$index + 1].name}}+id={{provinces[$index + 1].id}}" class="province-btn button button-block icon-font bg-blue padding">
-          <img src="img/provinces/eastern-cape.svg" width="80%" alt=""><br>
+          <img ng-src="{{provinces[$index + 1].image}}" width="80%" alt=""><br>
           {{provinces[$index + 1].name}}
         </a>
       </div>
       <div class="col col-33" ng-if="$index + 2 < provinces.length">
         <a type="button" href="#/app/destinations/{{provinces[$index + 2].name}}+id={{provinces[$index + 2].id}}" class="province-btn button button-block icon-font bg-blue padding">
-          <img src="img/provinces/eastern-cape.svg" width="80%" alt=""><br>
+          <img ng-src="{{provinces[$index + 2].image}}" width="80%" alt=""><br>
           {{provinces[$index + 2].name}}
         </a>
       </div>
