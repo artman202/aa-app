@@ -47,7 +47,7 @@ angular.module('starter.controllers', [])
 
 .controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$timeout', '$interval', '$http', '$window', '$ionicLoading', function($scope, $rootScope, $ionicHistory, $timeout, $interval, $http, $window, $ionicLoading) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = false;
     $rootScope.showBack = false;
     $rootScope.enquireBtn = false;
@@ -67,7 +67,7 @@ angular.module('starter.controllers', [])
 
 .controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService', '$ionicLoading', '$ionicHistory',  function($scope, $rootScope, $http, cacheService, $ionicLoading, $ionicHistory) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -131,7 +131,7 @@ angular.module('starter.controllers', [])
 
 .controller('DestinationsCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -149,7 +149,7 @@ angular.module('starter.controllers', [])
 
 .controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', '$ionicLoading', function($scope, $stateParams, cacheService, $rootScope, $ionicLoading) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -188,7 +188,7 @@ angular.module('starter.controllers', [])
 
 .controller('DestinationsCityChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', '$ionicLoading', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory, $ionicLoading) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -338,7 +338,7 @@ angular.module('starter.controllers', [])
 
 .controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', 'cacheService', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', function($scope, $stateParams, $http, cacheService, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = true;
@@ -494,7 +494,7 @@ angular.module('starter.controllers', [])
 
 .controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -574,7 +574,7 @@ angular.module('starter.controllers', [])
 
 .controller('RecommendedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -585,7 +585,7 @@ angular.module('starter.controllers', [])
 
 .controller('SpecialsCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -596,7 +596,7 @@ angular.module('starter.controllers', [])
 
 .controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory) {
   
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;

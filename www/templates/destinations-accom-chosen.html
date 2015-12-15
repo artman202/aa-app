@@ -1,7 +1,7 @@
 <ion-view view-title="Accommodation">
   <ion-content class="single-accom-row-wrap">
 
-  	<ion-slides options="{autoplay: 3000}" slider="slider" class="single-accom-slider">
+  	<ion-slides options="{autoplay: 3000, autoplayDisableOnInteraction: false}" slider="slider" class="single-accom-slider">
 		<ion-slide-page class="v-align-parent" ng-repeat="item in accomGallery">
 			<img class="v-align" ng-src="{{item}}">
 		</ion-slide-page>
