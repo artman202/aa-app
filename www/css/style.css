@@ -162,6 +162,7 @@ input[disabled] {background-color: white !important}
 .accom-title-underline {border-bottom: 1px rgba(17, 58, 132, 0.2) solid}
 .accom-ratings-row img {width: 80px}
 .accom-ratings-row-price {color: #FFC20E; text-align: right}
+.accom-aa-ratings-row {margin-top: 0px !important; padding-left: 5px !important}
 .accom-distance {
   position: absolute;
   z-index: 99;
@@ -325,10 +326,12 @@ input[disabled] {background-color: white !important}
 .single-accom-tabs .tabs .tab-item {min-width: 125px; margin-top: 0; color: #FFC20E; border: 0 solid #FFC20E; border-top-width: 2px;}
 .single-accom-tabs .tabs .active {color: #113A84 !important; border-color: #113A84 !important; margin-top: 0 !important;}
 .single-accom-tabs .tabs .tab-item.activated {color: #113A84 !important; border-color: #113A84 !important}
-.single-accom-edit {padding: 15px 15px !important}
+.single-accom-edit {padding: 0 15px !important}
 .single-accom-edit .col {text-align: center}
 .single-accom-edit .col i {font-size: 2.5em; color: white;}
 #single_accom_map_canvas {width: 100%; height: 200px;}
+.single-accom-options-btn {padding: 15px 0 !important;}
+.single-accom-options-btn.activated {background-color: #EEB203}
 
 .single-accom-slider {height: 200px}
 .single-accom-slider .swiper-container {height: 200px}

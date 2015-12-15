@@ -250,12 +250,61 @@ angular.module('starter.controllers', [])
         // the grouped array counter
         n = 0;
 
+        var ratingArray = [];
+
+        // switch($rating){
+        //   case '1' : $txt='AA Recommended'; $img='img/aaqa/1.png'; break;
+        //   case '2' : $txt='AA Highly Recommended'; $img='img/aaqa/2.png'; break;
+        //   case '3' : $txt='AA Superior'; $img='img/aaqa/3.png'; break;
+        //   case '4' : $txt='AA Recommended/Highly Recommended'; $img='img/aaqa/2.png'; break;
+        //   case '5' : $txt='AA Highly Recommended/Superior'; $img='img/aaqa/3.png'; break;
+        //   case '6' : $txt='AA Eco'; $img='img/aaqa/4.png'; break;
+
+        //   case '7' : $txt='AA Quality Assured'; $img='img/aaqa/9.png'; break;
+        //   case '8' : $txt='AA Quality Assured'; $img='img/aaqa/9.png'; break;
+        //   case '9' : $txt='Status Pending'; $img='img/aaqa/9.png'; break;
+        //   default : $txt=''; $img=''; break;
+        // }
+
         // create the final multi dimensional array
         for ( var x = 0; x < data.length; x++) {
 
           distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
           
           itemArray.push(data[x]);
+
+          switch(data[x].ar){
+            case '1':
+              ratingArray.push({"text":"AA Recommended", "rating":"img/aaqa/1.png"});
+              break;
+            case '2':
+              ratingArray.push({"text":"AA Highly Recommended", "rating":"img/aaqa/2.png"});
+              break;
+            case '3':
+              ratingArray.push({"text":"AA Superior", "rating":"img/aaqa/3.png"});
+              break;
+            case '4':
+              ratingArray.push({"text":"AA Recommended/Highly Recommended", "rating":"img/aaqa/2.png"});
+              break;
+            case '5':
+              ratingArray.push({"text":"AA Highly Recommended/Superior", "rating":"img/aaqa/3.png"});
+              break;
+            case '6':
+              ratingArray.push({"text":"AA Eco", "rating":"img/aaqa/4.png"});
+              break;
+            case '7':
+              ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
+              break;
+            case '8':
+              ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
+              break;
+            case '9':
+              ratingArray.push({"text":"Status Pending", "rating":"img/aaqa/9.png"});
+              break;
+            default:
+              ratingArray.push({"text":"", "rating":""});
+              break;
+          }
 
           if (x == accommodationsArray[n] || x == data.length -1) {
             itemsArrayWrap.push(itemArray);
@@ -264,6 +313,10 @@ angular.module('starter.controllers', [])
           }           
 
         }
+
+        $scope.aaRating = ratingArray;
+
+        // console.log(ratingArray);
 
         $scope.itemsArray = itemsArrayWrap[0]; 
         
@@ -279,10 +332,7 @@ angular.module('starter.controllers', [])
         $ionicScrollDelegate.$getByHandle('scroll').resize();
 
         // create scroll load function
-        $scope.scrollFunc = function() { 
-
-          console.log($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight);
-          console.log($ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight);    
+        $scope.scrollFunc = function() {
 
           if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight + 10) {
 
@@ -386,21 +436,6 @@ angular.module('starter.controllers', [])
         var accomGalleryArray = accomGallery.split(",");
 
         $scope.accomGallery = accomGalleryArray;
-        $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-
-        $scope.slideChanged = function(index) {
-
-          var galleryLength = accomGalleryArray.length;
-
-          if(index == galleryLength-1) {
-
-            setTimeout(function(){
-              $ionicSlideBoxDelegate.slide(0);
-            },4000);
-
-          }
-
-        };        
 
         // create line breaks in description
         var descriptionWrap = angular.element(document.getElementById('desc'));
