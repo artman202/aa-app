@@ -262,3 +262,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 })
+
+.directive('imageonload', function() {
+  return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+          element.bind('load', function() {
+
+            var children = element.parent();
+            children.find("div").css({"display":"none"});
+            
+          });
+      }
+  };
+});

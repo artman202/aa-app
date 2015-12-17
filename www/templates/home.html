@@ -4,7 +4,7 @@
     <div class="homepage-slider">
 			<ion-slides options="{allowSwipeToNext: false, allowSwipeToPrev: false}">
         <ion-slide-page>
-          <img ng-src="{{item}}">
+          <img src="img/homepage-banner/homepage-banner-1.png">
         </ion-slide-page>
       </ion-slides>
     </div>
@@ -13,54 +13,95 @@
   		<div class="col home-sub-heading">
   			<h3 class="page-blue-heading">
   				<b>
-  					Filter Accomodations by:
+  					Filter Accomodations By:
   				</b>
   			</h3>
   		</div>
     </div>
   	<div class="row no-padding home-col">
   		<div class="col home-col-1">
-  			<a class="tab-item icon-font home-icon-link" href="#/app/destinations" go-native>
-  				<i class="icon ion-ios-location"></i>
-  				Destinations
-  			</a>
+        <div class="home-item-col">
+    			<a class="tab-item icon-font home-icon-link" href="#/app/destinations" go-native>
+    				<i class="icon ion-ios-location"></i>
+    				Destinations
+    			</a>
+          <div class="center" ng-if="showSpiralCity == true">
+            <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
+          </div>
+          <div ng-repeat="topDestination in topDestinationArray | limitTo : 4">            
+            <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
+              <div class="home-col-content-block">
+                <div class="home-col-content-block-distance-wrap">
+                  {{topDestination.city}}<!-- <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}&nbsp;km -->
+                </div>
+                <div class="image-load-wrap">
+                  <div class="image-loader">
+                    <ion-spinner icon="crescent">
+                  </ion-spinner></div>            
+                  <img ng-src="{{cityArrayImg[$index]}}" imageonload>
+                </div>               
+              </div>
+            </a>
+          </div>
+        </div>
   		</div>
   		<div class="col home-col-2">
-  			<a class="tab-item icon-font home-icon-link" href="#/app/recommended" go-native>
-  				<i class="icon ion-heart"></i>
-  				Recommended
-  			</a>
+        <div class="home-item-col">
+    			<a class="tab-item icon-font home-icon-link" href="#/app/recommended" go-native>
+    				<i class="icon ion-heart"></i>
+    				Recommended
+    			</a>
+          <div class="center" ng-if="showSpiralReccom == true">
+            <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
+          </div>
+          <div ng-repeat="reccommendedAccom in reccommendedAccomArray | limitTo : 4">            
+            <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{reccommendedAccom.n}}+id={{reccommendedAccom.id}}">
+              <div class="home-col-content-block">
+                <div class="home-col-content-block-distance-wrap">
+                  <i class="icon ion-location"></i>&nbsp;&nbsp;{{reccommendedAccom.distance}}&nbsp;km
+                </div>
+                <div class="image-load-wrap">
+                  <div class="image-loader">
+                    <ion-spinner icon="crescent">
+                  </ion-spinner></div>            
+                  <img ng-src="{{reccommendedAccom.tb}}" imageonload>
+                </div>               
+              </div>
+            </a>
+          </div>
+        </div>
   		</div>
-  		<div class="col home-col-3">
+  		<!-- <div class="col home-col-3">
   			<a class="tab-item icon-font home-icon-link" href="#/app/specials" go-native>
   				<i class="icon ion-ios-location"></i>
   				Specials
   			</a>
-  		</div>
+  		</div> -->
   		<div class="col home-col-4">
-  			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" go-native>
-  				<i class="icon ion-navigate"></i>
-  				Near Me
-  			</a>
-        <div class="center" ng-if="showSpiral == true">
-          <ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>      
-        </div>
-        <div ng-repeat="accommodation in accommodations | limitTo : 5">
-
-          <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
-            <div class="home-col-content-block">
-              <div class="home-col-content-block-distance-wrap">
-                <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}km
-              </div>
-              <img ng-src="{{accommodation.tb}}" alt="">
-            </div>
-          </a>
-
-          <!-- {{accommodationsDistances[$index]}} km -->
-          <!-- <div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
-            
+        <div class="home-item-col">
+    			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" go-native>
+    				<i class="icon ion-navigate"></i>
+    				Near Me
+    			</a>
+          <div class="center" ng-if="showSpiralNear == true">
+            <ion-spinner icon="crescent"></ion-spinner>      
           </div>
-          <img ng-src="{{accommodation.tb}}" alt=""> -->
+        
+          <div ng-repeat="accommodation in accommodations | limitTo : 4">            
+            <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
+              <div class="home-col-content-block">
+                <div class="home-col-content-block-distance-wrap">
+                  <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodation.distance}}&nbsp;km
+                </div> 
+                <div class="image-load-wrap">
+                  <div class="image-loader">
+                    <ion-spinner icon="crescent">
+                  </ion-spinner></div>             
+                  <img ng-src="{{accommodation.tb}}" alt="" imageonload>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
   		</div>  
     </div>   

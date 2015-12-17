@@ -45,27 +45,123 @@ angular.module('starter.controllers', [])
   };
 }])
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$timeout', '$interval', '$http', '$window', '$ionicLoading', function($scope, $rootScope, $ionicHistory, $timeout, $interval, $http, $window, $ionicLoading) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = false;
     $rootScope.showBack = false;
     $rootScope.enquireBtn = false;
     $rootScope.showMapBtn = false;
+  });  
+
+  // destinations
+  $scope.showSpiralCity = true;
+
+  $http({
+    method: 'GET',
+    url: 'http://www.aatravel.co.za/_mobi_app/accomm_search.php'
+  }).then(function successCallback(response) {    
+
+    // deactivate loader
+    $scope.showSpiralCity = false;
+
+    var data = response.data;
+    var cityArrayImg = [];
+
+    for(var x = 0; x < data.length; x++) {
+      switch(data[x].city) {
+        case 'Cape Town':
+          cityArrayImg.push("img/home-top-des/cape-town.jpg");
+          break;
+        case 'Pretoria':
+          cityArrayImg.push("img/home-top-des/pretoria.jpg");
+          break;
+        case 'Durban':
+          cityArrayImg.push("img/home-top-des/durban.jpg");
+          break;
+        case 'Kimberley':
+          cityArrayImg.push("img/home-top-des/kimberley.jpg");
+          break;
+        default:
+          cityArrayImg.push("error");
+          break;
+      }
+    }
+
+    $scope.cityArrayImg = cityArrayImg;    
+    $scope.topDestinationArray = data
+
+  }, function errorCallback(response) {
+
+    navigator.notification.alert(
+      'We regret that there was a problem retrieving the top destinations.',  // message
+      null,                     // callback
+      'Alert',                // title
+      'Done'                  // buttonName
+    );
+
   });
+  
+  // recommended
+  $scope.showSpiralReccom = true;
 
-  $scope.item = "img/homepage-banner/homepage-banner-1.png"
 
-  setTimeout(function(){
+  var promise;  
+  // test if the location has been updated yet, if not an interval starts
+  promise = $interval(function() {        
 
-    $scope.showSpiral = true;
-    findAccomNearMe("home", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
+    var pageType = pageType
 
-  }, $rootScope.contentTimeOut);
+    if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
+    
+    $http({
+      method: 'GET',
+      url: 'http://www.aatravel.co.za/_mobi_app/accomm.php'
+    }).then(function successCallback(response) {      
+
+      $scope.showSpiralReccom = false;
+
+      var data = response.data;
+      var reccommendedAccomArray = [];
+      var reccommendedAccomDistancesArray = []; 
+
+      var highestRating = 0;
+
+      data.sort(function(a,b) {
+        return b.pv - a.pv;
+      });
+
+      for(var x = 0; x < data.length; x++) {
+        data[x]["distance"] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon));
+      }
+
+      $scope.reccommendedAccomArray = data;
+      $scope.reccommendedAccomDistances = reccommendedAccomDistancesArray;
+
+    }, function errorCallback(response) {
+
+      navigator.notification.alert(
+        'We regret that there was a problem retrieving the top destinations.',  // message
+        null,                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );
+
+    });
+
+    $interval.cancel(promise);
+
+    }
+
+  }, 500);
+
+  // near me
+  $scope.showSpiralNear = true;
+  findAccomNearMe("home", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
 
 }])
 
-.controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService', '$ionicLoading', '$ionicHistory',  function($scope, $rootScope, $http, cacheService, $ionicLoading, $ionicHistory) {
+.controller('SearchCtrl', ['$scope', '$rootScope', '$http', 'cacheService', '$ionicLoading', '$ionicHistory', '$timeout',  function($scope, $rootScope, $http, cacheService, $ionicLoading, $ionicHistory, $timeout) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -76,7 +172,7 @@ angular.module('starter.controllers', [])
 
   $scope.search = true;
 
-  setTimeout(function(){
+  $timeout(function(){
 
     cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
 
@@ -147,7 +243,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', '$ionicLoading', function($scope, $stateParams, cacheService, $rootScope, $ionicLoading) {
+.controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', 'cacheService', '$rootScope', '$ionicLoading', '$timeout', function($scope, $stateParams, cacheService, $rootScope, $ionicLoading, $timeout) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -160,7 +256,7 @@ angular.module('starter.controllers', [])
 
   $scope.state = $stateParams;
 
-  setTimeout(function(){
+  $timeout(function(){
 
     cacheService.getDataById($ionicLoading, $stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
       // e.g. "time taken for request: 2375ms"
@@ -201,7 +297,7 @@ angular.module('starter.controllers', [])
 
   $scope.showMap = false;
 
-  setTimeout(function(){
+  $timeout(function(){
 
     cacheService.getDataById($ionicLoading, $stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
 
@@ -222,7 +318,7 @@ angular.module('starter.controllers', [])
 
           $rootScope.$broadcast('loading:show');
 
-          setTimeout(function(){
+          $timeout(function(){
             $rootScope.$broadcast('loading:hide');
           }, 500);
 
@@ -250,57 +346,21 @@ angular.module('starter.controllers', [])
         // the grouped array counter
         n = 0;
 
-        var ratingArray = [];
-
-        // create the final multi dimensional array
         for ( var x = 0; x < data.length; x++) {
 
           distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
-          
-          itemArray.push(data[x]);
 
-          switch(data[x].ar){
-            case '1':
-              ratingArray.push({"text":"AA Recommended", "rating":"img/aaqa/1.png"});
-              break;
-            case '2':
-              ratingArray.push({"text":"AA Highly Recommended", "rating":"img/aaqa/2.png"});
-              break;
-            case '3':
-              ratingArray.push({"text":"AA Superior", "rating":"img/aaqa/3.png"});
-              break;
-            case '4':
-              ratingArray.push({"text":"AA Recommended/Highly Recommended", "rating":"img/aaqa/2.png"});
-              break;
-            case '5':
-              ratingArray.push({"text":"AA Highly Recommended/Superior", "rating":"img/aaqa/3.png"});
-              break;
-            case '6':
-              ratingArray.push({"text":"AA Eco", "rating":"img/aaqa/4.png"});
-              break;
-            case '7':
-              ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
-              break;
-            case '8':
-              ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
-              break;
-            case '9':
-              ratingArray.push({"text":"Status Pending", "rating":"img/aaqa/9.png"});
-              break;
-            default:
-              ratingArray.push({"text":"", "rating":""});
-              break;
-          }
+          itemArray.push(data[x]);
 
           if (x == accommodationsArray[n] || x == data.length -1) {
             itemsArrayWrap.push(itemArray);
             itemArray = [];
             n++
-          }           
+          }  
 
         }
 
-        $scope.aaRating = ratingArray;
+        $scope.aaRating = calculateRating(data);
 
         // console.log(ratingArray);
 
@@ -334,7 +394,7 @@ angular.module('starter.controllers', [])
               $scope.$apply();
             }            
 
-            setTimeout(function(){             
+            $timeout(function(){             
 
               for(var x = 0; x < itemsArrayWrap[p].length; x++) {
 
@@ -343,7 +403,7 @@ angular.module('starter.controllers', [])
 
               }              
 
-              setTimeout(function(){
+              $timeout(function(){
 
                 arrayUpdateStart++;
                 $scope.show = 0;
@@ -394,7 +454,7 @@ angular.module('starter.controllers', [])
 
   $scope.state = $stateParams; 
 
-  setTimeout(function(){
+  $timeout(function(){
 
     cacheService.getDataById($ionicLoading, $stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
 
@@ -420,6 +480,8 @@ angular.module('starter.controllers', [])
 
         var accomGallery = data[0].g;
         var accomGalleryArray = accomGallery.split(",");
+
+        console.log(accomGalleryArray)        
 
         $scope.accomGallery = accomGalleryArray;
 
@@ -546,7 +608,7 @@ angular.module('starter.controllers', [])
     $rootScope.showMapBtn = false;
   });
 
-  setTimeout(function(){
+  $timeout(function(){
 
     var options = {
       date: new Date(),
@@ -648,9 +710,9 @@ angular.module('starter.controllers', [])
     $rootScope.showMapBtn = true;
   });
 
-  $scope.showSpiral = true;     
+  $scope.showSpiralNear = true;     
 
-  setTimeout(function(){
+  $timeout(function(){
 
     findAccomNearMe("near-me", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);        
 
@@ -743,7 +805,9 @@ function findAccomNearMe(pageType, $rootScope, $ionicHistory, $scope, $timeout, 
         url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
       }).then(function successCallback(response) {
 
-        $scope.showSpiral = false;
+        $scope.showSpiralNear = false;
+
+        $scope.aaRating = calculateRating(response.data);        
 
         var accommodations = response.data;
 
@@ -764,20 +828,26 @@ function findAccomNearMe(pageType, $rootScope, $ionicHistory, $scope, $timeout, 
 
           $rootScope.$broadcast('loading:show');
 
-          setTimeout(function(){
+          $timeout(function(){
             $rootScope.$broadcast('loading:hide');
           }, 500);
 
-        }
+        }        
 
-        $scope.accommodations = accommodations;
         var distanceArray = []; 
 
         for ( var x = 0; x < accommodations.length; x++) {
-          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
+          accommodations[x]["distance"] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon));
+          // distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
         }
 
-        $scope.accommodationsDistances = distanceArray;
+        // $scope.accommodationsDistances = distanceArray;
+
+        accommodations.sort(function(a,b) {
+          return a.distance - b.distance;
+        });
+
+        $scope.accommodations = accommodations;
 
         // the interval breaks if location is loaded
         $interval.cancel();
@@ -841,7 +911,7 @@ function mapView(data, $rootScope, mapType) {
   // show loader
   $rootScope.$broadcast('loading:show');
 
-  setTimeout(function(){
+  $timeout(function(){
     $rootScope.$broadcast('loading:hide');
   }, 1000);
 
@@ -979,4 +1049,56 @@ function closeMapListItem() {
   var markerLink = angular.element(document.getElementById('map-list-item-wrap'));
   markerLink.html("");
 
+}
+
+function calculateRating(data) {
+
+  var data = data;
+  var ratingArray = [];
+
+  // create the final multi dimensional array
+  for ( var x = 0; x < data.length; x++) {
+
+    switch(data[x].ar){
+      case '1':
+        ratingArray.push({"text":"AA Recommended", "rating":"img/aaqa/1.png"});
+        break;
+      case '2':
+        ratingArray.push({"text":"AA Highly Recommended", "rating":"img/aaqa/2.png"});
+        break;
+      case '3':
+        ratingArray.push({"text":"AA Superior", "rating":"img/aaqa/3.png"});
+        break;
+      case '4':
+        ratingArray.push({"text":"AA Recommended/Highly Recommended", "rating":"img/aaqa/2.png"});
+        break;
+      case '5':
+        ratingArray.push({"text":"AA Highly Recommended/Superior", "rating":"img/aaqa/3.png"});
+        break;
+      case '6':
+        ratingArray.push({"text":"AA Eco", "rating":"img/aaqa/4.png"});
+        break;
+      case '7':
+        ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
+        break;
+      case '8':
+        ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
+        break;
+      case '9':
+        ratingArray.push({"text":"Status Pending", "rating":"img/aaqa/9.png"});
+        break;
+      default:
+        ratingArray.push({"text":"", "rating":""});
+        break;
+    }         
+
+  }
+
+  return ratingArray;
+}
+
+function imgError(image) {
+  image.onerror = "";
+  image.src = "img/ionic.png";
+  return true;
 }

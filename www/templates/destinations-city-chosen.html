@@ -19,9 +19,14 @@
 					<div class="row">
 						<div class="col accom-img-bg">
 							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
-								<i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}km
+								<i class="icon ion-location"></i>&nbsp;{{accommodationsDistances[$index]}}&nbsp;km
 							</div>
-							<img ng-src="{{accommodation.tb}}" alt="">
+							<div class="image-load-wrap">
+			                  	<div class="image-loader">
+			                    	<ion-spinner icon="crescent">
+			                  	</ion-spinner></div> 
+								<img ng-src="{{accommodation.tb}}" class="center-image" alt="" imageonload>
+							</div>
 						</div>
 						<div class="col col-75 accom-content">
 							<h3 class="page-blue-heading">
