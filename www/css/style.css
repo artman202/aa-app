@@ -366,7 +366,7 @@ input[disabled] {background-color: white !important}
 
 .single-accom-slider {height: 200px}
 .single-accom-slider .swiper-container {height: 200px}
-.single-accom-slider .swiper-container img {max-height: none !important; max-width: none !important; width: 150% !important}
+.single-accom-slider .swiper-container img {max-height: none !important; max-width: none !important; width: 100% !important}
 .single-accom-slider .swiper-pagination .swiper-pagination-bullet {background-color: white !important}
 
 .enquire-subm-btn {border: none;}

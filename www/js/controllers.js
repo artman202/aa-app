@@ -6,43 +6,6 @@ angular.module('starter.controllers', [])
     $ionicHistory.goBack();
   }
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 500);
-  };
 }])
 
 .controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout) {
@@ -104,8 +67,6 @@ angular.module('starter.controllers', [])
   
   // recommended
   $scope.showSpiralReccom = true;
-
-
   var promise;  
   // test if the location has been updated yet, if not an interval starts
   promise = $interval(function() {        
@@ -157,7 +118,7 @@ angular.module('starter.controllers', [])
 
   // near me
   $scope.showSpiralNear = true;
-  findAccomNearMe("home", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
+  loadDistanceBefore("home", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
 
 }])
 
@@ -171,19 +132,12 @@ angular.module('starter.controllers', [])
   });  
 
   $scope.search = true;
-
   $timeout(function(){
 
     cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
 
-      // e.g. "time taken for request: 2375ms"
-      // Data returned by this next call is already cached.
-
       $scope.topDestinationArray = data
 
-      return cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
-        // e.g. "time taken for request: 1ms"
-      });
     });
 
   }, $rootScope.contentTimeOut);
@@ -210,7 +164,7 @@ angular.module('starter.controllers', [])
     }, function errorCallback(response) {
 
       navigator.notification.alert(
-        'We regret that there is no results for this query.',  // message
+        'We regret that there was a problem retrieving the top destinations.',  // message
         null,                     // callback
         'Alert',                // title
         'Done'                  // buttonName
@@ -259,8 +213,6 @@ angular.module('starter.controllers', [])
   $timeout(function(){
 
     cacheService.getDataById($ionicLoading, $stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
-      // e.g. "time taken for request: 2375ms"
-      // Data returned by this next call is already cached.
 
         var cities = [];
 
@@ -272,10 +224,6 @@ angular.module('starter.controllers', [])
         }
 
         $scope.cities = cities;
-
-      return cacheService.getDataById($ionicLoading, $stateParams.provinceId, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?province_id=').then(function (data) {
-        // e.g. "time taken for request: 1ms"
-      });
     });
 
   }, $rootScope.contentTimeOut);
@@ -294,7 +242,6 @@ angular.module('starter.controllers', [])
   $scope.state = $stateParams;
 
   $scope.hide = true;
-
   $scope.showMap = false;
 
   $timeout(function(){
@@ -308,7 +255,7 @@ angular.module('starter.controllers', [])
 
           $timeout(function(){
             mapView(data, $rootScope, "accommodation-map", $ionicHistory);
-          }, 100);
+          }, 500);
 
         }
 
@@ -324,108 +271,10 @@ angular.module('starter.controllers', [])
 
         }
 
-        var distanceArray = [];
-
-        // the number of results
         $scope.results = data.length;
 
-        // the number of items loaded (15)
-        var loadNumItems = 15;
-        var accommodationsArray = [];
-        var loadAccomNum = Math.ceil(data.length / loadNumItems);
+        loadItemsByScroll("accommodation", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
 
-        // create grouped number array
-        for ( var x = 0; x < loadAccomNum; x++) {
-          accommodationsArray.push(loadNumItems)
-          loadNumItems += 15;
-        }
-
-        var itemsArrayWrap = [];
-        var itemArray = [];
-
-        // the grouped array counter
-        n = 0;
-
-        for ( var x = 0; x < data.length; x++) {
-
-          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
-
-          itemArray.push(data[x]);
-
-          if (x == accommodationsArray[n] || x == data.length -1) {
-            itemsArrayWrap.push(itemArray);
-            itemArray = [];
-            n++
-          }  
-
-        }
-
-        $scope.aaRating = calculateRating(data);
-
-        // console.log(ratingArray);
-
-        $scope.itemsArray = itemsArrayWrap[0]; 
-        
-        var container = angular.element(document.getElementById('container'));
-
-        // var scrollHeight = $window.innerHeight;
-        var scrollHeight = $window.innerHeight;
-        $scope.setScrollHeight = scrollHeight+"px";
-
-        var arrayUpdateStart = 1;
-        // $scope.show = 1;
-
-        $ionicScrollDelegate.$getByHandle('scroll').resize();
-
-        // create scroll load function
-        $scope.scrollFunc = function() {
-
-          if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight + 10) {
-
-            var p = arrayUpdateStart;
-            var n = 0;
-
-            if(loadAccomNum == p) {
-              $scope.hide = true;
-              $scope.end = true;
-              $scope.$apply();
-            } else {
-              $scope.hide = false;
-              $scope.$apply();
-            }            
-
-            $timeout(function(){             
-
-              for(var x = 0; x < itemsArrayWrap[p].length; x++) {
-
-                itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
-                n = p;
-
-              }              
-
-              $timeout(function(){
-
-                arrayUpdateStart++;
-                $scope.show = 0;
-
-              }, 500);
-             
-              scrollHeight = $window.innerHeight;
-              $scope.hide = true;
-              $scope.$apply();
-
-              $ionicScrollDelegate.$getByHandle('scroll').resize();
-
-            }, 500);
-
-          }
-        }
-
-        $scope.accommodationsDistances = distanceArray;        
-
-      return cacheService.getDataById($ionicLoading, $stateParams.cityId, 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id=').then(function (data) {
-        // e.g. "time taken for request: 1ms"
-      });
     });
 
   }, $rootScope.contentTimeOut);
@@ -480,10 +329,7 @@ angular.module('starter.controllers', [])
 
         var accomGallery = data[0].g;
         var accomGalleryArray = accomGallery.split(",");
-
-        console.log(accomGalleryArray)        
-
-        $scope.accomGallery = accomGalleryArray;
+        $scope.accomGallery = accomGalleryArray
 
         // create line breaks in description
         var descriptionWrap = angular.element(document.getElementById('desc'));
@@ -590,16 +436,13 @@ angular.module('starter.controllers', [])
 
         }, 500);
 
-      return cacheService.getDataById($ionicLoading, $stateParams.accomId, 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id=').then(function (data) {
-        // e.g. "time taken for request: 1ms"
-      });
     });
 
   }, $rootScope.contentTimeOut);
 
 }])
 
-.controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory) {
+.controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', '$timeout', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory, $timeout) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -679,7 +522,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('RecommendedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+.controller('RecommendedCtrl', ['$scope', '$rootScope', '$timeout', 'cacheService', '$ionicLoading', '$ionicScrollDelegate', '$window', function($scope, $rootScope, $timeout, cacheService, $ionicLoading, $ionicScrollDelegate, $window) {
   
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -687,6 +530,44 @@ angular.module('starter.controllers', [])
     $rootScope.enquireBtn = false;
     $rootScope.showMapBtn = false;
   });
+
+  $scope.hide = true;
+  $scope.showMap = false;
+
+  $timeout(function(){
+
+    cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm.php').then(function (data) {
+
+        $rootScope.controllerMapView = function() {
+
+          $ionicHistory.clearCache();
+          $scope.showMap = true;
+
+          $timeout(function(){
+            mapView(data, $rootScope, "accommodation-map", $ionicHistory);
+          }, 500);
+
+        }
+
+        $rootScope.controllerListView = function() {
+
+          $scope.showMap = false;
+
+          $rootScope.$broadcast('loading:show');
+
+          $timeout(function(){
+            $rootScope.$broadcast('loading:hide');
+          }, 500);
+
+        }
+
+        $scope.results = data.length;
+
+        loadItemsByScroll("recommended", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
+
+    });
+
+  }, $rootScope.contentTimeOut);
 
 }])
 
@@ -714,7 +595,7 @@ angular.module('starter.controllers', [])
 
   $timeout(function(){
 
-    findAccomNearMe("near-me", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);        
+    loadDistanceBefore("near-me", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);        
 
   }, 500);
 
@@ -783,7 +664,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-function findAccomNearMe(pageType, $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window) {
+function loadDistanceBefore(pageType, $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window) {
 
   var promise;
 
@@ -818,7 +699,7 @@ function findAccomNearMe(pageType, $rootScope, $ionicHistory, $scope, $timeout, 
 
           $timeout(function(){
             mapView(accommodations, $rootScope, "nearme-map", $ionicHistory);
-          }, 100);
+          }, 500);
 
         }
 
@@ -911,7 +792,7 @@ function mapView(data, $rootScope, mapType) {
   // show loader
   $rootScope.$broadcast('loading:show');
 
-  $timeout(function(){
+  setTimeout(function(){
     $rootScope.$broadcast('loading:hide');
   }, 1000);
 
@@ -1101,4 +982,112 @@ function imgError(image) {
   image.onerror = "";
   image.src = "img/ionic.png";
   return true;
+}
+
+function loadItemsByScroll(pageType, $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout) {
+
+  if(pageType == "recommended") {
+    data.sort(function(a,b) {
+      return b.pv - a.pv;
+    });
+  }
+
+  var distanceArray = [];
+  
+  var data = data;
+
+  // the number of items loaded (15)
+  var loadNumItems = 15;
+  var accommodationsArray = [];
+  var loadAccomNum = Math.ceil(data.length / loadNumItems);
+
+  // create grouped number array
+  for ( var x = 0; x < loadAccomNum; x++) {
+    accommodationsArray.push(loadNumItems)
+    loadNumItems += 15;
+  }
+
+  var itemsArrayWrap = [];
+  var itemArray = [];
+
+  // the grouped array counter
+  n = 0;
+
+  for ( var x = 0; x < data.length; x++) {
+
+    distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+
+    itemArray.push(data[x]);
+
+    if (x == accommodationsArray[n] || x == data.length -1) {
+      itemsArrayWrap.push(itemArray);
+      itemArray = [];
+      n++
+    }  
+
+  }
+
+  $scope.aaRating = calculateRating(data);
+
+  // console.log(ratingArray);
+
+  $scope.itemsArray = itemsArrayWrap[0]; 
+  
+  var container = angular.element(document.getElementById('container'));
+
+  // var scrollHeight = $window.innerHeight;
+  var scrollHeight = $window.innerHeight;
+  $scope.setScrollHeight = scrollHeight+"px";
+
+  var arrayUpdateStart = 1;
+  // $scope.show = 1;
+
+  $ionicScrollDelegate.$getByHandle('scroll').resize();
+
+  // create scroll load function
+  $scope.scrollFunc = function() {
+
+    if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight + 10) {
+
+      var p = arrayUpdateStart;
+      var n = 0;
+
+      if(loadAccomNum == p) {
+        $scope.hide = true;
+        $scope.end = true;
+        $scope.$apply();
+      } else {
+        $scope.hide = false;
+        $scope.$apply();
+      }            
+
+      $timeout(function(){             
+
+        for(var x = 0; x < itemsArrayWrap[p].length; x++) {
+
+          itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
+          n = p;
+
+        }              
+
+        $timeout(function(){
+
+          arrayUpdateStart++;
+          $scope.show = 0;
+
+        }, 500);
+       
+        scrollHeight = $window.innerHeight;
+        $scope.hide = true;
+        $scope.$apply();
+
+        $ionicScrollDelegate.$getByHandle('scroll').resize();
+
+      }, 500);
+
+    }
+  }
+
+  $scope.accommodationsDistances = distanceArray;
+
 }

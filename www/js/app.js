@@ -275,4 +275,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-cache', 'ngC
           });
       }
   };
-});
+})
