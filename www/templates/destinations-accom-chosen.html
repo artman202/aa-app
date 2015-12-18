@@ -6,11 +6,11 @@
 	  	
 
 	  	<ion-slides options="{autoplay: 3000, autoplayDisableOnInteraction: false}" slider="slider" class="single-accom-slider" id="slider">
-			<ion-slide-page class="v-align-parent" ng-repeat="item in accomGallery">
-				<div class="image-loader">
+			<ion-slide-page ng-repeat="item in accomGallery">
+				<div class="image-loader" ng-attr-id="{{$index}}">
                 	<ion-spinner icon="crescent">
               	</ion-spinner></div>			
-				<img class="v-align" ng-src="{{item}}" onerror="imgError(this)" imageonload>		
+				<img class="swiper-img" ng-src="{{item}}" onerror="imgError(this)" ng-onload="imgLoaded($index)">		
 			</ion-slide-page>
 		</ion-slides>
 

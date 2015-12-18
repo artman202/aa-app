@@ -129,14 +129,29 @@ angular.module('starter.controllers', [])
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
     $rootScope.showMapBtn = false;
-  });  
+  });
 
   $scope.search = true;
   $timeout(function(){
 
-    cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm_search.php').then(function (data) {
+    $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
 
-      $scope.topDestinationArray = data
+    $http({
+      method: 'GET',
+      url: 'http://www.aatravel.co.za/_mobi_app/accomm_search.php'
+    }).then(function successCallback(response) {
+
+      $ionicLoading.hide()
+      $scope.topDestinationArray = response.data
+
+    }, function errorCallback(response) {
+
+      navigator.notification.alert(
+        'We regret that there was a problem retrieving the cities.',  // message
+        null,                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );
 
     });
 
@@ -330,6 +345,13 @@ angular.module('starter.controllers', [])
         var accomGallery = data[0].g;
         var accomGalleryArray = accomGallery.split(",");
         $scope.accomGallery = accomGalleryArray
+
+        $scope.imgLoaded = function(id) {
+
+          var descriptionWrap = angular.element(document.getElementById(id));
+          descriptionWrap.css({"display":"none"})
+
+        }
 
         // create line breaks in description
         var descriptionWrap = angular.element(document.getElementById('desc'));
@@ -538,32 +560,32 @@ angular.module('starter.controllers', [])
 
     cacheService.getDataById($ionicLoading, 0, 'http://www.aatravel.co.za/_mobi_app/accomm.php').then(function (data) {
 
-        $rootScope.controllerMapView = function() {
+      $rootScope.controllerMapView = function() {
 
-          $ionicHistory.clearCache();
-          $scope.showMap = true;
+        $ionicHistory.clearCache();
+        $scope.showMap = true;
 
-          $timeout(function(){
-            mapView(data, $rootScope, "accommodation-map", $ionicHistory);
-          }, 500);
+        $timeout(function(){
+          mapView(data, $rootScope, "accommodation-map", $ionicHistory);
+        }, 500);
 
-        }
+      }
 
-        $rootScope.controllerListView = function() {
+      $rootScope.controllerListView = function() {
 
-          $scope.showMap = false;
+        $scope.showMap = false;
 
-          $rootScope.$broadcast('loading:show');
+        $rootScope.$broadcast('loading:show');
 
-          $timeout(function(){
-            $rootScope.$broadcast('loading:hide');
-          }, 500);
+        $timeout(function(){
+          $rootScope.$broadcast('loading:hide');
+        }, 500);
 
-        }
+      }
 
-        $scope.results = data.length;
+      $scope.results = data.length;
 
-        loadItemsByScroll("recommended", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
+      loadItemsByScroll("recommended", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
 
     });
 
@@ -617,7 +639,9 @@ angular.module('starter.controllers', [])
       var jsonId = id
 
       if(id == 0) {
+
         jsonId = "";
+        25
       }
 
       var deferred = $q.defer();
@@ -997,14 +1021,14 @@ function loadItemsByScroll(pageType, $scope, $ionicScrollDelegate, $rootScope, d
   var data = data;
 
   // the number of items loaded (15)
-  var loadNumItems = 15;
+  var loadNumItems = 20;
   var accommodationsArray = [];
   var loadAccomNum = Math.ceil(data.length / loadNumItems);
 
   // create grouped number array
   for ( var x = 0; x < loadAccomNum; x++) {
     accommodationsArray.push(loadNumItems)
-    loadNumItems += 15;
+    loadNumItems += 20;
   }
 
   var itemsArrayWrap = [];
