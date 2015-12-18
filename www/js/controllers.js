@@ -475,20 +475,20 @@ angular.module('starter.controllers', [])
 
   $timeout(function(){
 
-    var options = {
-      date: new Date(),
-      mode: 'date', // or 'time'
-      minDate: new Date(),
-      maxDate: new Date() + 10000,
-      allowOldDates: false,
-      allowFutureDates: true,
-      doneButtonLabel: 'DONE',
-      doneButtonColor: '#F2F3F4',
-      cancelButtonLabel: 'CANCEL',
-      cancelButtonColor: '#000000'
-    };
+    $scope.runDatePickerCheckin = function() {
 
-    $scope.runDatePickerCheckin = function($event) {
+      var options = {
+        date: new Date(),
+        mode: 'date', // or 'time'
+        minDate: new Date(),
+        maxDate: new Date() + 10000,
+        allowOldDates: false,
+        allowFutureDates: true,
+        doneButtonLabel: 'DONE',
+        doneButtonColor: '#000000',
+        cancelButtonLabel: 'CANCEL',
+        cancelButtonColor: '#c3c3c3'
+      };
       
       $cordovaDatePicker.show(options).then(function(date){
 
@@ -497,10 +497,23 @@ angular.module('starter.controllers', [])
         $scope.checkIn = dateStr.substr(0, 15);
         
       });
-      $event.stopPropagation(); 
+
     }
 
-    $scope.runDatePickerCheckout = function($event) {
+    $scope.runDatePickerCheckout = function() {
+
+      var options = {
+        date: new Date(),
+        mode: 'date', // or 'time'
+        minDate: new Date(),
+        maxDate: new Date() + 10000,
+        allowOldDates: false,
+        allowFutureDates: true,
+        doneButtonLabel: 'DONE',
+        doneButtonColor: '#000000',
+        cancelButtonLabel: 'CANCEL',
+        cancelButtonColor: '#c3c3c3'
+      };
       
       $cordovaDatePicker.show(options).then(function(date){
 
@@ -509,7 +522,7 @@ angular.module('starter.controllers', [])
         $scope.checkOut = dateStr.substr(0, 15);
         
       });
-      $event.stopPropagation();
+
     }
 
     $scope.submitEnquire = function(name, email, mobile, checkIn, checkOut) {
