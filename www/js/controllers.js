@@ -464,7 +464,7 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', '$timeout', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory, $timeout) {
+.controller('EnquireFormCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', '$timeout', '$http', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory, $timeout, $http) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -538,19 +538,52 @@ angular.module('starter.controllers', [])
         "checkout" : checkOut
       }
 
-      function enquirySubmit() {
-        alert("Submitted");
+      var params = {}
+
+      // function enquirySubmit() {
+
+        $http({
+          method: 'POST',
+          url: 'http://www.aatravel.co.za/_mobi_app/post.php',
+          data: enquiryFormObj,
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response) {
+
+          console.log(response) 
+
+          alert("sent")
+
+          navigator.notification.alert(
+            'Your email has been sent successfully.',  // message
+            null,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
+
+        }, function errorCallback(response) {
+
+          console.log(response);
+
+          alert("failed")
+
+          navigator.notification.alert(
+            'We regret that there is a problem sending your email. Error'+response,  // message
+            null,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
+
+        });
+        // alert("Submitted");
         // $ionicHistory.backView();
-      }
+      // }
 
-      navigator.notification.alert(
-        'Your enquiry form has been sent to the establishment successfully.',  // message
-        enquirySubmit,                     // callback
-        'Alert',                // title
-        'Done'                  // buttonName
-      );      
-
-      console.log(enquiryFormObj);
+      // navigator.notification.alert(
+      //   'Your enquiry form has been sent to the establishment successfully.',  // message
+      //   enquirySubmit,                     // callback
+      //   'Alert',                // title
+      //   'Done'                  // buttonName
+      // );      
     }
 
   }, $rootScope.contentTimeOut);
