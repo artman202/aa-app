@@ -1,0 +1,12 @@
+<ion-modal-view>
+	<ion-header-bar class="nav-bar bg-blue">
+	  <h1 class="title white">Filter Results By</h1>
+	</ion-header-bar>
+	<ion-content>
+	  	<ion-list class="filter-item">
+			<ion-radio value="price-high" ng-model="radioValue" ng-click="filterData('price-high')">Price (High to Low)</ion-radio>
+			<ion-radio value="price-low" ng-model="radioValue" ng-click="filterData('price-low')">Price (Low to High)</ion-radio>
+		</ion-list>
+	  	<button class="button button-full button-energized" ng-click="closeModal()">Done</button>
+	</ion-content>
+</ion-modal-view>

@@ -1,12 +1,18 @@
 <ion-view view-title="{{state.cityName}}">
-  <ion-content id="container" scroll="false">
+	
+	<div class="filter-wrapper bg-yellow white" ng-click="openModal()">
+  		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><span class="align-right">Filter By: {{filterBy}}</span>
+  		<div class="clear"></div>
+  	</div>
 
-  	<div ng-show="showMap" class="map-wrap">
+  <ion-content id="container" class="filter-container" scroll="false">  	
+
+  	<div ng-show="$root.showMap" class="map-wrap">
   		<div id="map-list-item-wrap"></div>  		
 	  	<div id='map' style='height: 100%; width: 100%;' data-tap-disabled="true"></div>
 	</div>
 
-  	<ion-scroll style="position:relative" ng-hide="showMap" class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">
+  	<ion-scroll style="position:relative" ng-hide="$root.showMap" class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">
     <h3 class="page-blue-heading">
       {{results}} Results
     </h3>
@@ -69,5 +75,27 @@
 	<div class="bottom-space-single-accom"></div>
 
 	</ion-scroll>
+
   </ion-content>
+  	<script id="contact-modal.html" type="text/ng-template">
+	  <div class="modal">
+	    <ion-header-bar>
+	      <h1 class="title">Edit Contact</h1>
+	    </ion-header-bar>
+	    <ion-content>
+	      <div class="list">
+	        <label class="item item-input">
+	          <span class="input-label">Name</span>
+	          <input type="text" ng-model="contact.name">
+	        </label>
+	        <label class="item item-input">
+	          <span class="input-label">Info</span>
+	          <input type="text" ng-model="contact.info">
+	        </label>
+	      </div>
+
+	      <button class="button button-full button-energized" ng-click="closeModal()">Done</button>
+	    </ion-content>
+	  </div>
+	</script>
 </ion-view>
