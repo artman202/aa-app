@@ -399,7 +399,8 @@ input[disabled] {background-color: white !important}
   justify-content: center;
   position: absolute; right: 10px; margin-top: 10px; font-size: 1.5em; height: 30px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
 .filter-wrapper.activated .filter-btn {background-color: #113A84 !important;}
-
+.item-radio .item-content {padding-right: 15px}
+ 
 .back-btn,.list-view-btn,.map-view-btn i {font-size: 2em}
 .footer-btn-1 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible; }
 .footer-btn-2 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible;}

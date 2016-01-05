@@ -4,8 +4,31 @@
 	</ion-header-bar>
 	<ion-content>
 	  	<ion-list class="filter-item">
-			<ion-radio value="price-high" ng-model="radioValue" ng-click="filterData('price-high')">Price (High to Low)</ion-radio>
-			<ion-radio value="price-low" ng-model="radioValue" ng-click="filterData('price-low')">Price (Low to High)</ion-radio>
+	  		<label class="item item-radio" ng-click="filterData('price-high')">
+				<div class="item-content" name='radioBtn'><p class="blue">Price (High to Low) <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="priceHigh"></i></p>
+				</div>
+			</label>
+			<label class="item item-radio" ng-click="filterData('price-low')">
+				<div class="item-content" name='radioBtn'><p class="blue">Price (Low to High) <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="priceLow"></i></p>
+				</div>
+			</label>
+			<label class="item item-radio" ng-click="filterData('distance')">
+				<div class="item-content" name='radioBtn'><p class="blue">Distance <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="distance"></i></p>
+				</div>
+			</label>
+			<label class="item item-radio">
+			    <select class="item-content" ng-model="$root.mySelect" ng-change="filterData('aaqa', mySelect)">
+			    	<option value="0"><p class="blue">AAQA Rating</p></option>
+					<option value="1"><p class="blue">AA Recommended</p></option>
+					<option value="2"><p class="blue">AA Highly Recommended</p></option>
+					<option value="3"><p class="blue">AA Superior</p></option>
+					<option value="4"><p class="blue">AA Recommended/Highly Recommended</p></option>
+					<option value="5"><p class="blue">AA Highly Recommended/Superior</p></option>
+					<option value="6"><p class="blue">AA Eco</p></option>
+					<option value="7"><p class="blue">AA Quality Assured</p></option>
+					<option value="8"><p class="blue">Status Pending</p></option>
+			    </select>
+			</label>
 		</ion-list>
 	  	<button class="button button-full button-energized" ng-click="closeModal()">Done</button>
 	</ion-content>
