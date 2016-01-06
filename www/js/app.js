@@ -66,11 +66,12 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
 
     // var promise
     var watchOptions = {
-      maximumAge : 30 * 1000,
-      timeout : 30000,
+      maximumAge : 1 * 60 * 1000,
+      timeout : 15 * 1000,
       enableHighAccuracy: true // may cause errors if true
     };
 
+    $rootScope.positionAvailable = true;
     var watch = $cordovaGeolocation.watchPosition(watchOptions);
     watch.then(
       null,
@@ -78,49 +79,77 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
 
         console.log(err)
 
-        // if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+        if(err.code == 1) {
 
-        //   var posOptions = {timeout: 15 * 1000, enableHighAccuracy: false};
+          $rootScope.positionAvailable = false;
 
-        //   promise = $interval(function() { 
-        //     $cordovaGeolocation
-        //     .getCurrentPosition(posOptions)
-        //     .then(function (position) {
+        } else if (err.code == 2 || err.code == 3) {
 
-        //       // alert("Get current position retrieved");
+          if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
 
-        //       var lat  = position.coords.latitude
-        //       var long = position.coords.longitude
+            var posOptions = {timeout: 15 * 1000, enableHighAccuracy: false};
+            $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
 
-        //       $rootScope.myLat = lat;
-        //       $rootScope.myLong = long;
+            }, function(err) {
 
-        //     }, function(err) {
+              $rootScope.positionAvailable = false;
 
-        //       navigator.notification.alert(
+              navigator.notification.alert(
+                'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
+                null,                    // callback
+                'Alert',                // title
+                'Done'                  // buttonName
+              );
 
-        //         'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-        //         null,                    // callback
-        //         'Alert',                // title
-        //         'Done'                  // buttonName
-        //       );
+            });
 
-        //     });
-        //   }, 1 * 60 * 1000);
+            // promise = $interval(function() { 
+            //   $cordovaGeolocation
+            //   .getCurrentPosition(posOptions)
+            //   .then(function (position) {
 
-        // } else {
+            //     // alert("Get current position retrieved");
 
-        //   navigator.notification.alert(
-        //     'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-        //     null,                     // callback
-        //     'Alert',                // title
-        //     'Done'                  // buttonName
-        //   );
+            //     var lat  = position.coords.latitude
+            //     var long = position.coords.longitude
 
-        // }        
+            //     $rootScope.myLat = lat;
+            //     $rootScope.myLong = long;
+
+            //   }, function(err) {
+
+            //     navigator.notification.alert(
+
+            //       'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+            //       null,                    // callback
+            //       'Alert',                // title
+            //       'Done'                  // buttonName
+            //     );
+
+            //   });
+            // }, 1 * 60 * 1000);
+
+          } else {
+
+            $rootScope.positionAvailable = false;
+
+            navigator.notification.alert(
+              'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
+              null,                     // callback
+              'Alert',                // title
+              'Done'                  // buttonName
+            );
+
+          } 
+
+        }                
         
       },
       function(position) {
+
+        $rootScope.positionAvailable = true;
 
         // $interval.cancel(promise);
 
@@ -129,6 +158,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
 
         $rootScope.myLat = lat;
         $rootScope.myLong = long;
+
     });
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
