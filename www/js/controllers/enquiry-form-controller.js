@@ -63,63 +63,61 @@ angular.module('enquiry.form.controller', [])
 
     $scope.submitEnquire = function(name, email, mobile, checkIn, checkOut) {
 
-      var mobile = mobile;
+      if(typeof name === 'undefined' || typeof email === 'undefined' || typeof checkIn === 'undefined' || typeof checkOut === 'undefined') {
 
-      var enquiryFormObj = {
-        "mobile" : mobile,
-        "accomm_id" : $stateParams.accomId,
-        "checkin" : checkIn,
-        "udid" : "E8AB9C2E-520A-4DFD-B024-8D1B02989B04",
-        "email" : email,
-        "type" : "enquire",
-        "name" : name,
-        "checkout" : checkOut
-      }
-
-      // var testval = "hello";
-
-      $http({
-        method: 'POST',
-        url: 'http://www.aatravel.co.za/_mobi_app/post.php',
-        data: 'json={"mobile":'+mobile+'}',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-      }).then(function successCallback(response) {
-
-        console.log(response) 
-
-        alert("sent")
+        $scope.errors = true;
 
         navigator.notification.alert(
-          'Your email has been sent successfully.',  // message
+          'Please correct the errors before sending the form again',  // message
           null,                     // callback
           'Alert',                // title
           'Done'                  // buttonName
         );
 
-      }, function errorCallback(response) {
+      } else {
+        
+        var enquiryFormObj = {
+          "mobile" : mobile,
+          "accomm_id" : $stateParams.accomId,
+          "checkin" : checkIn,
+          "udid" : "E8AB9C2E-520A-4DFD-B024-8D1B02989B04",
+          "email" : email,
+          "type" : "enquire",
+          "name" : name,
+          "checkout" : checkOut
+        }
 
-        // console.log(response);
+        $http({
+          method: 'POST',
+          url: 'http://www.aatravel.co.za/_mobi_app/post.php',
+          data: enquiryFormObj,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response) {
 
-        alert("failed")
+          function enquireSuccess() {
+            $ionicHistory.goBack();
+          }
 
-        navigator.notification.alert(
-          'We regret that there is a problem sending your email. Error'+response,  // message
-          null,                     // callback
-          'Alert',                // title
-          'Done'                  // buttonName
-        );
+          navigator.notification.alert(
+            'Your email has been sent successfully.',  // message
+            enquireSuccess,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
 
-      });
-      // alert("Submitted");
-      // $ionicHistory.backView();
-    // }
+        }, function errorCallback(response) {
 
-    // navigator.notification.alert(
-    //   'Your enquiry form has been sent to the establishment successfully.',  // message
-    //   enquirySubmit,                     // callback
-    //   'Alert',                // title
-    //   'Done'                  // buttonName
-    // );      
+          navigator.notification.alert(
+            'We regret that there is a problem sending your email. Error'+response,  // message
+            null,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
+
+        });
+
+      }      
+
     }
 
   }, $rootScope.contentTimeOut);

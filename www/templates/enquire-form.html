@@ -1,36 +1,74 @@
 <ion-view view-title="Enquiry Form">
   <ion-content>
 
-    <form ng-submit="submitEnquire(name, email, mobile, checkIn, checkOut)">
+    <form ng-submit="submitEnquire(name, email, mobile, checkIn, checkOut)" name="enquiryForm" >
       <div class="list">
+
         <label class="item item-input item-floating-label">
           <span class="input-label blue">First Name *</span>
-          <input type="text" placeholder="First Name *" ng-model="name">
+          <input type="text" name="name" placeholder="First Name *" ng-model="name" ng-minlength="3" required>
+          <div class="error-text" ng-messages="enquiryForm.name.$error" role="alert" ng-show="errors">
+            <div ng-message="required">
+              <p><i class="icon ion-android-alert"></i> Please enter your name</p>
+            </div>
+            <div ng-message="minlength, maxlength">
+              <p><i class="icon ion-android-alert"></i> Your name must be at least 3 characters long</p>
+            </div>
+          </div>
         </label>
+
         <label class="item item-input item-floating-label">
           <span class="input-label blue">Email *</span>
-          <input type="text" placeholder="Email *" ng-model="email">
+          <input type="text" name="email" placeholder="Email *" ng-model="email" required>
+          <div class="error-text" ng-messages="enquiryForm.email.$error" role="alert" ng-show="errors">
+            <div ng-message="required">
+              <p><i class="icon ion-android-alert"></i> Please enter your email address</p>
+            </div>
+            <!-- <div ng-message="minlength, maxlength">
+              <p><i class="icon ion-android-alert"></i> This is not a valid email address</p>
+            </div> -->
+          </div>
         </label>
+
         <label class="item item-input item-floating-label">
           <span class="input-label blue">Mobile</span>
           <input type="text" placeholder="Mobile" ng-model="mobile">
         </label>
+
         <div style="position: relative">
           <a type="button" class="date-link" ng-click="runDatePickerCheckin()">
           </a>      
           <label class="item item-input item-floating-label">          
             <span class="input-label blue">Check In *</span>          
-            <input type="text" ng-model="checkIn" placeholder="Check In *" disabled>
+            <input type="text" ng-model="checkIn" placeholder="Check In *" disabled required>
+            <div class="error-text" ng-messages="enquiryForm.email.$error" role="alert" ng-show="errors">
+              <div ng-message="required">
+                <p><i class="icon ion-android-alert"></i> Please select a checkin date</p>
+              </div>
+              <!-- <div ng-message="minlength, maxlength">
+                <p><i class="icon ion-android-alert"></i> This is not a valid email address</p>
+              </div> -->
+            </div>
           </label>
         </div>
+
         <div style="position: relative">
           <a type="button" class="date-link" ng-click="runDatePickerCheckout()">
           </a>
           <label class="item item-input item-floating-label">
             <span class="input-label blue">Check Out *</span>          
-            <input type="text" ng-model="checkOut" placeholder="Check Out *" disabled>
+            <input type="text" ng-model="checkOut" placeholder="Check Out *" disabled required>
+            <div class="error-text" ng-messages="enquiryForm.email.$error" role="alert" ng-show="errors">
+              <div ng-message="required">
+                <p><i class="icon ion-android-alert"></i> Please select a checkout date</p>
+              </div>
+              <!-- <div ng-message="minlength, maxlength">
+                <p><i class="icon ion-android-alert"></i> This is not a valid email address</p>
+              </div> -->
+            </div>
           </label>
         </div>
+
       </div>
 
       <div class="row">

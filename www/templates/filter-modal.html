@@ -17,7 +17,7 @@
 				</div>
 			</label>
 			<label class="item item-radio">
-			    <select class="item-content" ng-model="$root.mySelect" ng-change="filterData('aaqa', mySelect)">
+			    <select class="item-content filter-select" ng-model="$root.mySelect" ng-change="filterData('aaqa', mySelect)">
 			    	<option value="0"><p class="blue">AAQA Rating</p></option>
 					<option value="1"><p class="blue">AA Recommended</p></option>
 					<option value="2"><p class="blue">AA Highly Recommended</p></option>
@@ -30,6 +30,14 @@
 			    </select>
 			</label>
 		</ion-list>
-	  	<button class="button button-full button-energized" ng-click="closeModal()">Done</button>
+		<div class="row">
+	        <div class="col">
+	        </div>
+	        <div class="col">
+	  			<a type="button" class="button button-full filter-close-btn" ng-click="closeModal()">Done</a>
+	  		</div>
+	  		<div class="col">
+	        </div>
+	    </div>
 	</ion-content>
 </ion-modal-view>
