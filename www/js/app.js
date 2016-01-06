@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'recommended.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
+angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'featured-acommodation.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
 
 .run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory, $ionicSideMenuDelegate) {
 
@@ -77,7 +77,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
       null,
       function(err) {
 
-        console.log(err)
+        // console.log(err)
 
         if(err.code == 1) {
 
@@ -239,12 +239,12 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
       }
     })
 
-    .state('app.recommended', {
-      url: '/recommended',
+    .state('app.featured-acommodation', {
+      url: '/featured-acommodation',
       views: {
         'menuContent': {
-          templateUrl: 'templates/recommended.html',
-          controller: 'RecommendedCtrl'
+          templateUrl: 'templates/featured-acommodation.html',
+          controller: 'FeaturedAcommodationCtrl'
         }
       }
     })
