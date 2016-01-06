@@ -64,9 +64,9 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
 
     }
 
-    var promise
+    // var promise
     var watchOptions = {
-      maximumAge : 1 * 60 * 1000,
+      maximumAge : 30 * 1000,
       timeout : 30000,
       enableHighAccuracy: true // may cause errors if true
     };
@@ -76,53 +76,53 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
       null,
       function(err) {
 
-        if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+        console.log(err)
 
-          var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        // if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
 
-          promise = $interval(function() { 
-            $cordovaGeolocation
-            .getCurrentPosition(posOptions)
-            .then(function (position) {
+        //   var posOptions = {timeout: 15 * 1000, enableHighAccuracy: false};
 
-              // alert("Get current position retrieved");
+        //   promise = $interval(function() { 
+        //     $cordovaGeolocation
+        //     .getCurrentPosition(posOptions)
+        //     .then(function (position) {
 
-              var lat  = position.coords.latitude
-              var long = position.coords.longitude
+        //       // alert("Get current position retrieved");
 
-              $rootScope.myLat = lat;
-              $rootScope.myLong = long;
+        //       var lat  = position.coords.latitude
+        //       var long = position.coords.longitude
 
-            }, function(err) {
+        //       $rootScope.myLat = lat;
+        //       $rootScope.myLong = long;
 
-              navigator.notification.alert(
+        //     }, function(err) {
 
-                'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-                null,                    // callback
-                'Alert',                // title
-                'Done'                  // buttonName
-              );
+        //       navigator.notification.alert(
 
-            });
-          }, 5 * 60 * 1000);
+        //         'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+        //         null,                    // callback
+        //         'Alert',                // title
+        //         'Done'                  // buttonName
+        //       );
 
-        } else {
+        //     });
+        //   }, 1 * 60 * 1000);
 
-          navigator.notification.alert(
-            'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-            null,                     // callback
-            'Alert',                // title
-            'Done'                  // buttonName
-          );
+        // } else {
 
-        }        
+        //   navigator.notification.alert(
+        //     'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+        //     null,                     // callback
+        //     'Alert',                // title
+        //     'Done'                  // buttonName
+        //   );
+
+        // }        
         
       },
       function(position) {
 
-        $interval.cancel(promise);
-
-        // alert("Watch position retrieved")
+        // $interval.cancel(promise);
 
         var lat  = position.coords.latitude;
         var long = position.coords.longitude;
