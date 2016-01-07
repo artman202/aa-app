@@ -1,81 +1,82 @@
 <ion-view view-title="{{state.cityName}}">
 	
-	<div class="filter-wrapper bg-yellow white" ng-click="openModal()">
+	<div class="filter-wrapper bg-yellow white" ng-click="openModal()" ng-hide="$root.showMap">
   		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><span class="align-right">Filter By: {{filterBy}}</span>
   		<div class="clear"></div>
   	</div>
 
-  <ion-content id="container" class="filter-container" scroll="false">  	
-
-  	<div ng-show="$root.showMap" class="map-wrap">
+	<div ng-show="$root.showMap" class="map-wrap">
+  		hello
   		<div id="map-list-item-wrap"></div>  		
 	  	<div id='map' style='height: 100%; width: 100%;' data-tap-disabled="true"></div>
 	</div>
 
-  	<ion-scroll style="position:relative" ng-hide="$root.showMap" class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">
-    <h3 class="page-blue-heading">
-      {{results}} Results
-    </h3>
-	<ion-list class="list-wrap" id="itemList">
+  <ion-content id="container" class="filter-container padding" ng-hide="$root.showMap">  
+	<!-- <ion-scroll style="position:relative" ng-hide="$root.showMap" class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" style="height: 100%" ng-style="{'height': setScrollHeight}"> -->
+  	<!-- <ion-scroll ng-hide="$root.showMap" class="padding acommodation-scroll" on-scroll="scrollFunc()" delegate-handle="scroll"> -->
 
-		<div ng-repeat="accommodation in itemsArray">
+	    <h3 class="page-blue-heading acommodation-heading">
+	      {{results}} Results
+	    </h3>
+		<ion-list class="list-wrap" id="itemList">
 
-			<ion-item>
-				<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
-					<div class="row">
-						<div class="col accom-img-bg">
-							<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
-								<i class="icon ion-location"></i>&nbsp;{{accommodationsDistances[$index]}}&nbsp;km
-							</div>
-							<div class="image-load-wrap">
-			                  	<div class="image-loader">
-			                    	<ion-spinner icon="crescent">
-			                  	</ion-spinner></div> 
-								<img ng-src="{{accommodation.tb}}" class="center-image" alt="" imageonload>
-							</div>
-						</div>
-						<div class="col col-75 accom-content">
-							<h3 class="page-blue-heading">
-								<b>
-									{{accommodation.n}}
-								</b>
-							</h3>
-							<div class="accom-title-underline"></div>
-							<div class="row accom-ratings-row">
-								<div class="col col-50">
-									<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
+			<div collection-repeat="acommodation in acommodations" item-render-buffer="7">
+
+				<ion-item>
+					<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{acommodation.n}}+id={{acommodation.id}}" class="accom-btn">
+						<div class="row">
+							<div class="col accom-img-bg">
+								<div class="accom-distance bg-yellow white" id="{{acommodation.id}}" ng-if="$root.positionAvailable">
+									<i class="icon ion-location"></i>&nbsp;{{acommodationsDistances[$index]}}&nbsp;km
 								</div>
-								<div class="col col-50 accom-ratings-row-price" ng-if="accommodation.pl != 0.00">
-									<b>{{accommodation.pl}} ZAR</b>
+								<div class="image-load-wrap">
+				                  	<div class="image-loader">
+				                    	<ion-spinner icon="crescent">
+				                  	</ion-spinner></div> 
+									<img ng-src="{{acommodation.tb}}" class="center-image" alt="" imageonload>
 								</div>
 							</div>
-							<div class="row accom-aa-ratings-row">
-								<p>{{aaRating[$index].text}}</p>
+							<div class="col col-75 accom-content">
+								<h3 class="page-blue-heading">
+									<b>
+										{{acommodation.n}}
+									</b>
+								</h3>
+								<div class="accom-title-underline"></div>
+								<div class="row accom-ratings-row">
+									<div class="col col-50">
+										<img ng-src="img/ratings/ratings-{{acommodation.r}}.svg" alt="">
+									</div>
+									<div class="col col-50 accom-ratings-row-price" ng-if="acommodation.pl != 0.00">
+										<b>{{acommodation.pl}} ZAR</b>
+									</div>
+								</div>
+								<div class="row accom-aa-ratings-row">
+									<p>{{aaRating[$index].text}}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				</a>
-				
-			</ion-item>			
+					</a>
+					
+				</ion-item>			
 
-			<div class="collection-repeat-spacer"></div>
+				<div class="collection-repeat-spacer"></div>
 
-		</div>		
+			</div>		
 
-	</ion-list>
+		</ion-list>
 
-	<ion-list class="list-wrap">
-		<div class="center">
-			<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
-			<ion-item ng-if="end" class="button button-block btn-city">
-				No more results
-			</ion-item>
-		</div>
-	</ion-list>
+		<ion-list class="list-wrap">
+			<div class="center" ng-if="resultsLoaded">
+				<ion-item class="button button-block btn-city end-text">
+					No more results
+				</ion-item>
+			</div>
+		</ion-list>
 
-	<div class="bottom-space-single-accom"></div>
+		<div class="bottom-space-single-accom"></div>
 
-	</ion-scroll>
+	<!-- </ion-scroll> -->
 
   </ion-content>
 

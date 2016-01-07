@@ -33,6 +33,7 @@ function loadDistanceBefore(pageType, $rootScope, $ionicHistory, $scope, $timeou
       }).then(function successCallback(response) {
 
         $scope.showSpiralNear = false;
+        $scope.resultsLoaded = true;
 
         $scope.aaRating = calculateRating(response.data);        
 
@@ -87,6 +88,7 @@ function loadDistanceBefore(pageType, $rootScope, $ionicHistory, $scope, $timeou
         });
 
         $scope.accommodations = accommodations;
+        $scope.nearMeAccommodations = accommodations;
 
         // the interval breaks if location is loaded
         $interval.cancel();
@@ -251,8 +253,8 @@ function mapView(data, $rootScope, mapType) {
         <a type='button' id='map-list-box' class='map-list-item padding' href='#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/"+markerObj.n+"+id="+markerObj.id+"' class='accom-btn'>\
           <div class='row'>\
             <div class='col accom-img-bg'>\
-              <div class='accom-distance bg-yellow white'>\
-                "+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km\
+              <div class='accom-distance bg-yellow white' ng-if='$root.positionAvailable'>\
+                <i class='icon ion-location'></i>&nbsp;"+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km\
               </div>\
               <img src='"+markerObj.tb+"'>\
             </div>\
@@ -342,113 +344,113 @@ function imgError(image) {
   return true;
 }
 
-function loadItemsByScroll(pageType, $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout) {
+// function loadItemsByScroll(pageType, $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout) {
 
-  if(pageType == "recommended") {
-    data.sort(function(a,b) {
-      return b.pv - a.pv;
-    });
-  }
+//   if(pageType == "recommended") {
+//     data.sort(function(a,b) {
+//       return b.pv - a.pv;
+//     });
+//   }
 
-  var distanceArray = [];
+//   var distanceArray = [];
   
-  var data = data;
+//   var data = data;
 
-  // the number of items loaded (15)
-  var loadNumItems = 20;
-  var accommodationsArray = [];
-  var loadAccomNum = Math.ceil(data.length / loadNumItems);
+//   // the number of items loaded (15)
+//   var loadNumItems = 20;
+//   var accommodationsArray = [];
+//   var loadAccomNum = Math.ceil(data.length / loadNumItems);
 
-  // create grouped number array
-  for ( var x = 0; x < loadAccomNum; x++) {
-    accommodationsArray.push(loadNumItems)
-    loadNumItems += 20;
-  }
+//   // create grouped number array
+//   for ( var x = 0; x < loadAccomNum; x++) {
+//     accommodationsArray.push(loadNumItems)
+//     loadNumItems += 20;
+//   }
 
-  var itemsArrayWrap = [];
-  var itemArray = [];
+//   var itemsArrayWrap = [];
+//   var itemArray = [];
 
-  // the grouped array counter
-  n = 0;
+//   // the grouped array counter
+//   n = 0;
 
-  for ( var x = 0; x < data.length; x++) {
+//   for ( var x = 0; x < data.length; x++) {
 
-    distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+//     distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
 
-    itemArray.push(data[x]);
+//     itemArray.push(data[x]);
 
-    if (x == accommodationsArray[n] || x == data.length -1) {
-      itemsArrayWrap.push(itemArray);
-      itemArray = [];
-      n++
-    }  
+//     if (x == accommodationsArray[n] || x == data.length -1) {
+//       itemsArrayWrap.push(itemArray);
+//       itemArray = [];
+//       n++
+//     }  
 
-  }
+//   }
 
-  $scope.aaRating = calculateRating(data);
+//   $scope.aaRating = calculateRating(data);
 
-  // console.log(ratingArray);
+//   // console.log(ratingArray);
 
-  $scope.itemsArray = itemsArrayWrap[0]; 
+//   $scope.itemsArray = itemsArrayWrap[0]; 
   
-  var container = angular.element(document.getElementById('container'));
+//   var container = angular.element(document.getElementById('container'));
 
-  // var scrollHeight = $window.innerHeight;
-  var scrollHeight = $window.innerHeight;
-  $scope.setScrollHeight = scrollHeight+"px";
+//   // var scrollHeight = $window.innerHeight;
+//   var scrollHeight = $window.innerHeight;
+//   $scope.setScrollHeight = scrollHeight+"px";
 
-  var arrayUpdateStart = 1;
-  // $scope.show = 1;
+//   var arrayUpdateStart = 1;
+//   // $scope.show = 1;
 
-  $ionicScrollDelegate.$getByHandle('scroll').resize();
+//   $ionicScrollDelegate.$getByHandle('scroll').resize();
 
-  // create scroll load function
-  $scope.scrollFunc = function() {
+//   // create scroll load function
+//   $scope.scrollFunc = function() {
 
-    if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight + 10) {
+//     if($ionicScrollDelegate.$getByHandle('scroll').getScrollPosition().top + $window.innerHeight == $ionicScrollDelegate.$getByHandle('scroll').getScrollView().__contentHeight + 10) {
 
-      var p = arrayUpdateStart;
-      var n = 0;
+//       var p = arrayUpdateStart;
+//       var n = 0;
 
-      if(loadAccomNum == p) {
-        $scope.hide = true;
-        $scope.end = true;
-        $scope.$apply();
-      } else {
-        $scope.hide = false;
-        $scope.$apply();
-      }            
+//       if(loadAccomNum == p) {
+//         $scope.hide = true;
+//         $scope.end = true;
+//         $scope.$apply();
+//       } else {
+//         $scope.hide = false;
+//         $scope.$apply();
+//       }            
 
-      $timeout(function(){             
+//       $timeout(function(){             
 
-        for(var x = 0; x < itemsArrayWrap[p].length; x++) {
+//         for(var x = 0; x < itemsArrayWrap[p].length; x++) {
 
-          itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
-          n = p;
+//           itemsArrayWrap[0].push(itemsArrayWrap[p][x]);
+//           n = p;
 
-        }              
+//         }              
 
-        $timeout(function(){
+//         $timeout(function(){
 
-          arrayUpdateStart++;
-          $scope.show = 0;
+//           arrayUpdateStart++;
+//           $scope.show = 0;
 
-        }, 500);
+//         }, 500);
        
-        scrollHeight = $window.innerHeight;
-        $scope.hide = true;
-        $scope.$apply();
+//         scrollHeight = $window.innerHeight;
+//         $scope.hide = true;
+//         $scope.$apply();
 
-        $ionicScrollDelegate.$getByHandle('scroll').resize();
+//         $ionicScrollDelegate.$getByHandle('scroll').resize();
 
-      }, 500);
+//       }, 500);
 
-    }
-  }
+//     }
+//   }
 
-  $scope.accommodationsDistances = distanceArray;
+//   $scope.accommodationsDistances = distanceArray;
 
-}
+// }
 
 function hideMap($ionicHistory, $rootScope) {
 
@@ -464,7 +466,7 @@ function hideMap($ionicHistory, $rootScope) {
 
 }
 
-function showModal($ionicModal, $scope, $rootScope) {  
+function showModal($ionicModal, $scope, $rootScope, page) {  
 
   $ionicModal.fromTemplateUrl('templates/filter-modal.html', {
     scope: $scope,
@@ -478,37 +480,61 @@ function showModal($ionicModal, $scope, $rootScope) {
     $rootScope.mySelect = '0';
   }
 
+  if(page == 'alphabetical') {
+    $scope.alphabetical = true;
+    $scope.radioValue = page;
+    $scope.select = "";
+  } else if(page == 'distance') {
+    $scope.distance = true;
+    $scope.radioValue = page;
+    $scope.select = "";
+  }
+
 }
 
 function filter(filterType, mySelect, $scope, $rootScope) {
 
-  console.log(filterType);
-
   $scope.radioValue = filterType;
 
   switch(filterType) {
+    case 'alphabetical':
+      $scope.alphabetical = true;
+      $scope.priceHigh = false;
+      $scope.priceLow = false;
+      $scope.distance = false;
+      $rootScope.mySelect = '0';
+      $scope.featureSelected = true
+      break;
     case 'price-high':
+      $scope.alphabetical = false;
       $scope.priceHigh = true;
       $scope.priceLow = false;
       $scope.distance = false;
       $rootScope.mySelect = '0';
+      $scope.featureSelected = true
       break;
     case 'price-low':
+      $scope.alphabetical = false;
       $scope.priceHigh = false;
       $scope.priceLow = true;
       $scope.distance = false;
       $rootScope.mySelect = '0';
+      $scope.featureSelected = true
       break;
     case 'distance':
+      $scope.alphabetical = false;
       $scope.priceHigh = false;
       $scope.priceLow = false;
       $scope.distance = true;
       $rootScope.mySelect = '0';
+      $scope.featureSelected = true
       break;
     case 'aaqa':
+      $scope.alphabetical = false;
       $scope.priceHigh = false;
       $scope.priceLow = false;
       $scope.distance = false;
+      $scope.featureSelected = true
       break;
   }
 
@@ -528,7 +554,9 @@ function filter(filterType, mySelect, $scope, $rootScope) {
 
 }
 
-function runFilter($scope, data, $rootScope) {
+function runFilter($scope, data, $rootScope, $ionicScrollDelegate) {
+
+  $ionicScrollDelegate.scrollTop();
 
   filterType = $scope.radioValue
   mySelect = $rootScope.mySelect
@@ -536,6 +564,7 @@ function runFilter($scope, data, $rootScope) {
   // sort price array
   var hasPriceArray = [];
   var missingPriceArray = [];
+  var distanceArray = [];
   for(var x = 0; x < data.length; x++) {
     if (data[x].pl != "0.00") {
       hasPriceArray.push(data[x])
@@ -545,12 +574,32 @@ function runFilter($scope, data, $rootScope) {
   };
 
   switch(filterType) {
+    case 'alphabetical':
+      data.sort(function(a,b) {
+        if(a.n < b.n) return -1;
+        if(a.n > b.n) return 1;
+        return 0;
+      });
+      for(var x = 0; x < data.length; x++) {
+        console.log(data[x].n)
+      }
+      $scope.filterBy = "Alphabetical";
+      $scope.filteredData = data;
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope); 
+
+      break;    
     case 'price-high':
       hasPriceArray.sort(function(a,b) {
         return b.pl - a.pl;
       });
       $scope.filterBy = "Price (High to Low)";
       $scope.filteredData = hasPriceArray.concat(missingPriceArray);
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope); 
+
       break;
     case 'price-low':
       hasPriceArray.sort(function(a,b) {
@@ -558,19 +607,28 @@ function runFilter($scope, data, $rootScope) {
       });
       $scope.filterBy = "Price (Low to High)";
       $scope.filteredData = hasPriceArray.concat(missingPriceArray);
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+
       break;
     case 'distance':
       for(var x = 0; x < data.length; x++) {
         data[x]['distance'] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat, $rootScope.myLong, data[x].lat, data[x].lon));
+        distanceArray.push(data[x])
       }
-      data.sort(function(a,b) {
+      distanceArray.sort(function(a,b) {
         return a.distance - b.distance;
       });
       $scope.filterBy = "Distance";
-      $scope.filteredData = data;
+      $scope.filteredData = distanceArray;
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+
       break;
     case 'aaqa':
-      selectRecom(mySelect, data, $scope);
+      selectRecom(mySelect, data, $scope, $rootScope);
       break;
     default:
       $scope.filteredData = data;
@@ -578,7 +636,16 @@ function runFilter($scope, data, $rootScope) {
   }
 }
 
-function selectRecom(mySelect, data, $scope) {
+function reloadDistance($scope, filteredData, $rootScope) {
+  var distanceArray = [];
+  for ( var x = 0; x < filteredData.length; x++) {
+    distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,filteredData[x].lat,filteredData[x].lon)));
+  }
+  $scope.aaRatingArray = calculateRating(filteredData);
+  $scope.distanceArray = distanceArray;
+}
+
+function selectRecom(mySelect, data, $scope, $rootScope) {
   var recommendedArray = [];      
   switch(mySelect) {
     case '1':
@@ -588,6 +655,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '1';
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+      $scope.filterBy = "AA Recommended";
       break;
     case '2':
       for(var x = 0; x < data.length; x++) {
@@ -596,6 +667,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '2';
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+      $scope.filterBy = "AA Highly Recommended";
       break;
     case '3':
       for(var x = 0; x < data.length; x++) {
@@ -604,6 +679,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '3';
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+      $scope.filterBy = "AA Superior";
       break;
     case '4':
       for(var x = 0; x < data.length; x++) {
@@ -612,6 +691,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '4';
+
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+      $scope.filterBy = "AA Recommended/Highly Recommended";
       break;
     case '5':
       for(var x = 0; x < data.length; x++) {
@@ -620,6 +703,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '5';
+      $scope.filterBy = "Distance";
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+
       break;
     case '6':
       for(var x = 0; x < data.length; x++) {
@@ -628,6 +715,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '6';
+      $scope.filterBy = "AA Eco";
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+
       break;
     case '7':
       for(var x = 0; x < data.length; x++) {
@@ -636,6 +727,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '7';
+      $scope.filterBy = "AA Quality Assured";
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+
       break;
     case '8':
       for(var x = 0; x < data.length; x++) {
@@ -644,6 +739,10 @@ function selectRecom(mySelect, data, $scope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '8';
+      $scope.filterBy = "Status Pending";
+      // reload distances & ratings according to filter      
+      reloadDistance($scope, $scope.filteredData, $rootScope);
+
       break;
     default:
       $scope.filteredData = data;

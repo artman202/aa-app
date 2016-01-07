@@ -4,6 +4,10 @@
 	</ion-header-bar>
 	<ion-content overflow-scroll="false">
 	  	<ion-list class="filter-item">
+	  		<label class="item item-radio" ng-click="filterData('alphabetical')">
+				<div class="item-content" name='radioBtn'><p class="blue">Alphabetical <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="alphabetical"></i></p>
+				</div>
+			</label>
 	  		<label class="item item-radio" ng-click="filterData('price-high')">
 				<div class="item-content" name='radioBtn'><p class="blue">Price (High to Low) <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="priceHigh"></i></p>
 				</div>
@@ -12,7 +16,7 @@
 				<div class="item-content" name='radioBtn'><p class="blue">Price (Low to High) <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="priceLow"></i></p>
 				</div>
 			</label>
-			<label class="item item-radio" ng-click="filterData('distance')">
+			<label class="item item-radio" ng-click="filterData('distance')" ng-if="$root.positionAvailable">
 				<div class="item-content" name='radioBtn'><p class="blue">Distance <i class="icon ion-checkmark-circled align-right filter-checkbox-icon" ng-if="distance"></i></p>
 				</div>
 			</label>

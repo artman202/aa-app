@@ -21,9 +21,9 @@
   	<div class="row no-padding home-col">
   		<div class="col home-col-1">
         <div class="home-item-col">
-    			<a class="tab-item icon-font home-icon-link" href="#/app/destinations" go-native>
-    				<i class="icon ion-ios-location"></i>
-    				Destinations
+    			<a class="tab-item icon-font home-icon-link" href="#/app/destinations" >
+    				<i class="icon ion-ios-location home-icon"></i>
+            View Top<br> Destinations
     			</a>
           <div class="center" ng-if="showSpiralCity == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
@@ -47,9 +47,9 @@
   		</div>
   		<div class="col home-col-2">
         <div class="home-item-col">
-    			<a class="tab-item icon-font home-icon-link" href="#/app/featured-acommodation" go-native>
-    				<i class="icon ion-heart"></i>
-    				Featured Acommodation
+    			<a class="tab-item icon-font home-icon-link" href="#/app/featured-acommodation" >
+    				<i class="icon ion-heart home-icon"></i>
+    				Featured<br> Acommodation
     			</a>
           <div class="center" ng-if="showSpiralReccom == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
@@ -57,7 +57,7 @@
           <div ng-repeat="reccommendedAccom in reccommendedAccomArray | limitTo : 4">            
             <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{reccommendedAccom.n}}+id={{reccommendedAccom.id}}">
               <div class="home-col-content-block">
-                <div class="home-col-content-block-distance-wrap">
+                <div class="home-col-content-block-distance-wrap" ng-if="$root.positionAvailable && homeRecommended">
                   <i class="icon ion-location"></i>&nbsp;&nbsp;{{reccommendedAccom.distance}}&nbsp;km
                 </div>
                 <div class="image-load-wrap">
@@ -72,16 +72,16 @@
         </div>
   		</div>
   		<!-- <div class="col home-col-3">
-  			<a class="tab-item icon-font home-icon-link" href="#/app/specials" go-native>
+  			<a class="tab-item icon-font home-icon-link" href="#/app/specials" >
   				<i class="icon ion-ios-location"></i>
   				Specials
   			</a>
   		</div> -->
   		<div class="col home-col-4" ng-if="$root.positionAvailable">
         <div class="home-item-col">
-    			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" go-native>
-    				<i class="icon ion-navigate"></i>
-    				Near Me
+    			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" >
+    				<i class="icon ion-navigate home-icon"></i>
+    				What's<br> Near Me
     			</a>
           <div class="center" ng-if="showSpiralNear == true">
             <ion-spinner icon="crescent"></ion-spinner>      

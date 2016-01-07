@@ -21,6 +21,8 @@ angular.module('destinations.city.chosen.controller', [])
       $timeout(function(){
         var listBtn = angular.element(document.getElementsByClassName('list-view-btn'));
         listBtn.addClass('yellow-activated');
+        var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
+        mapBtn.removeClass('yellow-activated');
       }, 100);
     }
 
@@ -40,24 +42,48 @@ angular.module('destinations.city.chosen.controller', [])
       url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id='+$stateParams.cityId
     }).then(function successCallback(response) {  
 
-      $ionicLoading.hide()        
+      $ionicLoading.hide();
+      $scope.resultsLoaded = true;        
 
       var data = response.data;
 
+      $scope.results = data.length;
+
+      $scope.acommodations = data;
+      var finalResultArray = $scope.acommodations;
+
+      var distanceArray = [];
+      for ( var x = 0; x < data.length; x++) {
+        console.log("distance")
+        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+      }
+      $scope.acommodationsDistances = distanceArray;
+
+      $scope.aaRating = calculateRating(data);
+
+      $scope.select = "alphabetical"
       $scope.filterBy = "Alphabetically";
       $scope.openModal = function() {
-        showModal($ionicModal, $scope, $rootScope);        
+        showModal($ionicModal, $scope, $rootScope, $scope.select);        
       };
       $scope.filterData = function(filterType, mySelect) {
         filter(filterType, mySelect, $scope, $rootScope);
       }
       $scope.closeModal = function() {
-        runFilter($scope, data, $rootScope)
-        loadItemsByScroll("accommodation", $scope, $ionicScrollDelegate, $rootScope, $scope.filteredData, $window, $timeout)
+        runFilter($scope, finalResultArray, $rootScope, $ionicScrollDelegate)
+        $scope.acommodations = $scope.filteredData;
+        $scope.results = $scope.filteredData.length;
+        if($scope.results == 0) {
+          angular.element(document.getElementsByClassName('end-text')).html("No results found")
+        } else {
+          angular.element(document.getElementsByClassName('end-text')).html("No more results")
+        }
+        $scope.acommodationsDistances = $scope.distanceArray;
+        $scope.aaRating = $scope.aaRatingArray;
         $scope.modal.hide();
       };
 
-      $rootScope.controllerMapView = function() {
+      $rootScope.controllerMapView = function() {       
 
         var listBtn = angular.element(document.getElementsByClassName('list-view-btn'));
         listBtn.removeClass('yellow-activated');
@@ -90,11 +116,9 @@ angular.module('destinations.city.chosen.controller', [])
           $rootScope.$broadcast('loading:hide');
         }, 500);
 
-      }
+      }           
 
-      $scope.results = data.length;
-
-      loadItemsByScroll("accommodation", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
+      // loadItemsByScroll("accommodation", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
 
     }, function errorCallback(response) {
 

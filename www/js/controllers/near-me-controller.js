@@ -1,12 +1,13 @@
 angular.module('near.me.controller', [])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', '$ionicModal', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory, $ionicModal) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', '$ionicModal', '$ionicScrollDelegate', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory, $ionicModal, $ionicScrollDelegate) {
   
   $scope.$on('$ionicView.beforeEnter', function() {
     hideMap($ionicHistory, $rootScope);
   });
 
   $scope.$on('$ionicView.enter', function() {
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -21,6 +22,8 @@ angular.module('near.me.controller', [])
       $timeout(function(){
         var listBtn = angular.element(document.getElementsByClassName('list-view-btn'));
         listBtn.addClass('yellow-activated');
+        var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
+        mapBtn.removeClass('yellow-activated');
       }, 100);
     }
     
@@ -32,16 +35,25 @@ angular.module('near.me.controller', [])
 
     loadDistanceBefore("near-me", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
 
-    $scope.filterBy = "Alphabetically";
+    $scope.select = "distance"
+    $scope.filterBy = "Distance";
     $scope.openModal = function() {
-      showModal($ionicModal, $scope, $rootScope);        
+      showModal($ionicModal, $scope, $rootScope, $scope.select);        
     };
     $scope.filterData = function(filterType, mySelect) {
       filter(filterType, mySelect, $scope, $rootScope);
     }
     $scope.closeModal = function() {
-      runFilter($scope, $scope.accommodations, $rootScope)
+      runFilter($scope, $scope.nearMeAccommodations, $rootScope, $ionicScrollDelegate)
       $scope.accommodations = $scope.filteredData;
+      $scope.results = $scope.filteredData.length;
+      if($scope.results == 0) {
+        angular.element(document.getElementsByClassName('end-text')).html("No results found")
+      } else {
+        angular.element(document.getElementsByClassName('end-text')).html("No more results")
+      }
+      $scope.acommodationsDistances = $scope.distanceArray;
+      $scope.aaRating = $scope.aaRatingArray;
       // loadItemsByScroll("accommodation", $scope, $ionicScrollDelegate, $rootScope, $scope.filteredData, $window, $timeout)
       $scope.modal.hide();
     }; 

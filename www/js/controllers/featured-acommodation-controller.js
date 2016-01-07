@@ -1,6 +1,6 @@
 angular.module('featured-acommodation.controller', [])
 
-.controller('FeaturedAcommodationCtrl', ['$scope', '$rootScope', '$timeout', '$http', '$ionicLoading', '$ionicScrollDelegate', '$window', function($scope, $rootScope, $timeout, $http, $ionicLoading, $ionicScrollDelegate, $window) {
+.controller('FeaturedAcommodationCtrl', ['$scope', '$rootScope', '$timeout', '$http', '$ionicLoading', '$ionicScrollDelegate', '$window', '$ionicModal', function($scope, $rootScope, $timeout, $http, $ionicLoading, $ionicScrollDelegate, $window, $ionicModal) {
   
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -21,7 +21,8 @@ angular.module('featured-acommodation.controller', [])
       url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?featured=1&use_cache=0'
     }).then(function successCallback(response) {  
 
-      $ionicLoading.hide()       
+      $ionicLoading.hide();
+      $scope.resultsLoaded = true;
 
       var data = response.data;
 
@@ -50,7 +51,44 @@ angular.module('featured-acommodation.controller', [])
 
       $scope.results = data.length;
 
-      loadItemsByScroll("recommended", $scope, $ionicScrollDelegate, $rootScope, data, $window, $timeout)
+      var data = response.data;
+
+      $scope.acommodations = data;
+      var finalResultArray = $scope.acommodations;
+
+      var distanceArray = [];
+      for ( var x = 0; x < data.length; x++) {
+        console.log("distance")
+        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+      }
+      $scope.acommodationsDistances = distanceArray;
+
+      $scope.aaRating = calculateRating(data);
+
+      $scope.featureSelected = false;
+      $scope.filterBy = "No Filter Selected";
+      $scope.openModal = function() {
+        showModal($ionicModal, $scope, $rootScope);        
+      };
+      $scope.filterData = function(filterType, mySelect) {
+        filter(filterType, mySelect, $scope, $rootScope);
+      }
+      $scope.closeModal = function() {
+        if($scope.featureSelected != false) {
+
+          runFilter($scope, finalResultArray, $rootScope, $ionicScrollDelegate)
+          $scope.acommodations = $scope.filteredData;
+          $scope.results = $scope.filteredData.length;
+          if($scope.results == 0) {
+            angular.element(document.getElementsByClassName('end-text')).html("No results found")
+          } else {
+            angular.element(document.getElementsByClassName('end-text')).html("No more results")
+          }
+          $scope.acommodationsDistances = $scope.distanceArray;
+          $scope.aaRating = $scope.aaRatingArray;          
+        }
+        $scope.modal.hide();
+      };      
 
     }, function errorCallback(response) {
 

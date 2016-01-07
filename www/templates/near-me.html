@@ -1,29 +1,36 @@
 <ion-view view-title="Near Me">
 
-	<div class="filter-wrapper bg-yellow white" ng-click="openModal()">
+	<div class="filter-wrapper bg-yellow white" ng-click="openModal()" ng-hide="$root.showMap" ng-if="positionAvailable">
   		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><span class="align-right">Filter By: {{filterBy}}</span>
   		<div class="clear"></div>
   	</div>
-
-  <ion-content scroll="false" class="filter-container">
 
   	<div ng-show="$root.showMap" class="map-wrap" id="map-view">
   		<div id="map-list-item-wrap"></div>  		
 	  	<div id='map' style='height: 100%; width: 100%;' data-tap-disabled="true"></div>
 	</div>
 
-	<ion-scroll ng-hide="$root.showMap" delegate-handle="scroll" ng-style="{'height': setScrollHeight}">
+  <ion-content scroll="false" class="filter-container" id="nearme-container" ng-hide="$root.showMap">  	
+
+	<ion-scroll ng-hide="$root.showMap" delegate-handle="scroll" class="acommodation-scroll">
+
 		<div class="padding">
-		    <h3 class="page-blue-heading">
+
+		    <h3 class="page-blue-heading" ng-if="positionAvailable">
 		      {{accommodations.length}} Results
 		    </h3>
 			<ion-list class="list-wrap">
 
-				<div class="center" ng-if="showSpiralNear == true">
+				<div class="center" ng-if="showSpiralNear && positionAvailable">
 					<ion-spinner icon="spiral"></ion-spinner>
 					<br><br>				
 					<ion-item class="button button-block btn-city">
 						Retrieving Location...
+					</ion-item>				
+				</div>
+				<div class="center" ng-if="!positionAvailable">
+					<ion-item class="button button-block btn-city">
+						Location Service Not Available
 					</ion-item>				
 				</div>
 
@@ -35,7 +42,7 @@
 							<div class="row">
 								<div class="col accom-img-bg">
 									<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
-										{{accommodation.distance}} km
+										<i class="icon ion-location"></i>&nbsp;{{accommodation.distance}} km
 									</div>
 									<img ng-src="{{accommodation.tb}}" alt="">
 								</div>
@@ -66,17 +73,19 @@
 
 				</div>
 
-				<!-- <div class="center">
-					<ion-spinner icon="spiral" ng-if="!hide"></ion-spinner>
-					<ion-item ng-if="end" class="button button-block btn-city">
+				<div class="center" ng-if="resultsLoaded">
+					<!-- <ion-spinner icon="spiral" ng-if="!hide"></ion-spinner> -->
+					<ion-item class="button button-block btn-city end-text">
 						No more results
 					</ion-item>
-				</div> -->
+				</div>
 
 			</ion-list>
 
 			<div class="bottom-space-single-accom"></div>
+
 		</div>
+
 	</ion-scroll>
 
   </ion-content>  

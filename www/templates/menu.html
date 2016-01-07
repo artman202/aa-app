@@ -21,10 +21,10 @@
     <a type="button" class="footer-btn enquire-btn" id="enquire-btn" ng-click="goToEnquireForm()" ng-show="$root.enquireBtn">
       ENQUIRE
     </a>
-    <a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()" ng-if="$root.showMapBtn">
+    <a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()" ng-if="$root.showMapBtn && $root.positionAvailable">
       <i class="icon ion-ios-list-outline"></i>
     </a>
-    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="$root.showMapBtn">
+    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="$root.showMapBtn && $root.positionAvailable">
       <i class="icon ion-map"></i>
     </a>
     <a type="button" class="footer-btn back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
@@ -43,9 +43,9 @@
         <div class="tabs footer-tabs tabs-icon-top bg-blue">
           <a class="tab-item" href="#/app/destinations">
             <i class="icon ion-ios-location"></i>
-            Destinations
+            View Top Destinations
           </a>
-          <a class="tab-item" href="#/app/recommended">
+          <a class="tab-item" href="#/app/featured-acommodation">
             <i class="icon ion-heart"></i>
             Featured Acommodation
           </a>
@@ -55,7 +55,7 @@
           </a> -->          
           <a class="tab-item" href="#/app/near-me">
             <i class="icon ion-navigate"></i>
-            Near Me
+            What's Near Me
           </a>
         </div>
     </ion-footer-bar>

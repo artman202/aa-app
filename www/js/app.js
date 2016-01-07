@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
       enableHighAccuracy: true // may cause errors if true
     };
 
-    $rootScope.positionAvailable = true;
+    $rootScope.positionAvailable = false;
     var watch = $cordovaGeolocation.watchPosition(watchOptions);
     watch.then(
       null,
