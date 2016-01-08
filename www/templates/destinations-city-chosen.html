@@ -5,13 +5,24 @@
   		<div class="clear"></div>
   	</div>
 
-	<div ng-show="$root.showMap" class="map-wrap">
-  		hello
+  	<!-- <div class="map-wrap map-view">
+		<div id="map-list-item-wrap"></div>  		
+	  	<div id='map' style='height: 100%; width: 100%;' data-tap-disabled="true"></div>
+	</div> -->
+
+  	<a type="button" class="footer-btn list-view-btn" ng-click="controllerListView()">
+      <i class="icon ion-ios-list-outline"></i>
+    </a>
+    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()">
+      <i class="icon ion-map"></i>
+    </a>
+
+	<!-- <div ng-show="$root.showMap" class="map-wrap">
   		<div id="map-list-item-wrap"></div>  		
 	  	<div id='map' style='height: 100%; width: 100%;' data-tap-disabled="true"></div>
-	</div>
+	</div> -->
 
-  <ion-content id="container" class="filter-container padding" ng-hide="$root.showMap">  
+  <ion-content id="container" class="filter-container padding list-view">  
 	<!-- <ion-scroll style="position:relative" ng-hide="$root.showMap" class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" style="height: 100%" ng-style="{'height': setScrollHeight}"> -->
   	<!-- <ion-scroll ng-hide="$root.showMap" class="padding acommodation-scroll" on-scroll="scrollFunc()" delegate-handle="scroll"> -->
 
@@ -20,7 +31,7 @@
 	    </h3>
 		<ion-list class="list-wrap" id="itemList">
 
-			<div collection-repeat="acommodation in acommodations" item-render-buffer="7">
+			<div ng-repeat="acommodation in acommodations">
 
 				<ion-item>
 					<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{acommodation.n}}+id={{acommodation.id}}" class="accom-btn">

@@ -151,6 +151,10 @@ input[disabled] {background-color: white !important}
   height: 100%;}
 .home-item-col {padding: 4px}
 
+#map-modal{
+  transform:none !important;
+}
+
 .list-wrap .item { padding: 0; height: auto !important; border: none !important; border-radius: 5px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);}
 .list-wrap .item a {border: none !important;}
 .list-wrap .row {padding: 0;}

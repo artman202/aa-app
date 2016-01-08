@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'featured-acommodation.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
+angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.view.controller', 'home.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'featured-acommodation.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
 
 .run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory, $ionicSideMenuDelegate) {
 
@@ -71,7 +71,6 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
       enableHighAccuracy: true // may cause errors if true
     };
 
-    $rootScope.positionAvailable = false;
     var watch = $cordovaGeolocation.watchPosition(watchOptions);
     watch.then(
       null,
@@ -176,7 +175,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {  
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
   if(!ionic.Platform.isIOS() || ionic.Platform.isIPad())$ionicConfigProvider.scrolling.jsScrolling(false);
 
@@ -235,6 +234,17 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
         'menuContent': {
           templateUrl: 'templates/destinations-accom-chosen.html',
           controller: 'DestinationsAccomChosenCtrl'
+        }
+      }
+    })
+
+    .state('app.map-view', {
+      url: 'map-view',
+      data: {'context':'login'},
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/map-view.html',
+          controller: 'MapViewCtrl'
         }
       }
     })
@@ -306,3 +316,29 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'home.c
       }
   };
 })
+
+.factory('$localstorage', ['$window', '$ionicHistory', function($window, $ionicHistory) {
+
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+    // setAcommData: function(data) {
+    //   // console.log(data);
+    //   $window.localStorage['accomData'] = JSON.stringify(data);      
+    // },
+    // getAcommData: function() {
+    //   return JSON.parse(window.localStorage['accomData']);
+    // }
+  }
+
+}]);

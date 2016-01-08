@@ -49,7 +49,6 @@ angular.module('destinations.accom.chosen.controller', [])
       }
 
       $rootScope.goToEnquireForm = function() {
-        console.log(data[0].n);
         $state.go('app.enquire-form', {accomName: data[0].n, accomId: data[0].id}); 
       }
 

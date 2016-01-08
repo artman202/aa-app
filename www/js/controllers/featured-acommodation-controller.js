@@ -26,28 +26,27 @@ angular.module('featured-acommodation.controller', [])
 
       var data = response.data;
 
-      $rootScope.controllerMapView = function() {
+      // $rootScope.controllerMapView = function() {
+        
+      //   $scope.showMap = true;
 
-        $ionicHistory.clearCache();
-        $scope.showMap = true;
+      //   $timeout(function(){
+      //     mapView(data, $rootScope, "accommodation-map");
+      //   }, 500);
 
-        $timeout(function(){
-          mapView(data, $rootScope, "accommodation-map", $ionicHistory);
-        }, 500);
+      // }
 
-      }
+      // $rootScope.controllerListView = function() {
 
-      $rootScope.controllerListView = function() {
+      //   $scope.showMap = false;
 
-        $scope.showMap = false;
+      //   $rootScope.$broadcast('loading:show');
 
-        $rootScope.$broadcast('loading:show');
+      //   $timeout(function(){
+      //     $rootScope.$broadcast('loading:hide');
+      //   }, 500);
 
-        $timeout(function(){
-          $rootScope.$broadcast('loading:hide');
-        }, 500);
-
-      }
+      // }
 
       $scope.results = data.length;
 

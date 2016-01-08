@@ -47,7 +47,6 @@ function loadDistanceBefore(pageType, $rootScope, $ionicHistory, $scope, $timeou
           var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
           mapBtn.addClass('yellow-activated');
 
-          $ionicHistory.clearCache();
           $rootScope.showMap = true;
 
           $timeout(function(){
@@ -147,14 +146,7 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
-function mapView(data, $rootScope, mapType) {  
-
-  // show loader
-  $rootScope.$broadcast('loading:show');
-
-  setTimeout(function(){
-    $rootScope.$broadcast('loading:hide');
-  }, 1000);
+function mapView(data, $rootScope, mapType) {
 
   var Latlng = "";
 
