@@ -2,6 +2,8 @@ angular.module('home.controller', [])
 
 .controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout) {
 
+  $rootScope.positionAvailable = true;
+
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = false;
     $rootScope.showBack = false;

@@ -148,6 +148,8 @@ function deg2rad(deg) {
 
 function mapView(data, $rootScope, mapType) {
 
+  console.log("Map View "+data)
+
   var Latlng = "";
 
   if(mapType == 'accommodation-map') {

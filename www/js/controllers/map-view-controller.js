@@ -10,10 +10,21 @@ angular.module('map.view.controller', [])
     $rootScope.enquireBtn = false;
     $rootScope.showMapBtn = true;
 
-    $scope.cityName = $localstorage.get("acommName");
-    mapView($localstorage.getObject("acommData"), $rootScope, "accommodation-map");
+    // console.log(angular.element(document.getElementById("map")).html());
 
+    // if(angular.element(document.getElementById("map")).html() == '<div style="overflow: hidden;"></div>') {
+    //   alert("No content")
+    //   mapView($localstorage.getObject("acommData"), $rootScope, "accommodation-map");
+    // }
+
+    // <div style="overflow: hidden;"> </div>
+
+      $scope.cityName = $localstorage.get("acommName");
+      mapView($localstorage.getObject("acommData"), $rootScope, "accommodation-map");
+      
   });
+
+
 
   $scope.controllerListView = function() {
     
