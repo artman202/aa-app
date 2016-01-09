@@ -164,6 +164,6 @@ angular.module('home.controller', [])
 
   // near me
   $scope.showSpiralNear = true;
-  loadDistanceBefore("home", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
+  loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http);
 
 }])

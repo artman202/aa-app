@@ -1,4 +1,4 @@
-<ion-view view-title="AA Accommodation">
+<ion-view view-title="AA Acommodation">
   <ion-content has-bouncing="true"> 
 
     <div class="homepage-slider">
@@ -32,7 +32,7 @@
             <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
               <div class="home-col-content-block">
                 <div class="home-col-content-block-distance-wrap">
-                  {{topDestination.city}}<!-- <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}&nbsp;km -->
+                  {{topDestination.city}}<!-- <i class="icon ion-location"></i>&nbsp;&nbsp;{{acommodationsDistances[$index]}}&nbsp;km -->
                 </div>
                 <div class="image-load-wrap">
                   <div class="image-loader">
@@ -87,17 +87,17 @@
             <ion-spinner icon="crescent"></ion-spinner>      
           </div>
         
-          <div ng-repeat="accommodation in accommodations | limitTo : 4">            
-            <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
+          <div ng-repeat="acommodation in nearMeAcommodations | limitTo : 4">            
+            <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{acommodation.n}}+id={{acommodation.id}}">
               <div class="home-col-content-block">
                 <div class="home-col-content-block-distance-wrap">
-                  <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodation.distance}}&nbsp;km
+                  <i class="icon ion-location"></i>&nbsp;&nbsp;{{acommodation.distance}}&nbsp;km
                 </div> 
                 <div class="image-load-wrap">
                   <div class="image-loader">
                     <ion-spinner icon="crescent">
                   </ion-spinner></div>             
-                  <img ng-src="{{accommodation.tb}}" alt="" imageonload>
+                  <img ng-src="{{acommodation.tb}}" alt="" imageonload>
                 </div>
               </div>
             </a>

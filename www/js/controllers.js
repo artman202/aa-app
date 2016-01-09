@@ -10,22 +10,12 @@ angular.module('starter.controllers', [])
 
 // FUNCTIONS --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function loadDistanceBefore(pageType, $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window) {
-
-  var promise;
-
-    // test if the location has been updated yet, if not an interval starts
-  promise = $interval(function() {        
-
-    var pageType = pageType
+function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http) {
+ 
+  // test if the location has been updated yet, if not an interval starts
+  var promise = $interval(function() {
 
     if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
-
-      // if(pageType == "near-me") {
-
-      // } else if(pageType == "home") {      
-      //   $rootScope.$broadcast('loading:hide');
-      // }
 
       $http({
         method: 'GET',
@@ -37,75 +27,34 @@ function loadDistanceBefore(pageType, $rootScope, $ionicHistory, $scope, $timeou
 
         $scope.aaRating = calculateRating(response.data);        
 
-        var accommodations = response.data;
+        var acommodations = response.data;                
 
-        $rootScope.controllerMapView = function() {
-
-          var listBtn = angular.element(document.getElementsByClassName('list-view-btn'));
-          listBtn.removeClass('yellow-activated');
-
-          var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
-          mapBtn.addClass('yellow-activated');
-
-          $rootScope.showMap = true;
-
-          $timeout(function(){
-            mapView(accommodations, $rootScope, "accommodation-map", $ionicHistory);
-          }, 500);
-
+        var distanceArray = [];
+        for ( var x = 0; x < acommodations.length; x++) {
+          acommodations[x]["distance"] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,acommodations[x].lat,acommodations[x].lon));
         }
 
-        $rootScope.controllerListView = function() {
-
-          var listBtn = angular.element(document.getElementsByClassName('list-view-btn'));
-          listBtn.addClass('yellow-activated');
-
-          var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
-          mapBtn.removeClass('yellow-activated');
-
-          $rootScope.showMap = false;
-
-          $rootScope.$broadcast('loading:show');
-
-          $timeout(function(){
-            $rootScope.$broadcast('loading:hide');
-          }, 500);
-
-        }        
-
-        var distanceArray = []; 
-
-        for ( var x = 0; x < accommodations.length; x++) {
-          accommodations[x]["distance"] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon));
-          // distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,accommodations[x].lat,accommodations[x].lon)));
-        }
-
-        // $scope.accommodationsDistances = distanceArray;
-
-        accommodations.sort(function(a,b) {
+        acommodations.sort(function(a,b) {
           return a.distance - b.distance;
         });
 
-        $scope.accommodations = accommodations;
-        $scope.nearMeAccommodations = accommodations;
+        $scope.nearMeAcommodations = acommodations;
+        $scope.nearMeData = acommodations;
 
-        // the interval breaks if location is loaded
-        $interval.cancel();
-
-        var scrollHeight = $window.innerHeight;
-        $scope.setScrollHeight = scrollHeight+"px";
+        // returnData()
 
       }, function errorCallback(response) {
 
         navigator.notification.alert(
-          'We regret that there is a problem retrieving the accommodations near you',  // message
+          'We regret that there is a problem retrieving the acommodations near you',  // message
           null,                     // callback
           'Alert',                // title
           'Done'                  // buttonName
         );
 
       });
-
+      
+      // the interval breaks if location is loaded
       $interval.cancel(promise);
 
     }
@@ -147,8 +96,6 @@ function deg2rad(deg) {
 }
 
 function mapView(data, $rootScope, mapType) {
-
-  console.log("Map View "+data)
 
   var Latlng = "";
 

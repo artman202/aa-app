@@ -5,19 +5,21 @@
   		<div class="clear"></div>
   	</div>
 
-  	<!-- <div ng-show="$root.showMap" class="map-wrap" id="map-view">
-  		<div id="map-list-item-wrap"></div>  		
-	  	<div id='map' style='height: 100%; width: 100%;' data-tap-disabled="true"></div>
-	</div> -->
+  	<a type="button" class="footer-btn list-view-btn">
+      <i class="icon ion-ios-list-outline"></i>
+    </a>
+    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="showMapBtn">
+      <i class="icon ion-map"></i>
+    </a>
 
-  <ion-content scroll="false" class="filter-container" id="nearme-container" ng-hide="$root.showMap">  	
+  <ion-content  class="filter-container" id="nearme-container" ng-hide="$root.showMap">  	
 
-	<ion-scroll ng-hide="$root.showMap" delegate-handle="scroll" class="acommodation-scroll">
+	<!-- <ion-scroll ng-hide="$root.showMap" delegate-handle="scroll" class="acommodation-scroll"> -->
 
 		<div class="padding">
 
 		    <h3 class="page-blue-heading" ng-if="positionAvailable">
-		      {{accommodations.length}} Results
+		      {{nearMeAcommodations.length}} Results
 		    </h3>
 			<ion-list class="list-wrap">
 
@@ -35,7 +37,7 @@
 				</div>
 
 
-				<div ng-repeat="accommodation in accommodations">
+				<div ng-repeat="accommodation in nearMeAcommodations">
 
 					<ion-item>
 						<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
@@ -86,7 +88,7 @@
 
 		</div>
 
-	</ion-scroll>
+	<!-- </ion-scroll> -->
 
   </ion-content>  
 </ion-view>

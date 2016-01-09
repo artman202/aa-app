@@ -1,29 +1,15 @@
 angular.module('near.me.controller', [])
 
-.controller('NearMeCtrl', ['$scope', '$rootScope', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', '$ionicModal', '$ionicScrollDelegate', function($scope, $rootScope, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory, $ionicModal, $ionicScrollDelegate) {
+.controller('NearMeCtrl', ['$scope', '$rootScope', '$state', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', '$ionicModal', '$ionicScrollDelegate', '$localstorage', function($scope, $rootScope, $state, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory, $ionicModal, $ionicScrollDelegate, $localstorage) {
   
   $scope.$on('$ionicView.beforeEnter', function() {
   });
 
   $scope.$on('$ionicView.enter', function() {
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = true;
-
-    // if($rootScope.showMap == true) {
-    //   $timeout(function(){
-    //     var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
-    //     mapBtn.addClass('yellow-activated');
-    //   }, 100);      
-    // } else {
-    //   $timeout(function(){
-    //     var listBtn = angular.element(document.getElementsByClassName('list-view-btn'));
-    //     listBtn.addClass('yellow-activated');
-    //     var mapBtn = angular.element(document.getElementsByClassName('map-view-btn'));
-    //     mapBtn.removeClass('yellow-activated');
-    //   }, 100);
-    // }
     
   });
 
@@ -31,7 +17,30 @@ angular.module('near.me.controller', [])
 
   $timeout(function(){
 
-    loadDistanceBefore("near-me", $rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $window);
+    $scope.showMapBtn = false;
+
+    loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http)
+
+    var promise = $interval(function() {
+
+      if(typeof $scope.nearMeData !== 'undefined') {
+
+        $scope.showMapBtn = true
+
+        $interval.cancel(promise);
+
+      }
+
+    }, 500);
+
+    $scope.controllerMapView = function() {
+
+      $localstorage.set("closeTab", "true")
+      $localstorage.set("type", "nearMe");
+      $localstorage.setObject("nearMeData", $scope.nearMeData);
+      $state.go('app.map-view');
+
+    }
 
     $scope.select = "distance"
     $scope.filterBy = "Distance";
