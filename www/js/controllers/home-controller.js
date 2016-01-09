@@ -113,55 +113,6 @@ angular.module('home.controller', [])
 
   });
 
-  // var promise;  
-  // // test if the location has been updated yet, if not an interval starts
-  // promise = $interval(function() {        
-
-  //   var pageType = pageType
-
-  //   if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
-    
-  //     $http({
-  //       method: 'GET',
-  //       url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?featured=1&use_cache=0'
-  //     }).then(function successCallback(response) {      
-
-  //       $scope.showSpiralReccom = false;
-
-  //       var data = response.data;
-  //       var reccommendedAccomArray = [];
-  //       var reccommendedAccomDistancesArray = []; 
-
-  //       var highestRating = 0;
-
-  //       data.sort(function(a,b) {
-  //         return b.pv - a.pv;
-  //       });
-
-  //       for(var x = 0; x < data.length; x++) {
-  //         data[x]["distance"] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon));
-  //       }
-
-  //       $scope.reccommendedAccomArray = data;
-  //       $scope.reccommendedAccomDistances = reccommendedAccomDistancesArray;
-
-  //     }, function errorCallback(response) {
-
-  //       navigator.notification.alert(
-  //         'We regret that there was a problem retrieving the top destinations.',  // message
-  //         null,                     // callback
-  //         'Alert',                // title
-  //         'Done'                  // buttonName
-  //       );
-
-  //     });
-
-  //     $interval.cancel(promise);
-
-  //   }
-
-  // }, 500);
-
   // near me
   $scope.showSpiralNear = true;
   loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http);

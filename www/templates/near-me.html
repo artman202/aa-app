@@ -1,6 +1,6 @@
 <ion-view view-title="Near Me">
 
-	<div class="filter-wrapper bg-yellow white" ng-click="openModal()" ng-hide="$root.showMap" ng-if="positionAvailable">
+	<div class="filter-wrapper bg-yellow white" ng-click="openModal()" ng-hide="$root.showMap" ng-if="positionAvailable && showMapBtn">
   		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><span class="align-right">Filter By: {{filterBy}}</span>
   		<div class="clear"></div>
   	</div>

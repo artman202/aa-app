@@ -18,6 +18,7 @@ angular.module('near.me.controller', [])
   $timeout(function(){
 
     $scope.showMapBtn = false;
+    var finalResultArray;
 
     loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http)
 
@@ -25,7 +26,8 @@ angular.module('near.me.controller', [])
 
       if(typeof $scope.nearMeData !== 'undefined') {
 
-        $scope.showMapBtn = true
+        $scope.showMapBtn = true;
+        finalResultArray = $scope.nearMeData;
 
         $interval.cancel(promise);
 
@@ -51,7 +53,7 @@ angular.module('near.me.controller', [])
       filter(filterType, mySelect, $scope, $rootScope);
     }
     $scope.closeModal = function() {
-      runFilter($scope, $scope.nearMeAccommodations, $rootScope, $ionicScrollDelegate)
+      runFilter($scope, finalResultArray, $rootScope, $ionicScrollDelegate)
       $scope.accommodations = $scope.filteredData;
       $scope.results = $scope.filteredData.length;
       if($scope.results == 0) {
