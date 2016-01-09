@@ -37,30 +37,30 @@
 				</div>
 
 
-				<div ng-repeat="accommodation in nearMeAcommodations">
+				<div ng-repeat="acommodation in nearMeAcommodations">
 
 					<ion-item>
-						<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
+						<a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{acommodation.n}}+id={{acommodation.id}}" class="accom-btn">
 							<div class="row">
 								<div class="col accom-img-bg">
-									<div class="accom-distance bg-yellow white" id="{{accommodation.id}}">
-										<i class="icon ion-location"></i>&nbsp;{{accommodation.distance}} km
+									<div class="accom-distance bg-yellow white" id="{{acommodation.id}}">
+										<i class="icon ion-location"></i>&nbsp;{{acommodation.distance}} km
 									</div>
-									<img ng-src="{{accommodation.tb}}" alt="">
+									<img ng-src="{{acommodation.tb}}" alt="">
 								</div>
 								<div class="col col-75 accom-content">
 									<h3 class="page-blue-heading">
 										<b>
-											{{accommodation.n}}
+											{{acommodation.n}}
 										</b>
 									</h3>
 									<div class="accom-title-underline"></div>
 									<div class="row accom-ratings-row">
 										<div class="col col-50">
-											<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
+											<img ng-src="img/ratings/ratings-{{acommodation.r}}.svg" alt="">
 										</div>
-										<div class="col col-50 accom-ratings-row-price" ng-if="accommodation.pl != 0.00">
-											<b>{{accommodation.pl}} ZAR</b>
+										<div class="col col-50 accom-ratings-row-price" ng-if="acommodation.pl != 0.00">
+											<b>{{acommodation.pl}} ZAR</b>
 										</div>
 									</div>
 									<div class="row accom-aa-ratings-row">
