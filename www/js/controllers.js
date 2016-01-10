@@ -1,10 +1,28 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$rootScope', '$ionicHistory', function($scope, $ionicModal, $timeout, $rootScope, $ionicHistory) {
+.controller('AppCtrl', ['$scope', '$localstorage', '$ionicModal', '$timeout', '$rootScope', '$ionicHistory', function($scope, $localstorage, $ionicModal, $timeout, $rootScope, $ionicHistory) {
 
   $rootScope.goBack = function() {
     $ionicHistory.goBack();
   }
+
+  $rootScope.$on('$ionicView.beforeEnter', function() {
+    angular.element(document.getElementById("tab-topdes")).addClass("tab-active");
+    var currentView = $ionicHistory.currentView().stateName;
+    console.log($ionicHistory.currentView().stateName)
+    if(currentView == "app.destinations") {
+      angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
+      angular.element(document.getElementById("tab-topdes")).addClass("tab-active");
+    } else if(currentView == "app.featured-acommodation") {
+      angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
+      angular.element(document.getElementById("tab-featured")).addClass("tab-active");
+    } else if(currentView == "app.near-me") {
+      angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
+      angular.element(document.getElementById("tab-nearme")).addClass("tab-active");
+    } else {
+      angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
+    }
+  });
 
 }])
 
@@ -180,11 +198,57 @@ function mapView(data, $rootScope, mapType) {
 
     }
 
+    console.log(markerObj)
+
     infowindow.close()
     infowindow.setContent(markerObj.n);
     infowindow.open(map, marker);
 
     var markerLink = angular.element(document.getElementById('map-list-item-wrap'));
+    var acommPrice;
+
+    if(markerObj.pl != "0.00") {
+      acommPrice = markerObj.pl+" ZAR";
+    } else {
+      acommPrice = "Price on enquiry";
+    }
+
+    var ratingArray = [];
+
+    switch(markerObj.ar){
+      case '1':
+        ratingArray.push({"text":"AA Recommended", "rating":"img/aaqa/1.png"});
+        break;
+      case '2':
+        ratingArray.push({"text":"AA Highly Recommended", "rating":"img/aaqa/2.png"});
+        break;
+      case '3':
+        ratingArray.push({"text":"AA Superior", "rating":"img/aaqa/3.png"});
+        break;
+      case '4':
+        ratingArray.push({"text":"AA Recommended/Highly Recommended", "rating":"img/aaqa/2.png"});
+        break;
+      case '5':
+        ratingArray.push({"text":"AA Highly Recommended/Superior", "rating":"img/aaqa/3.png"});
+        break;
+      case '6':
+        ratingArray.push({"text":"AA Eco", "rating":"img/aaqa/4.png"});
+        break;
+      case '7':
+        ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
+        break;
+      case '8':
+        ratingArray.push({"text":"AA Quality Assured", "rating":"img/aaqa/9.png"});
+        break;
+      case '9':
+        ratingArray.push({"text":"Status Pending", "rating":"img/aaqa/9.png"});
+        break;
+      default:
+        ratingArray.push({"text":"", "rating":""});
+        break;
+    }
+
+    console.log(ratingArray);
 
     markerLink.html("\
       <div class='padding map-list-item-wrap' id='"+markerObj.tb+"'>\
@@ -192,7 +256,7 @@ function mapView(data, $rootScope, mapType) {
           <i class='icon ion-close'></i>\
         </a>\
         <a type='button' id='map-list-box' class='map-list-item padding' href='#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/"+markerObj.n+"+id="+markerObj.id+"' class='accom-btn'>\
-          <div class='row'>\
+          <div class='row map-list-item-row'>\
             <div class='col accom-img-bg'>\
               <div class='accom-distance bg-yellow white' ng-if='$root.positionAvailable'>\
                 <i class='icon ion-location'></i>&nbsp;"+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km\
@@ -207,14 +271,13 @@ function mapView(data, $rootScope, mapType) {
               </h3>\
               <div class='accom-title-underline'></div>\
               <div class='row accom-ratings-row'>\
-                <div class='col col-50'>\
-                  <img src='img/ratings/ratings-"+markerObj.r+".svg'>\
-                </div>\
-                <div class='col col-50 accom-ratings-row-price' ng-if='"+markerObj.pl+" != 0.00'>\
-                  <b>"+markerObj.pl+" ZAR</b>\
+                <div class='col accom-ratings-row-price'>\
+                  <b>"+acommPrice+"</b>\
                 </div>\
               </div>\
-              <div class='row'>\
+              <div class='row accom-aa-ratings-row accom-aa-ratings-text'>\
+                <p>"+ratingArray[0].text+"</p>\
+              </div>\
               </div>\
             </div>\
           </div>\

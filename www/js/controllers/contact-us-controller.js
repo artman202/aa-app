@@ -4,7 +4,7 @@ angular.module('contact.us.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
+    $rootScope.showBack = false;    
     $rootScope.enquireBtn = false;
   });
 
@@ -24,6 +24,8 @@ angular.module('contact.us.controller', [])
         );
 
       } else {
+
+        $scope.showSending = true;
         
         var contactUsFormObj = {
           "mobile" : mobile,

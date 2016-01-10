@@ -20,29 +20,29 @@
 			</ion-slide>
 		</ion-slide-box> -->
 
-		<div class="row single-accom-rate">
+		<!-- <div class="row single-accom-rate">
+			<h3></h3>
 	    	<img ng-src="img/ratings/ratings-{{accommodation.r}}.svg" alt="">
-	    </div>
-	    <div class="row">
+	    </div> -->
+	    <div class="row">	    
 	    	<ion-scroll zooming="true" direction="x" style="width: 100%; height: auto">
-			    <div class="tabs-striped tabs-color-assertive single-accom-tabs">
-			    	
+			    <div class="tabs-striped tabs-color-assertive single-accom-tabs">			    	
 				    <div class="tabs">
 				      <a type="button" ng-click="changeContent('accommodation', 'tab1')" class="tab-item active" id="tab1">
 				        Accommodation
 				      </a>
-				      <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2">
+				      <!-- <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2">
 				        Reviews
-				      </a>
+				      </a> -->
 				      <a type="button" ng-click="changeContent('amenities', 'tab3')" class="tab-item" id="tab3">
 				        Amenities &amp; Facilities
 				      </a>
 				      <a type="button" ng-click="changeContent('activities', 'tab4')" class="tab-item" id="tab4">
 				        Activities
 				      </a>
-				      <a type="button" ng-click="changeContent('near', 'tab5')" class="tab-item" id="tab5">
+				      <!-- <a type="button" ng-click="changeContent('near', 'tab5')" class="tab-item" id="tab5">
 				        Near You
-				      </a>
+				      </a> -->
 				    </div>
 					
 				</div>
@@ -53,12 +53,15 @@
 		<div class="padding" ng-if="showContent == 'accommodation'">
 		    <h2 class="blue">
 		      	<b>{{accommodation.n}}</b>
-		    </h2>
+		    </h2>		    
 		    <h3 class="yellow">
 		      	{{accommodation.t}}
 		    </h3>
 		    <h3 class="yellow">
-		      	{{accommodation.pl}} ZAR
+		      	{{aaRating[0].text}}
+		    </h3>
+		    <h3 class="yellow">
+		      	{{accommodationPrice}}
 		    </h3>
 		    <br>
 		    <div class="accom-title-underline"></div>
@@ -150,7 +153,7 @@
 		<br>
 		<div class="padding">
 			<p class="blue">
-				<b>GPS:</b> {{accommodation.lat}}, {{accommodation.lon}}<br>
+				<b>GPS:</b> <a href="" ng-click="openMaps(accommodation.lat, accommodation.lon)">{{accommodation.lat}}, {{accommodation.lon}}</a><br>
 				<b>Address:</b> {{accommodation.p}}
 			</p>
 		</div>

@@ -6,7 +6,6 @@ angular.module('featured-acommodation.controller', [])
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
   });
 
   $scope.hide = true;

@@ -35,6 +35,7 @@ angular.module('destinations.city.chosen.controller', [])
         $scope.results = data.length;
 
         $scope.acommodations = data;
+
         var finalResultArray = $scope.acommodations;
 
         var distanceArray = [];

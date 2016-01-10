@@ -8,8 +8,7 @@ angular.module('home.controller', [])
     $rootScope.showTabs = false;
     $rootScope.showBack = false;
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
-  });  
+  });
 
   // destinations
   $scope.showSpiralCity = true;

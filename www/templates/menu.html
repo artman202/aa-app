@@ -23,38 +23,35 @@
     </a>    
     <a type="button" class="footer-btn back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
       <i class="icon ion-arrow-return-left"></i>
-    </a>
-    <ion-footer-bar align-title="left" class="footer-bar" ng-if="$root.showTabs">
-        <!-- <div class="footer-btn-wrap"> -->
-            <!-- <a type="button" class="footer-btn-1" href="" >
-                Back
-            </a>
-            <a type="button" class="footer-btn-2" href="" >
-                Back
-            </a> -->
-            
-        <!-- </div> -->
-        <div class="tabs footer-tabs tabs-icon-top bg-blue">
-          <a class="tab-item" href="#/app/destinations">
-            <i class="icon ion-ios-location"></i>
-            Top Destinations
-          </a>
-          <a class="tab-item" href="#/app/featured-acommodation">
-            <i class="icon ion-heart"></i>
-            Featured Acommodation
-          </a>
-          <!-- <a class="tab-item" href="#/app/specials">
-            <i class="icon ion-star"></i>
-            Specials
-          </a> -->          
-          <a class="tab-item" href="#/app/near-me">
-            <i class="icon ion-navigate"></i>
-            What's Near Me
-          </a>
-        </div>
-    </ion-footer-bar>
+    </a>    
 
   </ion-side-menu-content>
+
+  <ion-footer-bar align-title="left" class="footer-bar" ng-show="$root.showTabs && $root.orientation">
+    <!-- <div class="footer-btn-wrap"> -->
+        <!-- <a type="button" class="footer-btn-1" href="" >
+            Back
+        </a>
+        <a type="button" class="footer-btn-2" href="" >
+            Back
+        </a> -->
+        
+    <!-- </div> -->
+    <div class="tabs footer-tabs tabs-icon-top bg-blue">
+      <a id="tab-topdes" class="tab-item" href="#/app/destinations">
+        <i class="icon ion-ios-location"></i>
+        Top Destinations
+      </a>
+      <a id="tab-featured" class="tab-item" href="#/app/featured-acommodation">
+        <i class="icon ion-heart"></i>
+        Featured Acommodation
+      </a>          
+      <a id="tab-nearme" class="tab-item" href="#/app/near-me">
+        <i class="icon ion-navigate"></i>
+        What's Near Me
+      </a>
+    </div>
+  </ion-footer-bar>
 
   <ion-side-menu side="left" class="bg-yellow">
     <!-- <ion-header-bar class="bar-stable">

@@ -2,11 +2,10 @@ angular.module('destinations.controller', [])
 
 .controller('DestinationsCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
-  $scope.$on('$ionicView.enter', function() {
+  $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
   });
 
   // Create province array

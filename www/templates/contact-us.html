@@ -22,6 +22,9 @@
           <input type="email" name="email" placeholder="Email *" ng-model="email" required>
           <div class="error-text" ng-messages="contactUsForm.email.$error" role="alert" ng-show="errors">
             <div ng-message="required">
+              <p><i class="icon ion-android-alert"></i> Please enter your email address</p>
+            </div>
+            <div ng-message="email">
               <p><i class="icon ion-android-alert"></i> Please enter a valid email address</p>
             </div>
             <!-- <div ng-message="minlength, maxlength">
@@ -58,7 +61,8 @@
             Send
           </a>
         </div>
-        <div class="col">
+        <div class="col enquire-loader">
+          <ion-spinner icon="crescent" ng-if="showSending"></ion-spinner>
         </div>
       </div>
     </form>

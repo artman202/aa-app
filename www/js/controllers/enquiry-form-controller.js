@@ -16,7 +16,7 @@ angular.module('enquiry.form.controller', [])
       var options = {
         date: new Date(),
         mode: 'date', // or 'time'
-        minDate: new Date(),
+        minDate: new Date() - 1000,
         maxDate: new Date() + 10000,
         allowOldDates: false,
         allowFutureDates: true,
@@ -41,7 +41,7 @@ angular.module('enquiry.form.controller', [])
       var options = {
         date: new Date(),
         mode: 'date', // or 'time'
-        minDate: new Date(),
+        minDate: new Date() - 1000,
         maxDate: new Date() + 10000,
         allowOldDates: false,
         allowFutureDates: true,
@@ -63,6 +63,8 @@ angular.module('enquiry.form.controller', [])
 
     $scope.submitEnquire = function(name, email, mobile, checkIn, checkOut) {
 
+      console.log(checkIn);
+
       if(typeof name === 'undefined' || typeof email === 'undefined' || typeof checkIn === 'undefined' || typeof checkOut === 'undefined') {
 
         $scope.errors = true;
@@ -75,6 +77,8 @@ angular.module('enquiry.form.controller', [])
         );
 
       } else {
+
+        $scope.showSending = true;
         
         var enquiryFormObj = {
           "mobile" : mobile,
@@ -95,6 +99,7 @@ angular.module('enquiry.form.controller', [])
         }).then(function successCallback(response) {
 
           function enquireSuccess() {
+            $scope.showSending = false;
             $ionicHistory.goBack();
           }
 

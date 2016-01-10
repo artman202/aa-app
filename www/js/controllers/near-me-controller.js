@@ -1,21 +1,20 @@
 angular.module('near.me.controller', [])
 
 .controller('NearMeCtrl', ['$scope', '$rootScope', '$state', '$http', '$interval', '$ionicLoading', '$timeout', '$window', '$ionicHistory', '$ionicModal', '$ionicScrollDelegate', '$localstorage', function($scope, $rootScope, $state, $http, $interval, $ionicLoading, $timeout, $window, $ionicHistory, $ionicModal, $ionicScrollDelegate, $localstorage) {
-  
-  $scope.$on('$ionicView.beforeEnter', function() {
-  });
 
   $scope.$on('$ionicView.enter', function() {
-
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
-    
+    $rootScope.enquireBtn = false;    
+  });
+
+  $scope.$on('$ionicView.leave', function() {
+    angular.element(document.getElementById("tab-nearme")).removeClass("tab-active");
   });
 
   $scope.showSpiralNear = true;     
 
-  $timeout(function(){
+  $timeout(function(){    
 
     $scope.showMapBtn = false;
     var finalResultArray;

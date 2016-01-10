@@ -202,8 +202,9 @@ input[disabled] {background-color: white !important}
 .accom-content {padding: 10px 15px;}
 .accom-title-underline {border-bottom: 1px rgba(17, 58, 132, 0.2) solid}
 .accom-ratings-row img {width: 80px}
-.accom-ratings-row-price {color: #FFC20E; text-align: right}
+.accom-ratings-row-price {color: #FFC20E; /*text-align: right*/}
 .accom-aa-ratings-row {margin-top: 0px !important; padding-left: 5px !important}
+.accom-aa-ratings-text {color: #666 !important}
 .accom-distance {
   position: absolute;
   z-index: 99;
@@ -325,12 +326,13 @@ input[disabled] {background-color: white !important}
  }
 
 .map-list-item-wrap {position: absolute; z-index: 99; width: 100%; margin-top: 60px; top: 0;}
+.map-list-item-row {height: 100px !important}
 .map-wrap {position: relative; height: 100%; width: 100%;}
 .map-list-item {text-decoration: none !important; display: inline-block; width: 100%; padding: 0; height: auto !important; border: none !important; border-radius: 5px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); background-color: white;}
 .map-list-item .row {padding: 0;}
 .map-list-item .accom-img-bg {border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
 .map-list-item .accom-content {background-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
-.map-list-item .accom-content h3 {width: 90%; max-height: 41px; overflow: hidden;}
+.map-list-item .accom-content h3 {width: 90%; max-height: 30px; overflow: hidden; }
 #marker-accom-img {
   display: -webkit-box;
   display: -moz-box;
@@ -362,7 +364,7 @@ input[disabled] {background-color: white !important}
 .single-accom-row-wrap .row {padding: 0;}
 .single-accom-rate {height: 50px; justify-content: center;}
 .single-accom-rate img {width: 150px;}
-.single-accom-tabs {margin-top: 10px !important; width: 100%; }
+.single-accom-tabs {width: 100%; }
 .single-accom-tabs .tabs {position: relative; justify-content: left !important; border: none;}
 .single-accom-tabs .tabs .tab-item {min-width: 125px; margin-top: 0; color: #FFC20E; border: 0 solid #FFC20E; border-top-width: 2px;}
 .single-accom-tabs .tabs .active {color: #113A84 !important; border-color: #113A84 !important; margin-top: 0 !important;}
@@ -380,6 +382,14 @@ input[disabled] {background-color: white !important}
 .single-accom-slider .swiper-pagination .swiper-pagination-bullet {background-color: white !important}
 
 .enquire-subm-btn {border: none;}
+.enquire-loader {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
 .enquire-subm-btn.activated {background-color: #FFC20E !important;}
 .enquire-subm-btn:hover {color: white}
 .date-link {position: absolute; width: 100%; height: 100%; z-index: 99}
@@ -433,10 +443,12 @@ input[disabled] {background-color: white !important}
 .footer-btn-2 {display: inline-block; width: 50px; height: 50px; background-color: #FFC20E; color: white !important; border: 5px white solid; border-radius: 10px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); pointer-events: visible;}
 .footer-bar {padding: 0; height: 60px !important; background-color: green !important; }
 .footer-bar .tabs {padding: 0; height: 60px; color: white !important;}
-.footer-bar .tab-item {padding: 7.5px 0; opacity: 1}
+.tabs-striped .tabs {padding-top: 1px !important}
+.footer-bar .tab-item {padding: 7.5px 10px; opacity: 1}
 .footer-bar .tab-item.activated {background-color: #0F316F;}
 .bottom-space {height: 130px;}
 .bottom-space-single-accom {height: 200px;}
+.tab-active {background-color: #0F316F;}
 
 .error-text p {color: red}
 

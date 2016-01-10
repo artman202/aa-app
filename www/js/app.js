@@ -6,9 +6,25 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.view.controller', 'home.controller', 'contact.us.controller', 'about.us.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'featured-acommodation.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory, $ionicSideMenuDelegate) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory, $ionicSideMenuDelegate, $window) {
 
   $ionicPlatform.ready(function() {
+
+    // detect wether to show tabs
+    if($window.innerHeight > $window.innerWidth){
+      $rootScope.orientation = true
+    } else {
+      $rootScope.orientation = false
+    }
+
+    window.addEventListener("orientationchange", function() {
+      // Announce the new orientation number
+      if (window.orientation == 0) {
+        $rootScope.orientation = true
+      } else {
+        $rootScope.orientation = false
+      }
+    }, false);
 
     // disable content drag opens menu on ios
     if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {

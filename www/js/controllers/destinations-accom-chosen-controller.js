@@ -1,6 +1,6 @@
 angular.module('destinations.accom.chosen.controller', [])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', '$window', '$ionicScrollDelegate', function($scope, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading, $window, $ionicScrollDelegate) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', '$window', '$ionicScrollDelegate', '$cordovaInAppBrowser', function($scope, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading, $window, $ionicScrollDelegate, $cordovaInAppBrowser) {
 
   var enquireBtn = angular.element(document.getElementById('enquire-btn'));
 
@@ -16,7 +16,7 @@ angular.module('destinations.accom.chosen.controller', [])
     
   }); 
 
-  $scope.$on('$ionicView.afterLeave', function() {    
+  $scope.$on('$ionicView.afterLeave', function() {
     enquireBtn.addClass("ng-hide")
   });
 
@@ -29,11 +29,39 @@ angular.module('destinations.accom.chosen.controller', [])
     $http({
       method: 'GET',
       url: 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id='+$stateParams.accomId
-    }).then(function successCallback(response) {  
+    }).then(function successCallback(response) {
+
+      $scope.openMaps = function(lat, long) {
+        
+        var options = {
+          location: 'yes',
+          clearcache: 'no',
+          toolbar: 'no'
+        };
+
+        $cordovaInAppBrowser.open('http://maps.google.com/?q='+lat+','+long+'', '_blank', options)
+          .then(function(event) {
+            // success
+          })
+          .catch(function(event) {
+            // error
+          });   
+      }
 
       $ionicLoading.hide()        
 
       var data = response.data;
+
+      // get aa rating
+      $scope.aaRating = calculateRating(data);
+
+      console.log(data);
+      // get acomm price
+      if(data[0].pl == "0.00") {
+        $scope.accommodationPrice = "Price on enquiry"
+      } else {
+        $scope.accommodationPrice = data[0].pl+" ZAR"
+      }     
 
       var scrollHeight = $window.innerHeight;
       $scope.setScrollHeight = scrollHeight+"px";        
