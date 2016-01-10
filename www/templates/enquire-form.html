@@ -19,7 +19,7 @@
 
         <label class="item item-input item-floating-label">
           <span class="input-label blue">Email *</span>
-          <input type="text" name="email" placeholder="Email *" ng-model="email" required>
+          <input type="email" name="email" placeholder="Email *" ng-model="email" required>
           <div class="error-text" ng-messages="enquiryForm.email.$error" role="alert" ng-show="errors">
             <div ng-message="required">
               <p><i class="icon ion-android-alert"></i> Please enter your email address</p>
@@ -32,7 +32,7 @@
 
         <label class="item item-input item-floating-label">
           <span class="input-label blue">Mobile</span>
-          <input type="text" placeholder="Mobile" ng-model="mobile">
+          <input type="number" placeholder="Mobile" ng-model="mobile">
         </label>
 
         <div style="position: relative">
