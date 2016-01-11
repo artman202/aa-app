@@ -1,7 +1,7 @@
-<ion-view view-title="Near Me">
+<ion-view view-title="What's Near Me">
 
 	<div class="filter-wrapper bg-yellow white" ng-click="openModal()" ng-hide="$root.showMap" ng-if="positionAvailable && showMapBtn">
-  		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><span class="align-right">Filter By: {{filterBy}}</span>
+  		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><div class="align-right filter-by-text">Filter By: {{filterBy}}</div>
   		<div class="clear"></div>
   	</div>
 
@@ -12,7 +12,9 @@
       <i class="icon ion-map"></i>
     </a>
 
-  <ion-content  class="filter-container" id="nearme-container" ng-hide="$root.showMap">  	
+  <ion-content  class="filter-container" id="nearme-container" ng-hide="$root.showMap"> 
+
+  		<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher> 	
 
 	<!-- <ion-scroll ng-hide="$root.showMap" delegate-handle="scroll" class="acommodation-scroll"> -->
 
@@ -46,7 +48,7 @@
 									<div class="accom-distance bg-yellow white" id="{{acommodation.id}}">
 										<i class="icon ion-location"></i>&nbsp;{{acommodation.distance}} km
 									</div>
-									<img ng-src="{{acommodation.tb}}" alt="">
+									<img ng-style="{height: $root.imgHeight, width: $root.imgWidth}" ng-src="{{acommodation.tb}}" alt="">
 								</div>
 								<div class="col col-75 accom-content">
 									<h3 class="page-blue-heading">

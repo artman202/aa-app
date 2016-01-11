@@ -1,9 +1,7 @@
-<ion-view view-title="Accommodation" cache-view="false">
+<ion-view view-title="Acommodation" cache-view="false">
   <ion-content class="single-accom-row-wrap" scroll="false">
 
-  	<ion-scroll style="position:relative" delegate-handle="scroll-accom-chosen" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">
-
-	  	
+  	<ion-scroll style="position:relative" delegate-handle="scroll-accom-chosen" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">  	
 
 	  	<ion-slides options="{autoplay: 3000, autoplayDisableOnInteraction: false}" slider="slider" class="single-accom-slider" id="slider">
 			<ion-slide-page ng-repeat="item in accomGallery">
@@ -29,7 +27,7 @@
 			    <div class="tabs-striped tabs-color-assertive single-accom-tabs">			    	
 				    <div class="tabs">
 				      <a type="button" ng-click="changeContent('accommodation', 'tab1')" class="tab-item active" id="tab1">
-				        Accommodation
+				        Acommodation
 				      </a>
 				      <!-- <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2">
 				        Reviews

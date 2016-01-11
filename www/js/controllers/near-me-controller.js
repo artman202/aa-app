@@ -14,7 +14,11 @@ angular.module('near.me.controller', [])
 
   $scope.showSpiralNear = true;     
 
-  $timeout(function(){    
+  $timeout(function(){
+
+    $scope.doRefresh = function() {
+      loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http)      
+    }   
 
     $scope.showMapBtn = false;
     var finalResultArray;

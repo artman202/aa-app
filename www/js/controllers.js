@@ -9,7 +9,6 @@ angular.module('starter.controllers', [])
   $rootScope.$on('$ionicView.beforeEnter', function() {
     angular.element(document.getElementById("tab-topdes")).addClass("tab-active");
     var currentView = $ionicHistory.currentView().stateName;
-    console.log($ionicHistory.currentView().stateName)
     if(currentView == "app.destinations") {
       angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
       angular.element(document.getElementById("tab-topdes")).addClass("tab-active");
@@ -39,6 +38,8 @@ function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interv
         method: 'GET',
         url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
       }).then(function successCallback(response) {
+
+        $scope.$broadcast('scroll.refreshComplete');
 
         $scope.showSpiralNear = false;
         $scope.resultsLoaded = true;
@@ -248,7 +249,12 @@ function mapView(data, $rootScope, mapType) {
         break;
     }
 
-    console.log(ratingArray);
+    var distance;
+    if(isNaN(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon)))) {
+      distance = ""
+    } else {
+      distance = "<div class='accom-distance bg-yellow white' ng-if='$root.positionAvailable'><i class='icon ion-location'></i>&nbsp;"+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km</div>"
+    }
 
     markerLink.html("\
       <div class='padding map-list-item-wrap' id='"+markerObj.tb+"'>\
@@ -258,10 +264,8 @@ function mapView(data, $rootScope, mapType) {
         <a type='button' id='map-list-box' class='map-list-item padding' href='#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/"+markerObj.n+"+id="+markerObj.id+"' class='accom-btn'>\
           <div class='row map-list-item-row'>\
             <div class='col accom-img-bg'>\
-              <div class='accom-distance bg-yellow white' ng-if='$root.positionAvailable'>\
-                <i class='icon ion-location'></i>&nbsp;"+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km\
-              </div>\
-              <img src='"+markerObj.tb+"'>\
+              "+distance+"\
+              <img class='img-height center-image' src='"+markerObj.tb+"'>\
             </div>\
             <div class='col col-75 accom-content'>\
               <h3 class='page-blue-heading'>\
@@ -344,7 +348,7 @@ function calculateRating(data) {
 
 function imgError(image) {
   image.onerror = "";
-  image.src = "img/ionic.png";
+  image.src = "img/no-image-available.png";
   return true;
 }
 
@@ -707,7 +711,7 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '5';
-      $scope.filterBy = "Distance";
+      $scope.filterBy = "AA Highly Recommended/Superior";
       // reload distances & ratings according to filter      
       reloadDistance($scope, $scope.filteredData, $rootScope);
 

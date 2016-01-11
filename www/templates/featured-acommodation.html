@@ -1,7 +1,7 @@
 <ion-view view-title="Featured Acommodation">
 
 	<div class="filter-wrapper bg-yellow white" ng-click="openModal()">
-  		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><span class="align-right">Filter By: {{filterBy}}</span>
+  		<div class="filter-btn"><i class="icon ion-ios-more"></i></div><div class="align-right filter-by-text">Filter By: {{filterBy}}</div>
   		<div class="clear"></div>
   	</div>
 
@@ -32,7 +32,7 @@
 			                  	<div class="image-loader">
 			                    	<ion-spinner icon="crescent">
 			                  	</ion-spinner></div> 
-								<img ng-src="{{acommodation.tb}}" class="center-image" alt="" imageonload>
+								<img ng-style="{height: $root.imgHeight, width: $root.imgWidth}" ng-src="{{acommodation.tb}}" class="center-image" alt="" imageonload>
 							</div>
 						</div>
 						<div class="col col-75 accom-content">

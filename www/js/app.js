@@ -12,16 +12,37 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
+      $rootScope.homeImgHeight = "100%";
+      $rootScope.homeImgWidth = "auto";
+      $rootScope.imgHeight = "100%";
+      $rootScope.imgWidth = "auto";
       $rootScope.orientation = true
     } else {
+      $rootScope.homeImgHeight = "auto";
+      $rootScope.homeImgWidth = "130%";
+      $rootScope.imgHeight = "auto";
+      $rootScope.imgWidth = "130%";
       $rootScope.orientation = false
     }
 
     window.addEventListener("orientationchange", function() {
       // Announce the new orientation number
       if (window.orientation == 0) {
+        if($rootScope.positionAvailable) {
+          $rootScope.homeImgHeight = "100%";
+          $rootScope.homeImgWidth = "auto";
+        } else {
+          $rootScope.homeImgHeight = "auto";
+          $rootScope.homeImgWidth = "130%";
+        }
+        $rootScope.imgHeight = "100%";
+        $rootScope.imgWidth = "auto";
         $rootScope.orientation = true
       } else {
+        $rootScope.homeImgHeight = "auto";
+        $rootScope.homeImgWidth = "130%";
+        $rootScope.imgHeight = "auto";
+        $rootScope.imgWidth = "130%";
         $rootScope.orientation = false
       }
     }, false);
@@ -110,6 +131,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
             }, function(err) {
 
               $rootScope.positionAvailable = false;
+              $rootScope.homeImgHeight = "auto";
+              $rootScope.homeImgWidth = "130%";
 
               navigator.notification.alert(
                 'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
@@ -149,6 +172,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
           } else {
 
             $rootScope.positionAvailable = false;
+            $rootScope.homeImgHeight = "auto";
+            $rootScope.homeImgWidth = "130%";
 
             navigator.notification.alert(
               'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
@@ -339,17 +364,17 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.directive('imageonload', function() {
+.directive('imageonload', function($timeout) {
   return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-          element.bind('load', function() {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.bind('load', function() {
 
-            var children = element.parent();
-            children.find("div").css({"display":"none"});
-            
-          });
-      }
+        var children = element.parent();
+        children.find("div").css({"display":"none"});
+        
+      });
+    }
   };
 })
 

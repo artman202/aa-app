@@ -45,7 +45,7 @@ angular.module('home.controller', [])
     }
 
     $scope.cityArrayImg = cityArrayImg;    
-    $scope.topDestinationArray = data
+    $scope.topDestinationArray = data;    
 
   }, function errorCallback(response) {
 
