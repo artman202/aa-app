@@ -36,7 +36,7 @@ angular.module('destinations.accom.chosen.controller', [])
         var options = {
           location: 'yes',
           clearcache: 'no',
-          toolbar: 'no'
+          toolbar: 'yes'
         };
 
         $cordovaInAppBrowser.open('http://maps.google.com/?q='+lat+','+long+'', '_blank', options)

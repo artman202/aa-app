@@ -332,7 +332,7 @@ input[disabled] {background-color: white !important}
 .map-list-item .row {padding: 0;}
 .map-list-item .accom-img-bg {border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
 .map-list-item .accom-content {background-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
-.map-list-item .accom-content h3 {width: 90%; max-height: 30px; overflow: hidden; }
+.map-list-item .accom-content h3 {width: 90%; height: 20px; overflow: hidden; font-size: 1.2em !important}
 #marker-accom-img {
   display: -webkit-box;
   display: -moz-box;
@@ -354,7 +354,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute; margin-top: 10px; z-index: 99; right: 20px; line-height: 10px; width: 20px; height: 20px; background-color: #113A84; color: white; border-radius: 5px;
+  position: absolute; z-index: 99; right: 10px; padding: 16px !important; line-height: 10px; height: 100%; width: 20px; height: 41px; background-color: #113A84; color: white; border-top-right-radius: 5px;
 }
 .map-item-close-btn.activated {background-color: #FFC20E;}
 
@@ -466,4 +466,5 @@ input[disabled] {background-color: white !important}
 
 @media only screen and (max-width: 321px) {
   .province-btn {height: 125px;}
+  .accom-distance {font-size: 0.8em;}
 }
