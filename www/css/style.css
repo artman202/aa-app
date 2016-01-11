@@ -433,7 +433,7 @@ input[disabled] {background-color: white !important}
   align-items: center;
 }
 .filter-checkbox-icon {position: absolute; font-size: 2em; right: 10px; top: 12px;}
-.item-select {height: 60px;}
+.item-select {height: 4em;}
 .filter-select {padding: 0 0 0 auto !important; left: 0; direction: ltr !important; height: 100%}
 .filter-close-btn {background-color: #113A84; color: white; border-radius: 5px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);}
 .filter-close-btn.activated {background-color: #FFC20E;} 
