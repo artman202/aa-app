@@ -21,9 +21,6 @@
 				</div>
 			</label>
 			<label class="item item-select">
-				<div class="input-label">
-			        <p class="blue">AAQA Rating</p>
-			    </div>
 			    <select class="item-content filter-select" ng-model="$root.mySelect" ng-change="filterData('aaqa', mySelect)">
 			    	<option value="0"><p class="blue">No Rating Selected</p></option>
 					<option value="1"><p class="blue">AA Recommended</p></option>
@@ -37,7 +34,7 @@
 			    </select>
 			</label>
 		</ion-list>
-		<div class="row">
+		<div class="row" class="hide-on-keyboard-open">
 	        <div class="col">
 	        </div>
 	        <div class="col">
