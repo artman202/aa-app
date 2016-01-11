@@ -354,7 +354,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute; z-index: 99; right: 10px; padding: 16px !important; line-height: 10px; height: 100%; width: 20px; height: 41px; background-color: #113A84; color: white; border-top-right-radius: 5px;
+  position: absolute; z-index: 99; right: 10px; padding: 16px !important; line-height: 10px; height: 100%; width: 41px; height: 41px; background-color: #113A84; color: white; border-top-right-radius: 5px;
 }
 .map-item-close-btn.activated {background-color: #FFC20E;}
 
