@@ -218,9 +218,16 @@ angular.module('destinations.accom.chosen.controller', [])
                 } else {
                   $cordovaFile.writeExistingFile(cordova.file.dataDirectory, "favourites.txt", ","+accommId.id)
                     .then(function (success) {
-                      console.log("ID added")
+
+                      navigator.notification.alert(
+                        'Accommodation added to favourites',  // message
+                        null,                     // callback
+                        'Alert',                // title
+                        'Done'                  // buttonName
+                      );
+
                     }, function (error) {
-                      console.log("ID add fail")
+                      console.log(error)
                     });
                 }
 
@@ -232,29 +239,20 @@ angular.module('destinations.accom.chosen.controller', [])
 
             $cordovaFile.writeFile(cordova.file.dataDirectory, "favourites.txt", accommId.id, false)
               .then(function (success) {
-                console.log(success)
+                
+                navigator.notification.alert(
+                  'Accommodation added to favourites',  // message
+                  null,                     // callback
+                  'Alert',                // title
+                  'Done'                  // buttonName
+                );
+
               }, function (error) {
                 console.log(error)
               });
                           
-          });        
-        // $cordovaFile.readAsText(cordova.file.dataDirectory, "favourites.txt")
-        //   .then(function (success) {
-        //     console.log(success);
-        //   }, function (error) {
-        //     console.log(error)
-        //   });
+          });
 
-        // if (ios) {
-        //   $cordovaFile.createDir(cordova.file.documentsDirectory, directory, replace)()
-        //     .then(function (success) {
-        //       console.log(success)
-        //        // success in kilobytes
-        //     }, function (error) {
-        //       console.log(error)
-        //         // error
-        //     });
-        // }
       }
 
     }, function errorCallback(response) {

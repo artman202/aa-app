@@ -8,35 +8,99 @@ angular.module('favourite.accommodations.controller', [])
       .then(function (success) {
         // console.log(success);
         var favAccommArray = success.split(",")
+
+        $scope.accommodations = favAccommArray;
+
         console.log(favAccommArray)
         // $scope.acommodations = favAccommArray;
       }, function (error) {
         console.log(error)
       });
 
+    $scope.deleteShow = false;
+
   });
 
   $timeout(function(){
-
+    
     $scope.deleteFavourites = function() {
-      $cordovaFile.removeFile(cordova.file.dataDirectory, "favourites.txt")
-        .then(function (success) {
-          navigator.notification.alert(
-            'File deleted.',  // message
-            null,                     // callback
-            'Alert',                // title
-            'Done'                  // buttonName
-          );
-          console.log(success);
-        }, function (error) {
-          navigator.notification.alert(
-            'File does not exist',  // message
-            null,                     // callback
-            'Alert',                // title
-            'Done'                  // buttonName
-          );
-          console.log(error);
-        });
+      if($scope.deleteShow) {
+        $scope.deleteShow = false;
+      } else {
+        $scope.deleteShow = true;
+      }  
+    }
+
+    $scope.deleteFavouriteItem = function(favItem) {
+
+      navigator.notification.confirm(
+        'Are you sure you would like to delete this favourite?',  // message
+        deleteChoice,                     // callback
+        'Alert',   
+        'Yes,Cancel'                 // buttonName
+      );
+
+      function deleteChoice(buttonIndex) {
+
+        if(buttonIndex == 1) {
+
+          $cordovaFile.readAsText(cordova.file.dataDirectory, "favourites.txt")
+            .then(function (success) {
+
+              var favAccommArray = success.split(",")
+
+              if(favAccommArray.length == 1) {
+                $cordovaFile.removeFile(cordova.file.dataDirectory, "favourites.txt")
+                  .then(function (success) {
+                    $scope.accommodations = [];
+                  }, function (error) {
+                    console.log(error)
+                  });
+              } else {
+                favAccommArray.splice(favAccommArray.indexOf(favItem), favAccommArray.indexOf(favItem));
+                var newScopeArray = favAccommArray;
+                var updatedArray = favAccommArray.join();
+                console.log(updatedArray)
+                $cordovaFile.writeFile(cordova.file.dataDirectory, "favourites.txt", updatedArray, true)
+                  .then(function (success) {
+                    
+                    $scope.accommodations = newScopeArray
+
+                  }, function (error) {
+                    console.log(error)
+                  });
+              }   
+              
+            }, function (error) {
+              console.log(error)
+            });
+
+        } else if (buttonIndex == 2) {
+
+          alert("Cancel");
+
+        }
+
+      }
+
+      // $cordovaFile.removeFile(cordova.file.dataDirectory, "favourites.txt")
+      //   .then(function (success) {
+      //     navigator.notification.alert(
+      //       'File deleted.',  // message
+      //       null,                     // callback
+      //       'Alert',                // title
+      //       'Done'                  // buttonName
+      //     );
+      //     console.log(success);
+      //   }, function (error) {
+      //     navigator.notification.alert(
+      //       'File does not exist',  // message
+      //       null,                     // callback
+      //       'Alert',                // title
+      //       'Done'                  // buttonName
+      //     );
+      //     console.log(error);
+      //   });
     }
     
   }, $rootScope.contentTimeOut);

@@ -9,21 +9,49 @@
     <i class="icon ion-trash-b"></i>
   </a>
 
-  <!-- <a type="button" class="footer-btn list-view-btn yellow-activated">
-    <i class="icon ion-ios-list-outline"></i>
-  </a>
-  <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()">
-    <i class="icon ion-map"></i>
-  </a> -->
+  <ion-content id="container" class="filter-container padding list-view">
 
-  <ion-content id="container" class="filter-container padding list-view">  
-  <!-- <ion-scroll style="position:relative" ng-hide="$root.showMap" class="padding" delegate-handle="scroll" on-scroll="scrollFunc()" style="height: 100%" ng-style="{'height': setScrollHeight}"> -->
-    <!-- <ion-scroll ng-hide="$root.showMap" class="padding acommodation-scroll" on-scroll="scrollFunc()" delegate-handle="scroll"> -->
+    <h3 class="page-blue-heading acommodation-heading">
+      {{accommodations.length}} Results
+    </h3>
 
-      <h3 class="page-blue-heading acommodation-heading">
-        {{results}} Results
-      </h3>
     <ion-list class="list-wrap" id="itemList">
+
+      <!-- <ion-item>
+
+        <div class="center">
+          <div class="favourite-delete-wrap center-content" ng-click="deleteFavouriteItem('accommodation')" ng-if="deleteShow">
+            <i class="icon ion-close-round"></i>
+          </div>
+          <ion-item class="button button-block btn-city end-text">
+            Accommodation
+          </ion-item>
+        </div>
+        
+      </ion-item> -->
+
+      <div ng-repeat="accommodation in accommodations">
+
+        <ion-item>
+
+          <div class="center">
+            <div class="favourite-delete-wrap center-content" ng-click="deleteFavouriteItem(accommodation)" ng-if="deleteShow">
+              <i class="icon ion-close-round"></i>
+            </div>
+            <ion-item class="button button-block btn-city end-text">
+              {{accommodation}}
+            </ion-item>
+          </div>
+          
+        </ion-item>     
+
+        <div class="collection-repeat-spacer"></div>
+
+      </div>    
+
+    </ion-list>
+
+    <!-- <ion-list class="list-wrap" id="itemList">
 
       <div ng-repeat="acommodation in acommodations">
 
@@ -49,9 +77,6 @@
                 </h3>
                 <div class="accom-title-underline"></div>
                 <div class="row accom-ratings-row">
-                  <!-- <div class="col col-50">
-                    <img ng-src="img/ratings/ratings-{{acommodation.r}}.svg" alt="">
-                  </div> -->
                   <div class="col accom-ratings-row-price" ng-if="acommodation.pl != 0.00">
                     <b>{{acommodation.pl}} ZAR</b>
                   </div>
@@ -72,7 +97,7 @@
 
       </div>    
 
-    </ion-list>
+    </ion-list> -->
 
     <ion-list class="list-wrap">
       <div class="center" ng-if="resultsLoaded">
@@ -83,8 +108,6 @@
     </ion-list>
 
     <div class="bottom-space-single-accom"></div>
-
-  <!-- </ion-scroll> -->
 
   </ion-content>
 </ion-view>
