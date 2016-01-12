@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.view.controller', 'home.controller', 'contact.us.controller', 'about.us.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'featured-acommodation.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
+angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.view.controller', 'home.controller', 'contact.us.controller', 'about.us.controller', 'favourite.accommodations.controller', 'destinations.controller', 'search.controller', 'destinations.province.chosen.controller', 'destinations.city.chosen.controller', 'destinations.accom.chosen.controller', 'enquiry.form.controller', 'featured-accommodation.controller', 'near.me.controller', 'angular-cache', 'ngCordova', 'ngOnload'])
 
 .run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaGeolocation, $cordovaNetwork, $interval, $ionicHistory, $ionicSideMenuDelegate, $window) {
 
@@ -258,6 +258,16 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       }
     })
 
+    .state('app.favourite-accommodations', {
+      url: '/favourite-accommodations',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/favourite-accommodations.html',
+          controller: 'FavouriteAccommodationsCtrl'
+        }
+      }
+    })
+
     .state('app.destinations', {
       url: '/destinations',
       views: {
@@ -310,12 +320,12 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       }
     })
 
-    .state('app.featured-acommodation', {
-      url: '/featured-acommodation',
+    .state('app.featured-accommodation', {
+      url: '/featured-accommodation',
       views: {
         'menuContent': {
-          templateUrl: 'templates/featured-acommodation.html',
-          controller: 'FeaturedAcommodationCtrl'
+          templateUrl: 'templates/featured-accommodation.html',
+          controller: 'FeaturedAccommodationCtrl'
         }
       }
     })

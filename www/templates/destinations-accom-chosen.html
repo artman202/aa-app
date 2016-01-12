@@ -1,4 +1,4 @@
-<ion-view view-title="Acommodation" cache-view="false">
+<ion-view view-title="Accommodation" cache-view="false">
   <ion-content class="single-accom-row-wrap" scroll="false">
 
   	<ion-scroll style="position:relative" delegate-handle="scroll-accom-chosen" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">  	
@@ -27,7 +27,7 @@
 			    <div class="tabs-striped tabs-color-assertive single-accom-tabs">			    	
 				    <div class="tabs">
 				      <a type="button" ng-click="changeContent('accommodation', 'tab1')" class="tab-item active" id="tab1">
-				        Acommodation
+				        Accommodation
 				      </a>
 				      <!-- <a type="button" ng-click="changeContent('reviews', 'tab2')" class="tab-item" id="tab2">
 				        Reviews
@@ -136,7 +136,7 @@
 			<a class="col single-accom-options-btn" ng-href="tel: {{number}}">		
 				<i class="icon ion-ios-telephone"></i>
 			</a>
-			<a class="col single-accom-options-btn" href="">
+			<a class="col single-accom-options-btn" ng-click="saveFavAccomm()">
 				<i class="icon ion-star"></i>
 			</a>
 			<a class="col single-accom-options-btn" type="button" ng-click="share(accommodation.n, accommodation.t, accommodation.id)">		

@@ -1,6 +1,6 @@
 angular.module('destinations.accom.chosen.controller', [])
 
-.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', '$window', '$ionicScrollDelegate', '$cordovaInAppBrowser', function($scope, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading, $window, $ionicScrollDelegate, $cordovaInAppBrowser) {
+.controller('DestinationsAccomChosenCtrl', ['$scope', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicSlideBoxDelegate', '$timeout', '$cordovaSocialSharing', '$state', '$ionicHistory', '$ionicLoading', '$window', '$ionicScrollDelegate', '$cordovaInAppBrowser', '$cordovaFile', function($scope, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicSlideBoxDelegate, $timeout, $cordovaSocialSharing, $state, $ionicHistory, $ionicLoading, $window, $ionicScrollDelegate, $cordovaInAppBrowser, $cordovaFile) {
 
   var enquireBtn = angular.element(document.getElementById('enquire-btn'));
 
@@ -29,7 +29,7 @@ angular.module('destinations.accom.chosen.controller', [])
     $http({
       method: 'GET',
       url: 'http://www.aatravel.co.za/_mobi_app/accomm_detail.php?accomm_id='+$stateParams.accomId
-    }).then(function successCallback(response) {
+    }).then(function successCallback(response) {      
 
       $scope.openMaps = function(lat, long) {
         
@@ -55,7 +55,6 @@ angular.module('destinations.accom.chosen.controller', [])
       // get aa rating
       $scope.aaRating = calculateRating(data);
 
-      console.log(data);
       // get acomm price
       if(data[0].pl == "0.00") {
         $scope.accommodationPrice = "Price on enquiry"
@@ -197,6 +196,66 @@ angular.module('destinations.accom.chosen.controller', [])
         $scope.element = document.getElementById('single_accom_map_canvas');
 
       }, 500);
+
+      $scope.saveFavAccomm = function() {
+        var accommId = $scope.accommodation;
+
+        $cordovaFile.checkFile(cordova.file.dataDirectory, "favourites.txt")
+          .then(function (success) {
+
+            // get file contents to check for duplicate id's
+            $cordovaFile.readAsText(cordova.file.dataDirectory, "favourites.txt")
+              .then(function (success) {
+
+                var favAccommArray = success.split(",")
+                if(favAccommArray.indexOf(accommId.id) >= 0) {
+                  navigator.notification.alert(
+                    'You already have this accommodation as a favourite.',  // message
+                    null,                     // callback
+                    'Alert',                // title
+                    'Done'                  // buttonName
+                  );
+                } else {
+                  $cordovaFile.writeExistingFile(cordova.file.dataDirectory, "favourites.txt", ","+accommId.id)
+                    .then(function (success) {
+                      console.log("ID added")
+                    }, function (error) {
+                      console.log("ID add fail")
+                    });
+                }
+
+              }, function (error) {
+                console.log(error)
+              });
+            
+          }, function (error) {
+
+            $cordovaFile.writeFile(cordova.file.dataDirectory, "favourites.txt", accommId.id, false)
+              .then(function (success) {
+                console.log(success)
+              }, function (error) {
+                console.log(error)
+              });
+                          
+          });        
+        // $cordovaFile.readAsText(cordova.file.dataDirectory, "favourites.txt")
+        //   .then(function (success) {
+        //     console.log(success);
+        //   }, function (error) {
+        //     console.log(error)
+        //   });
+
+        // if (ios) {
+        //   $cordovaFile.createDir(cordova.file.documentsDirectory, directory, replace)()
+        //     .then(function (success) {
+        //       console.log(success)
+        //        // success in kilobytes
+        //     }, function (error) {
+        //       console.log(error)
+        //         // error
+        //     });
+        // }
+      }
 
     }, function errorCallback(response) {
 

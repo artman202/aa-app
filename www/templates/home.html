@@ -1,4 +1,4 @@
-<ion-view view-title="AA Acommodation">
+<ion-view view-title="AA Accommodation">
   <ion-content has-bouncing="true"> 
 
     <div class="homepage-slider">
@@ -13,7 +13,7 @@
   		<div class="col home-sub-heading">
   			<h3 class="page-blue-heading">
   				<b>
-  					Filter Accomodations By:
+  					Filter Accommodations By:
   				</b>
   			</h3>
   		</div>
@@ -33,7 +33,7 @@
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
                 <div class="home-col-content-block">
                   <div class="home-col-content-block-distance-wrap">
-                    {{topDestination.city}}<!-- <i class="icon ion-location"></i>&nbsp;&nbsp;{{acommodationsDistances[$index]}}&nbsp;km -->
+                    {{topDestination.city}}<!-- <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}&nbsp;km -->
                   </div>
                   <div class="image-load-wrap">
                     <div class="image-loader">
@@ -49,9 +49,9 @@
   		</div>
   		<div class="col home-col-2">
         <div class="home-item-col">
-    			<a class="tab-item icon-font home-icon-link" href="#/app/featured-acommodation" >
+    			<a class="tab-item icon-font home-icon-link" href="#/app/featured-accommodation" >
     				<i class="icon ion-heart home-icon"></i>
-    				Featured<br> Acommodation
+    				Featured<br> Accommodation
     			</a>
           <div class="center" ng-if="showSpiralReccom == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
@@ -91,17 +91,17 @@
             <ion-spinner icon="crescent"></ion-spinner>      
           </div>
           <div class="homepage-ion-scroll-wrap">
-            <div ng-repeat="acommodation in nearMeAcommodations">            
-              <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{acommodation.n}}+id={{acommodation.id}}">
+            <div ng-repeat="accommodation in nearMeAcommodations">            
+              <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
                 <div class="home-col-content-block">
                   <div class="home-col-content-block-distance-wrap">
-                    <i class="icon ion-location"></i>&nbsp;&nbsp;{{acommodation.distance}}&nbsp;km
+                    <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodation.distance}}&nbsp;km
                   </div> 
                   <div class="image-load-wrap">
                     <div class="image-loader">
                       <ion-spinner icon="crescent">
                     </ion-spinner></div>             
-                    <img ng-style="{height: $root.homeImgHeight, width: $root.homeImgWidth}" ng-src="{{acommodation.tb}}" alt="" imageonload>
+                    <img ng-style="{height: $root.homeImgHeight, width: $root.homeImgWidth}" ng-src="{{accommodation.tb}}" alt="" imageonload>
                   </div>
                 </div>
               </a>

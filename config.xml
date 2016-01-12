@@ -11,6 +11,7 @@
   <access origin="*"/>
   <access launch-external="yes" origin="tel:*"/>
   <access launch-external="yes" origin="mailto:*"/>
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
   <preference name="StatusBarOverlaysWebView" value="false"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
