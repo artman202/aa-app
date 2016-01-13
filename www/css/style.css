@@ -413,7 +413,7 @@ input[disabled] {background-color: white !important}
 .slider-portrait .swiper-container {height: 200px;}
 .slider-landscape {height: 250px;}
 .slider-landscape .swiper-container {height: 250px;}
-.single-accom-slider .swiper-container img {max-height: none !important; max-width: none !important; width: 110% !important}
+.single-accom-slider .swiper-container img {max-height: none !important; max-width: none !important; width: 100% !important}
 .single-accom-slider .swiper-pagination .swiper-pagination-bullet {background-color: white !important}
 
 .enquire-subm-btn {border: none;}
