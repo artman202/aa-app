@@ -4,8 +4,6 @@ angular.module('destinations.city.chosen.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
 
-    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
-
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -16,73 +14,75 @@ angular.module('destinations.city.chosen.controller', [])
 
   $timeout(function(){
 
-      $http({
-        method: 'GET',
-        url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id='+$stateParams.cityId
-      }).then(function successCallback(response) {  
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
 
-        $ionicLoading.hide();
-        $scope.resultsLoaded = true;        
+    $http({
+      method: 'GET',
+      url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?city_id='+$stateParams.cityId
+    }).then(function successCallback(response) {  
 
-        var data = response.data;
+      $ionicLoading.hide();
+      $scope.resultsLoaded = true;        
 
-        $scope.results = data.length;
+      var data = response.data;
 
-        $scope.acommodations = data;
+      $scope.results = data.length;
 
-        var finalResultArray = $scope.acommodations;
+      $scope.acommodations = data;
 
-        var distanceArray = [];
-        for ( var x = 0; x < data.length; x++) {
-          distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+      var finalResultArray = $scope.acommodations;
+
+      var distanceArray = [];
+      for ( var x = 0; x < data.length; x++) {
+        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+      }
+      $scope.acommodationsDistances = distanceArray;
+
+      $scope.aaRating = calculateRating(data);
+
+      $scope.select = "alphabetical"
+      $scope.filterBy = "Alphabetically";
+      $scope.openModal = function() {
+        showModal($ionicModal, $scope, $rootScope, $scope.select);        
+      };
+      $scope.filterData = function(filterType, mySelect) {
+        filter(filterType, mySelect, $scope, $rootScope);
+      }
+      $scope.closeModal = function() {
+        runFilter($scope, finalResultArray, $rootScope, $ionicScrollDelegate)
+        $scope.acommodations = $scope.filteredData;
+        $scope.results = $scope.filteredData.length;
+        if($scope.results == 0) {
+          angular.element(document.getElementsByClassName('end-text')).html("No results found")
+        } else {
+          angular.element(document.getElementsByClassName('end-text')).html("No more results")
         }
-        $scope.acommodationsDistances = distanceArray;
+        $scope.acommodationsDistances = $scope.distanceArray;
+        $scope.aaRating = $scope.aaRatingArray;
+        $scope.modal.hide();
+      };
 
-        $scope.aaRating = calculateRating(data);
+      $scope.controllerMapView = function() {
+        
+        $localstorage.set("closeTab", "true")
+        $localstorage.set("type", "acomm")
+        var cityName = $stateParams.cityName;            
+        $localstorage.set("acommName", cityName);
+        $localstorage.setObject("acommData", data);
+        $state.go('app.map-view');
 
-        $scope.select = "alphabetical"
-        $scope.filterBy = "Alphabetically";
-        $scope.openModal = function() {
-          showModal($ionicModal, $scope, $rootScope, $scope.select);        
-        };
-        $scope.filterData = function(filterType, mySelect) {
-          filter(filterType, mySelect, $scope, $rootScope);
-        }
-        $scope.closeModal = function() {
-          runFilter($scope, finalResultArray, $rootScope, $ionicScrollDelegate)
-          $scope.acommodations = $scope.filteredData;
-          $scope.results = $scope.filteredData.length;
-          if($scope.results == 0) {
-            angular.element(document.getElementsByClassName('end-text')).html("No results found")
-          } else {
-            angular.element(document.getElementsByClassName('end-text')).html("No more results")
-          }
-          $scope.acommodationsDistances = $scope.distanceArray;
-          $scope.aaRating = $scope.aaRatingArray;
-          $scope.modal.hide();
-        };
+      }
 
-        $scope.controllerMapView = function() {
-          
-          $localstorage.set("closeTab", "true")
-          $localstorage.set("type", "acomm")
-          var cityName = $stateParams.cityName;            
-          $localstorage.set("acommName", cityName);
-          $localstorage.setObject("acommData", data);
-          $state.go('app.map-view');
+    }, function errorCallback(response) {
 
-        }
+      navigator.notification.alert(
+        'We regret that there is a problem retrieving the cities.',  // message
+        null,                     // callback
+        'Alert',                // title
+        'Done'                  // buttonName
+      );
 
-      }, function errorCallback(response) {
-
-        navigator.notification.alert(
-          'We regret that there is a problem retrieving the cities.',  // message
-          null,                     // callback
-          'Alert',                // title
-          'Done'                  // buttonName
-        );
-
-      });
+    });
 
     // }
 

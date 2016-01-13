@@ -4,8 +4,6 @@ angular.module('destinations.province.chosen.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
 
-    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
-
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -17,6 +15,8 @@ angular.module('destinations.province.chosen.controller', [])
   $scope.state = $stateParams;
 
   $timeout(function(){
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
 
     $http({
       method: 'GET',

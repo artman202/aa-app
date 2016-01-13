@@ -4,15 +4,16 @@ angular.module('search.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
 
-    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
-
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
+    
   });
 
   $scope.search = true;
   $timeout(function(){
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
 
     $http({
       method: 'GET',

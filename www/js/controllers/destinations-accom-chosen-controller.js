@@ -4,9 +4,7 @@ angular.module('destinations.accom.chosen.controller', [])
 
   var enquireBtn = angular.element(document.getElementById('enquire-btn'));
 
-  $scope.$on('$ionicView.enter', function() {
-
-    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+  $scope.$on('$ionicView.enter', function() {    
 
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
@@ -25,6 +23,8 @@ angular.module('destinations.accom.chosen.controller', [])
   $scope.state = $stateParams; 
 
   $timeout(function(){
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
 
     $http({
       method: 'GET',
