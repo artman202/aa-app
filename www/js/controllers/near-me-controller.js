@@ -59,10 +59,10 @@ angular.module('near.me.controller', [])
       runFilter($scope, finalResultArray, $rootScope, $ionicScrollDelegate)
       $scope.nearMeAcommodations = $scope.filteredData;
       $scope.nearMeAcommodations.length = $scope.filteredData.length;
-      if($scope.results == 0) {
-        angular.element(document.getElementsByClassName('end-text')).html("No results found")
+      if($scope.nearMeAcommodations == 0) {
+        $scope.noRatings = true;
       } else {
-        angular.element(document.getElementsByClassName('end-text')).html("No more results")
+        $scope.noRatings = false;
       }
       // $scope.accommodation.distance = $scope.distanceArray;
       $scope.aaRating = $scope.aaRatingArray;

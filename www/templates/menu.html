@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="true">
   <ion-side-menu-content>
-    <ion-nav-bar class="nav-bar bg-blue">
+    <ion-nav-bar class="nav-bar bg-blue" ng-hide="$root.hideNavbar">
       <!-- <ion-nav-back-button>
       </ion-nav-back-button> -->
       <ion-nav-buttons side="left">
@@ -26,15 +26,6 @@
     </a>    
 
     <ion-footer-bar align-title="left" class="footer-bar" ng-show="$root.showTabs && $root.orientation">
-      <!-- <div class="footer-btn-wrap"> -->
-          <!-- <a type="button" class="footer-btn-1" href="" >
-              Back
-          </a>
-          <a type="button" class="footer-btn-2" href="" >
-              Back
-          </a> -->
-          
-      <!-- </div> -->
       <div class="tabs footer-tabs tabs-icon-top bg-blue">
         <a id="tab-topdes" class="tab-item" href="#/app/destinations">
           <i class="icon ion-ios-location"></i>
@@ -54,10 +45,7 @@
   </ion-side-menu-content>  
 
   <ion-side-menu side="left" class="bg-yellow">
-    <!-- <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
-    </ion-header-bar> -->
-    <ion-content>
+    <ion-content ng-class="$root.menuBg">
       <ion-list class="menu-list">
         <ion-item menu-close class="nav-menu-item" href="#/app/home">
           Home
@@ -83,7 +71,7 @@
         <div class="menu-border-wrap">
           <div class="menu-item-unerline"></div>
         </div>
-        <ion-item menu-close class="nav-menu-item menu-social-wrapper" class="nav-menu-item">
+        <ion-item menu-close ng-class="$root.socialIconsWrap" class="nav-menu-item">
           <div class="row menu-social-row">
             <div class="col col-40 center-text">
               Follow us:

@@ -77,13 +77,21 @@
 
 				</div>
 
-				<div class="center" ng-if="resultsLoaded">
-					<!-- <ion-spinner icon="spiral" ng-if="!hide"></ion-spinner> -->
+				<!-- <div class="center" ng-if="resultsLoaded">
+					
 					<ion-item class="button button-block btn-city end-text">
 						No more results
 					</ion-item>
-				</div>
+				</div> -->
 
+			</ion-list>
+
+			<ion-list class="list-wrap">
+				<div class="center" ng-if="noRatings">
+					<ion-item class="button button-block btn-city">
+						No AAQA rating results found
+					</ion-item>
+				</div>
 			</ion-list>
 
 			<div class="bottom-space-single-accom"></div>

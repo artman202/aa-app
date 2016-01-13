@@ -16,22 +16,29 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
+      // portrait
       $rootScope.homeImgHeight = "100%";
       $rootScope.homeImgWidth = "auto";
       $rootScope.imgHeight = "100%";
       $rootScope.imgWidth = "auto";
       $rootScope.orientation = true
+      $rootScope.menuBg = "menu-bg-portrait"
+      $rootScope.socialIconsWrap = "menu-social-wrapper-portrait"
     } else {
+      // landscape
       $rootScope.homeImgHeight = "auto";
       $rootScope.homeImgWidth = "130%";
       $rootScope.imgHeight = "auto";
       $rootScope.imgWidth = "130%";
       $rootScope.orientation = false
+      $rootScope.menuBg = "menu-bg-landscape"
+      $rootScope.socialIconsWrap = "menu-social-wrapper-landscape"
     }
 
     window.addEventListener("orientationchange", function() {
       // Announce the new orientation number
       if (window.orientation == 0) {
+        // portrait
         if($rootScope.positionAvailable) {
           $rootScope.homeImgHeight = "100%";
           $rootScope.homeImgWidth = "auto";
@@ -42,12 +49,17 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
         $rootScope.imgHeight = "100%";
         $rootScope.imgWidth = "auto";
         $rootScope.orientation = true
+        $rootScope.menuBg = "menu-bg-portrait"
+        $rootScope.socialIconsWrap = "menu-social-wrapper-portrait"
       } else {
+        // landscape
         $rootScope.homeImgHeight = "auto";
         $rootScope.homeImgWidth = "130%";
         $rootScope.imgHeight = "auto";
         $rootScope.imgWidth = "130%";
         $rootScope.orientation = false
+        $rootScope.menuBg = "menu-bg-landscape"
+        $rootScope.socialIconsWrap = "menu-social-wrapper-landscape"
       }
     }, false);
 

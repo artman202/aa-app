@@ -79,9 +79,9 @@ angular.module('featured-accommodation.controller', [])
           $scope.acommodations = $scope.filteredData;
           $scope.results = $scope.filteredData.length;
           if($scope.results == 0) {
-            angular.element(document.getElementsByClassName('end-text')).html("No results found")
+            $scope.noRatings = true;
           } else {
-            angular.element(document.getElementsByClassName('end-text')).html("No more results")
+            $scope.noRatings = false;
           }
           $scope.acommodationsDistances = $scope.distanceArray;
           $scope.aaRating = $scope.aaRatingArray;          
