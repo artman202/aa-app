@@ -4,8 +4,7 @@ angular.module('search.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
 
-    $rootScope.hideNavbar = true;
-
+    $rootScope.showSearchBar = true;
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -14,7 +13,7 @@ angular.module('search.controller', [])
 
   $scope.$on('$ionicView.leave', function() {
 
-    $rootScope.hideNavbar = false;
+    $rootScope.showSearchBar = false;
     
   });
 
@@ -44,14 +43,14 @@ angular.module('search.controller', [])
 
   }, $rootScope.contentTimeOut);
 
-  $scope.searchByCity = function() {
+  $rootScope.searchByCity = function() {
 
     $scope.search = false;
     $scope.noResult = false;
 
     $http({
       method: 'GET',
-      url: 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?q='+$scope.searchQuery
+      url: 'http://www.aatravel.co.za/_mobi_app/accomm_search.php?q='+$rootScope.searchQuery
     }).then(function successCallback(response) {
 
       var searchResults = response.data;
@@ -75,7 +74,7 @@ angular.module('search.controller', [])
     });    
   }
 
-  $scope.closeSearch = function() {
+  $rootScope.closeSearch = function() {
     $ionicHistory.goBack();
   }
 

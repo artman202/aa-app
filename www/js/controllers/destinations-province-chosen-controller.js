@@ -3,7 +3,6 @@ angular.module('destinations.province.chosen.controller', [])
 .controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', '$rootScope', '$ionicLoading', '$timeout', '$http', function($scope, $stateParams, $rootScope, $ionicLoading, $timeout, $http) {
 
   $scope.$on('$ionicView.enter', function() {
-
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;

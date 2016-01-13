@@ -4,8 +4,7 @@ angular.module('destinations.accom.chosen.controller', [])
 
   var enquireBtn = angular.element(document.getElementById('enquire-btn'));
 
-  $scope.$on('$ionicView.enter', function() {    
-
+  $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;

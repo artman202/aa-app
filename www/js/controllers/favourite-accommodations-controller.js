@@ -3,7 +3,6 @@ angular.module('favourite.accommodations.controller', [])
 .controller('FavouriteAccommodationsCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', '$cordovaFile', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout, $cordovaFile) {
 
   $scope.$on('$ionicView.enter', function() {
-
     $rootScope.showTabs = true;
     $rootScope.showBack = false;
     $rootScope.enquireBtn = false;

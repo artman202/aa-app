@@ -2,6 +2,8 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', ['$scope', '$localstorage', '$ionicModal', '$timeout', '$rootScope', '$ionicHistory', function($scope, $localstorage, $ionicModal, $timeout, $rootScope, $ionicHistory) {
 
+  $rootScope.showNavItem = true;
+
   $rootScope.goBack = function() {
     $ionicHistory.goBack();
   }

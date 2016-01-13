@@ -3,7 +3,6 @@ angular.module('featured-accommodation.controller', [])
 .controller('FeaturedAccommodationCtrl', ['$scope', '$rootScope', '$timeout', '$http', '$ionicLoading', '$ionicScrollDelegate', '$window', '$ionicModal', function($scope, $rootScope, $timeout, $http, $ionicLoading, $ionicScrollDelegate, $window, $ionicModal) {
   
   $scope.$on('$ionicView.enter', function() {
-
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
