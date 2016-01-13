@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
     if(currentView == "app.destinations") {
       angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
       angular.element(document.getElementById("tab-topdes")).addClass("tab-active");
-    } else if(currentView == "app.featured-acommodation") {
+    } else if(currentView == "app.featured-accommodation") {
       angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
       angular.element(document.getElementById("tab-featured")).addClass("tab-active");
     } else if(currentView == "app.near-me") {
