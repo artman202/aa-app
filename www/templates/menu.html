@@ -58,7 +58,7 @@
       <h1 class="title">Left</h1>
     </ion-header-bar> -->
     <ion-content>
-      <ion-list>
+      <ion-list class="menu-list">
         <ion-item menu-close class="nav-menu-item" href="#/app/home">
           Home
         </ion-item>
@@ -78,20 +78,24 @@
           <div class="menu-item-unerline"></div>
         </div>
         <ion-item menu-close class="nav-menu-item" href="#/app/favourite-accommodations">
-          My Favourite Accommodations
+          Favourites
         </ion-item>
         <div class="menu-border-wrap">
           <div class="menu-item-unerline"></div>
         </div>
-        <!-- <ion-item menu-close ng-click="login()">
-          Login
+        <ion-item menu-close class="nav-menu-item menu-social-wrapper" class="nav-menu-item">
+          <div class="row menu-social-row">
+            <div class="col col-40 center-text">
+              Follow us:
+            </div>
+            <a href="" class="col col-30 menu-social-col center-content white">
+              <i class="icon menu-icon ion-social-facebook"></i>
+            </a>
+            <a href="" class="col col-30 menu-social-col center-content white">
+              <i class="icon menu-icon ion-social-twitter"></i>
+            </a>
+          </div>
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search
-        </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          Playlists
-        </ion-item> -->
       </ion-list>
     </ion-content>
   </ion-side-menu>

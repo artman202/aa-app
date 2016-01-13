@@ -26,6 +26,15 @@ input[disabled] {background-color: white !important}
 .hide {display: none !important}
 .no-border {border: none !important}
 
+.center-text {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
 .center-content {
   display: -webkit-box;
   display: -moz-box;
@@ -106,6 +115,11 @@ input[disabled] {background-color: white !important}
 .nav-menu-item a.activated {background-color: #EEB203 !important;}
 .menu-border-wrap {padding: 0 30px !important; width: 100%; text-align: center;}
 .menu-item-unerline {border-bottom: 2px solid white !important;}
+.menu {background-image: url(../img/menu-bg.png); background-size: auto 101%; background-repeat: no-repeat; background-position: center;}
+.menu-social-wrapper {position: absolute; bottom: 0; width: 100%; padding: 23px 32px !important;}
+.menu-social-col,.menu-social-row {padding: 0;}
+.menu-list .list {height: 100%;}
+.menu-icon {font-size: 2em}
 
 .search-bar {padding: 0; height: 60px; position: relative; box-shadow: 0px -4px 5px 5px rgba(0, 0, 0, 0.2);}
 .search-nav-btn-right-wrap {width: 64px;}

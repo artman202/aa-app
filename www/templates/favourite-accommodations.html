@@ -1,17 +1,12 @@
 <ion-view view-title="My Favourite Accommodations">
 
-  <div class="filter-wrapper bg-yellow white" ng-click="openModal()" ng-hide="$root.showMap">
-    <div class="filter-btn"><i class="icon ion-ios-more"></i></div><div class="align-right filter-by-text">Filter By: {{filterBy}}</div>
-    <div class="clear"></div>
-  </div>
-
-  <a type="button" class="footer-btn list-view-btn yellow-activated" ng-click="deleteFavourites()">
+  <a type="button" ng-class="selected" class="footer-btn list-view-btn" ng-click="deleteFavourites()">
     <i class="icon ion-trash-b"></i>
   </a>
 
-  <ion-content id="container" class="filter-container padding list-view">
+  <ion-content id="container" class="padding list-view">
 
-    <h3 class="page-blue-heading acommodation-heading">
+    <h3 class="page-blue-heading acommodation-heading" ng-if="!noResults">
       {{accommodations.length}} Results
     </h3>
 
@@ -100,9 +95,9 @@
     </ion-list> -->
 
     <ion-list class="list-wrap">
-      <div class="center" ng-if="resultsLoaded">
+      <div class="center" ng-if="noResults">
         <ion-item class="button button-block btn-city end-text">
-          No more results
+          No favourites
         </ion-item>
       </div>
     </ion-list>
