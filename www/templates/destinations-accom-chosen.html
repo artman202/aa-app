@@ -3,12 +3,13 @@
 
   	<ion-scroll style="position:relative" delegate-handle="scroll-accom-chosen" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">  	
 
-	  	<ion-slides options="{autoplay: 3000, autoplayDisableOnInteraction: false}" slider="slider" class="single-accom-slider" id="slider">
+  		<!-- autoplay: 3000, -->
+	  	<ion-slides options="{autoplay: 3000, autoplayDisableOnInteraction: false}" slider="slider" ng-class="$root.sliderHeight" class="single-accom-slider" id="slider">
 			<ion-slide-page ng-repeat="item in accomGallery">
 				<div class="image-loader" ng-attr-id="{{$index}}">
                 	<ion-spinner icon="crescent">
               	</ion-spinner></div>			
-				<img class="swiper-img" ng-src="{{item}}" onerror="imgError(this)" ng-onload="imgLoaded($index)">		
+				<img class="center-image" ng-src="{{item}}" onerror="imgError(this)" ng-onload="imgLoaded($index)">		
 			</ion-slide-page>
 		</ion-slides>
 

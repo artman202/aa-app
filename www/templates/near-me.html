@@ -5,10 +5,10 @@
   		<div class="clear"></div>
   	</div>
 
-  	<a type="button" class="footer-btn list-view-btn yellow-activated">
+  	<a type="button" class="footer-btn list-view-btn yellow-activated" ng-class="$root.footerBtn">
       <i class="icon ion-ios-list-outline"></i>
     </a>
-    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="showMapBtn">
+    <a type="button" class="footer-btn map-view-btn" ng-click="controllerMapView()" ng-if="showMapBtn" ng-class="$root.footerBtn">
       <i class="icon ion-map"></i>
     </a>
 

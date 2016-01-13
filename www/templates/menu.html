@@ -34,10 +34,10 @@
 
     <ion-nav-view name="menuContent"></ion-nav-view>
 
-    <a type="button" class="footer-btn enquire-btn" id="enquire-btn" ng-click="goToEnquireForm()" ng-show="$root.enquireBtn">
+    <a type="button" ng-class="$root.footerBtn" class="footer-btn enquire-btn" id="enquire-btn" ng-click="goToEnquireForm()" ng-show="$root.enquireBtn">
       ENQUIRE
     </a>    
-    <a type="button" class="footer-btn back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
+    <a type="button" ng-class="$root.footerBtn" class="footer-btn back-btn" ng-click="$root.goBack()" ng-if="$root.showBack">
       <i class="icon ion-arrow-return-left"></i>
     </a>    
 

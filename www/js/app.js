@@ -17,6 +17,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
       // portrait
+      $rootScope.sliderHeight = "slider-portrait"
+      $rootScope.footerBtn = "footerBtn-potrait"
       $rootScope.homeImgHeight = "100%";
       $rootScope.homeImgWidth = "auto";
       $rootScope.imgHeight = "100%";
@@ -26,6 +28,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       $rootScope.socialIconsWrap = "menu-social-wrapper-portrait"
     } else {
       // landscape
+      $rootScope.sliderHeight = "slider-landscape"
+      $rootScope.footerBtn = "footerBtn-landscape"
       $rootScope.homeImgHeight = "auto";
       $rootScope.homeImgWidth = "130%";
       $rootScope.imgHeight = "auto";
@@ -46,6 +50,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
           $rootScope.homeImgHeight = "auto";
           $rootScope.homeImgWidth = "130%";
         }
+        $rootScope.sliderHeight = "slider-portrait"
+        $rootScope.footerBtn = "footerBtn-potrait"
         $rootScope.imgHeight = "100%";
         $rootScope.imgWidth = "auto";
         $rootScope.orientation = true
@@ -53,6 +59,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
         $rootScope.socialIconsWrap = "menu-social-wrapper-portrait"
       } else {
         // landscape
+        $rootScope.sliderHeight = "slider-landscape"
+        $rootScope.footerBtn = "footerBtn-landscape"
         $rootScope.homeImgHeight = "auto";
         $rootScope.homeImgWidth = "130%";
         $rootScope.imgHeight = "auto";

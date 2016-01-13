@@ -23,6 +23,8 @@ angular.module('destinations.accom.chosen.controller', [])
 
   $timeout(function(){
 
+    // console.log(angular.element(document.getElementById("slider"))[0].clientHeight)
+
     $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
 
     $http({
