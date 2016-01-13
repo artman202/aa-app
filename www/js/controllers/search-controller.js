@@ -2,13 +2,9 @@ angular.module('search.controller', [])
 
 .controller('SearchCtrl', ['$scope', '$rootScope', '$http', '$ionicLoading', '$ionicHistory', '$timeout',  function($scope, $rootScope, $http, $ionicLoading, $ionicHistory, $timeout) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.$on('$ionicView.enter', function() {
 
     $rootScope.hideNavbar = true;
-    
-  });
-
-  $scope.$on('$ionicView.enter', function() {
 
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
@@ -16,7 +12,7 @@ angular.module('search.controller', [])
     
   });
 
-  $scope.$on('$ionicView.beforeLeave', function() {
+  $scope.$on('$ionicView.leave', function() {
 
     $rootScope.hideNavbar = false;
     
