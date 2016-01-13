@@ -6,7 +6,6 @@ angular.module('enquiry.form.controller', [])
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
   });
 
   $timeout(function(){

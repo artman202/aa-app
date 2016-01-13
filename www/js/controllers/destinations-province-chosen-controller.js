@@ -3,10 +3,13 @@ angular.module('destinations.province.chosen.controller', [])
 .controller('DestinationsProvinceChosenCtrl', ['$scope', '$stateParams', '$rootScope', '$ionicLoading', '$timeout', '$http', function($scope, $stateParams, $rootScope, $ionicLoading, $timeout, $http) {
 
   $scope.$on('$ionicView.enter', function() {
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
+    
   });
  
   var provinceId = null;
@@ -14,8 +17,6 @@ angular.module('destinations.province.chosen.controller', [])
   $scope.state = $stateParams;
 
   $timeout(function(){
-
-    $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
 
     $http({
       method: 'GET',

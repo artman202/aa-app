@@ -114,7 +114,7 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
-function mapView(data, $rootScope, mapType) {
+function mapView(data, $rootScope, mapType, $ionicLoading) {
 
   var Latlng = "";
 
@@ -155,6 +155,11 @@ function mapView(data, $rootScope, mapType) {
     marker.addListener('click', markerMyLocation);
 
   }  
+
+  // hide loader
+  setTimeout(function() {
+    $ionicLoading.hide()
+  }, 1000)
 
   var markersArray = [];
   var image = 'img/markers/accom-marker.svg';

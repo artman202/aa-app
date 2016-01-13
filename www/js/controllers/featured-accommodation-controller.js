@@ -3,6 +3,9 @@ angular.module('featured-accommodation.controller', [])
 .controller('FeaturedAccommodationCtrl', ['$scope', '$rootScope', '$timeout', '$http', '$ionicLoading', '$ionicScrollDelegate', '$window', '$ionicModal', function($scope, $rootScope, $timeout, $http, $ionicLoading, $ionicScrollDelegate, $window, $ionicModal) {
   
   $scope.$on('$ionicView.enter', function() {
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -12,8 +15,6 @@ angular.module('featured-accommodation.controller', [])
   $scope.showMap = false;
 
   $timeout(function(){
-
-    $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
 
     $http({
       method: 'GET',

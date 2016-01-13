@@ -2,12 +2,10 @@ angular.module('destinations.city.chosen.controller', [])
 
 .controller('DestinationsCityChosenCtrl', ['$scope', '$localstorage', '$state', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicModal', function($scope, $localstorage, $state, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory, $ionicLoading, $ionicModal) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
-  });
-
   $scope.$on('$ionicView.enter', function() {
 
-    // $localstorage.resetAcommData(true);
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -16,11 +14,7 @@ angular.module('destinations.city.chosen.controller', [])
 
   $scope.state = $stateParams;
 
-  $timeout(function(){ 
-
-    // alert($localstorage.get("acommName"))
-
-    $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
+  $timeout(function(){
 
       $http({
         method: 'GET',

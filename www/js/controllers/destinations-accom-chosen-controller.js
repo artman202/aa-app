@@ -5,10 +5,12 @@ angular.module('destinations.accom.chosen.controller', [])
   var enquireBtn = angular.element(document.getElementById('enquire-btn'));
 
   $scope.$on('$ionicView.enter', function() {
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
 
     if($ionicHistory.viewHistory().forwardView.stateName == "app.enquire-form") {
       enquireBtn.removeClass("ng-hide")
@@ -23,8 +25,6 @@ angular.module('destinations.accom.chosen.controller', [])
   $scope.state = $stateParams; 
 
   $timeout(function(){
-
-    $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
 
     $http({
       method: 'GET',

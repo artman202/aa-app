@@ -10,6 +10,10 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
   $ionicPlatform.ready(function() {
 
+    if(ionic.Platform.isWebView()) {
+      navigator.splashscreen.hide();
+    }    
+
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
       $rootScope.homeImgHeight = "100%";
@@ -49,7 +53,10 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     // disable content drag opens menu on ios
     if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+      $rootScope.ionSpinnerTemplate = '<ion-spinner icon="ios"></ion-spinner>';
       $ionicSideMenuDelegate.canDragContent(false);
+    } else if (ionic.Platform.isAndroid){
+      $rootScope.ionSpinnerTemplate = '<ion-spinner icon="android"></ion-spinner>';
     }
 
     // set content load time out

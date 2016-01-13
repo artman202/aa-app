@@ -10,7 +10,7 @@
   <content src="index.html"/>
   <access origin="*"/>
   <access launch-external="yes" origin="tel:*"/>
-  <access launch-external="yes" origin="mailto:*"/>
+  <access launch-external="yes" origin="mailto:*"/>  
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
   <preference name="StatusBarOverlaysWebView" value="false"/>
   <preference name="webviewbounce" value="false"/>
@@ -24,7 +24,7 @@
   <preference name="xwalkMode" value="embedded"/>
   <preference name="xwalkMultipleApk" value="true"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="SplashScreenDelay" value="20000"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>

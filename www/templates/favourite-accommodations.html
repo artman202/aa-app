@@ -1,6 +1,6 @@
 <ion-view view-title="My Favourite Accommodations">
 
-  <a type="button" ng-class="selected" class="footer-btn list-view-btn" ng-click="deleteFavourites()">
+  <a type="button" ng-class="selected" class="footer-btn list-view-btn" ng-click="deleteFavourites()" ng-if="!noResults">
     <i class="icon ion-trash-b"></i>
   </a>
 

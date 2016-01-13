@@ -3,16 +3,16 @@ angular.module('search.controller', [])
 .controller('SearchCtrl', ['$scope', '$rootScope', '$http', '$ionicLoading', '$ionicHistory', '$timeout',  function($scope, $rootScope, $http, $ionicLoading, $ionicHistory, $timeout) {
 
   $scope.$on('$ionicView.enter', function() {
+
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-    $rootScope.showMapBtn = false;
   });
 
   $scope.search = true;
   $timeout(function(){
-
-    $ionicLoading.show({template: '<ion-spinner icon="dots"></ion-spinner>'})
 
     $http({
       method: 'GET',

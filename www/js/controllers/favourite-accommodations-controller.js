@@ -11,7 +11,7 @@ angular.module('favourite.accommodations.controller', [])
     $scope.noResults = false;
     $cordovaFile.readAsText(cordova.file.dataDirectory, "favourites.txt")
       .then(function (success) {
-        // console.log(success);
+        console.log(success);
         var favAccommArray = success.split(",")        
 
         $scope.accommodations = favAccommArray;
@@ -71,18 +71,35 @@ angular.module('favourite.accommodations.controller', [])
                   });
 
               } else {
-                favAccommArray.splice(favAccommArray.indexOf(favItem), favAccommArray.indexOf(favItem));
-                var newScopeArray = favAccommArray;
-                var updatedArray = favAccommArray.join();
-                console.log(updatedArray)
-                $cordovaFile.writeFile(cordova.file.dataDirectory, "favourites.txt", updatedArray, true)
-                  .then(function (success) {
-                    
-                    $scope.accommodations = newScopeArray
 
-                  }, function (error) {
-                    console.log(error)
-                  });
+                if(favAccommArray.indexOf(favItem) == 0) {
+                  favAccommArray.shift();
+                  var newScopeArray = favAccommArray;
+                  var updatedArray = favAccommArray.join();
+                  console.log(updatedArray)
+                  $cordovaFile.writeFile(cordova.file.dataDirectory, "favourites.txt", updatedArray, true)
+                    .then(function (success) {
+                      
+                      $scope.accommodations = newScopeArray
+
+                    }, function (error) {
+                      console.log(error)
+                    });
+                } else {
+                  favAccommArray.splice(favAccommArray.indexOf(favItem), favAccommArray.indexOf(favItem));
+                  var newScopeArray = favAccommArray;
+                  var updatedArray = favAccommArray.join();
+                  console.log(updatedArray)
+                  $cordovaFile.writeFile(cordova.file.dataDirectory, "favourites.txt", updatedArray, true)
+                    .then(function (success) {
+                      
+                      $scope.accommodations = newScopeArray
+
+                    }, function (error) {
+                      console.log(error)
+                    });
+                }
+                
               }   
               
             }, function (error) {

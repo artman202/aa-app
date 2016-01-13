@@ -4,6 +4,8 @@ angular.module('map.view.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
 
+    $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
@@ -18,12 +20,12 @@ angular.module('map.view.controller', [])
     if ($localstorage.get("type") == "nearMe") {
 
       $scope.cityName = "What's Near Me";
-      mapView($localstorage.getObject("nearMeData"), $rootScope, "nearme-map");
+      mapView($localstorage.getObject("nearMeData"), $rootScope, "nearme-map", $ionicLoading);
 
     } else if ($localstorage.get("type") == "acomm") {
 
       $scope.cityName = $localstorage.get("acommName");
-      mapView($localstorage.getObject("acommData"), $rootScope, "accommodation-map");
+      mapView($localstorage.getObject("acommData"), $rootScope, "accommodation-map", $ionicLoading);
 
     }     
       
