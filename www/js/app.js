@@ -34,8 +34,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
           }
         }, function(error){
           console.error("The following error occurred: "+error);
-        }, 3000);
-      })      
+        });
+      }, 3000)      
 
     }    
 
