@@ -11,7 +11,32 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
   $ionicPlatform.ready(function() {
 
     if(ionic.Platform.isWebView()) {
+
       navigator.splashscreen.hide();
+
+      setTimeout(function() {
+        cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+          if(!enabled) {
+
+            function locationChoice(buttonIndex) {
+              if(buttonIndex == 1) {
+                cordova.plugins.settings.openSetting("location_source", function(){console.log("opened location settings")},function(){console.log("failed to open location settings")});
+              }
+            }
+
+            navigator.notification.confirm(
+              "Youre device's location setting is turned off, would you like to turn it on?",  // message
+              locationChoice,                     // callback
+              'Alert',   
+              'Yes,Cancel'                 // buttonName
+            );
+            
+          }
+        }, function(error){
+          console.error("The following error occurred: "+error);
+        }, 3000);
+      })      
+
     }    
 
     // detect wether to show tabs
