@@ -30,7 +30,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
               'Alert',   
               'Yes,Cancel'                 // buttonName
             );
-            
+
           }
         }, function(error){
           console.error("The following error occurred: "+error);
@@ -170,6 +170,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
         if(err.code == 1) {
 
           $rootScope.positionAvailable = false;
+          $rootScope.homeImgHeight = "auto";
+          $rootScope.homeImgWidth = "130%";
 
         } else if (err.code == 2 || err.code == 3) {
 
