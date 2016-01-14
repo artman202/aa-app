@@ -6,24 +6,11 @@
 
   <ion-content id="container" class="padding list-view">
 
-    <h3 class="page-blue-heading acommodation-heading" ng-if="!noResults">
+    <h3 class="page-blue-heading accommodation-heading" ng-if="!noResults">
       {{accommodations.length}} Results
     </h3>
 
-    <ion-list class="list-wrap" id="itemList">
-
-      <!-- <ion-item>
-
-        <div class="center">
-          <div class="favourite-delete-wrap center-content" ng-click="deleteFavouriteItem('accommodation')" ng-if="deleteShow">
-            <i class="icon ion-close-round"></i>
-          </div>
-          <ion-item class="button button-block btn-city end-text">
-            Accommodation
-          </ion-item>
-        </div>
-        
-      </ion-item> -->
+    <!-- <ion-list class="list-wrap" id="itemList">
 
       <div ng-repeat="accommodation in accommodations">
 
@@ -44,38 +31,41 @@
 
       </div>    
 
-    </ion-list>
+    </ion-list> -->
 
-    <!-- <ion-list class="list-wrap" id="itemList">
+    <ion-list class="list-wrap" id="itemList">
 
-      <div ng-repeat="acommodation in acommodations">
+      <div ng-repeat="accommodation in accommodations">
 
         <ion-item>
-          <a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{acommodation.n}}+id={{acommodation.id}}" class="accom-btn">
+          <div class="favourite-delete-wrap center-content" ng-click="deleteFavouriteItem(accommodation.id)" ng-if="deleteShow">
+            <i class="icon ion-close-round"></i>
+          </div>
+          <a type="button" href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}" class="accom-btn">
             <div class="row">
               <div class="col accom-img-bg">
-                <div class="accom-distance bg-yellow white" id="{{acommodation.id}}" ng-if="$root.positionAvailable">
-                  <i class="icon ion-location"></i>&nbsp;{{acommodationsDistances[$index]}}&nbsp;km
+                <div class="accom-distance bg-yellow white" id="{{accommodation.id}}" ng-if="$root.positionAvailable">
+                  <i class="icon ion-location"></i>&nbsp;{{accommodationsDistances[$index]}}&nbsp;km
                 </div>
                 <div class="image-load-wrap">
                             <div class="image-loader">
                               <ion-spinner icon="crescent">
                             </ion-spinner></div> 
-                  <img ng-style="{height: $root.imgHeight, width: $root.imgWidth}" ng-src="{{acommodation.tb}}" class="center-image" alt="" imageonload>
+                  <img ng-style="{height: $root.imgHeight, width: $root.imgWidth}" ng-src="{{accommodation.tb}}" class="center-image" alt="" imageonload>
                 </div>
               </div>
               <div class="col col-75 accom-content">
                 <h3 class="page-blue-heading">
                   <b>
-                    {{acommodation.n}}
+                    {{accommodation.n}}
                   </b>
                 </h3>
                 <div class="accom-title-underline"></div>
                 <div class="row accom-ratings-row">
-                  <div class="col accom-ratings-row-price" ng-if="acommodation.pl != 0.00">
-                    <b>{{acommodation.pl}} ZAR</b>
+                  <div class="col accom-ratings-row-price" ng-if="accommodation.pl != 0.00">
+                    <b>{{accommodation.pl}} ZAR</b>
                   </div>
-                  <div class="col accom-ratings-row-price" ng-if="acommodation.pl == 0.00">
+                  <div class="col accom-ratings-row-price" ng-if="accommodation.pl == 0.00">
                     <b>Price on enquiry</b>
                   </div>
                 </div>
@@ -92,7 +82,7 @@
 
       </div>    
 
-    </ion-list> -->
+    </ion-list>
 
     <ion-list class="list-wrap">
       <div class="center" ng-if="noResults">

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', ['$scope', '$localstorage', '$ionicModal', '$timeout', '$rootScope', '$ionicHistory', function($scope, $localstorage, $ionicModal, $timeout, $rootScope, $ionicHistory) {
+.controller('AppCtrl', ['$scope', '$localstorage', '$ionicModal', '$timeout', '$rootScope', '$ionicHistory', '$cordovaGeolocation', function($scope, $localstorage, $ionicModal, $timeout, $rootScope, $ionicHistory, $cordovaGeolocation) {
 
   $rootScope.showNavItem = true;
 
@@ -23,6 +23,22 @@ angular.module('starter.controllers', [])
     } else {
       angular.element(document.getElementsByClassName("tab-item")).removeClass("tab-active");
     }
+  });
+
+  $rootScope.$on('$ionicView.beforeLeave', function() {
+
+    if($rootScope.getLocationEnable == false) {
+      //Check status of gps
+      cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+        if(enabled) {
+          $rootScope.getLocationAfterEnable();   
+          console.log("Location Enabled")
+        }
+      }, function(error){
+        console.error("The following error occurred: "+error);
+      });
+    }
+    
   });
 
 }])

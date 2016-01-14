@@ -10,43 +10,6 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
   $ionicPlatform.ready(function() {
 
-    if(ionic.Platform.isWebView()) {
-
-      navigator.splashscreen.hide();
-
-      setTimeout(function() {
-        cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
-          if(!enabled) {
-
-            function locationChoice(buttonIndex) {
-              if(buttonIndex == 1) {
-                if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-                  cordova.plugins.diagnostic.switchToSettings(function(){
-                    console.log("Successfully switched to Settings app"));
-                  }, function(error){
-                    console.error("The following error occurred: "+error);
-                  });
-                } else if (ionic.Platform.isAndroid){
-                  cordova.plugins.diagnostic.switchToLocationSettings();
-                }                
-              }
-            }
-
-            navigator.notification.confirm(
-              "Youre device's location setting is turned off, would you like to turn it on?",  // message
-              locationChoice,                     // callback
-              'Alert',   
-              'Yes,Cancel'                 // buttonName
-            );
-
-          }
-        }, function(error){
-          console.error("The following error occurred: "+error);
-        });
-      }, 3000)      
-
-    }    
-
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
       // portrait
@@ -129,19 +92,19 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     // Check for network connection
     function checkConnection() {
-        var networkState = navigator.connection.type;
+      var networkState = navigator.connection.type;
 
-        var states = {};
-        states[Connection.UNKNOWN]  = 'Unknown connection';
-        states[Connection.ETHERNET] = 'Ethernet connection';
-        states[Connection.WIFI]     = 'WiFi connection';
-        states[Connection.CELL_2G]  = 'Cell 2G connection';
-        states[Connection.CELL_3G]  = 'Cell 3G connection';
-        states[Connection.CELL_4G]  = 'Cell 4G connection';
-        states[Connection.CELL]     = 'Cell generic connection';
-        states[Connection.NONE]     = 'No network connection';
+      var states = {};
+      states[Connection.UNKNOWN]  = 'Unknown connection';
+      states[Connection.ETHERNET] = 'Ethernet connection';
+      states[Connection.WIFI]     = 'WiFi connection';
+      states[Connection.CELL_2G]  = 'Cell 2G connection';
+      states[Connection.CELL_3G]  = 'Cell 3G connection';
+      states[Connection.CELL_4G]  = 'Cell 4G connection';
+      states[Connection.CELL]     = 'Cell generic connection';
+      states[Connection.NONE]     = 'No network connection';
 
-        // console.log('Connection type: ' + states[networkState]);
+      // console.log('Connection type: ' + states[networkState]);
     }
 
     $interval(function(){
@@ -161,36 +124,87 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     }
 
-    // var promise
-    var watchOptions = {
-      maximumAge : 1 * 60 * 1000,
-      timeout : 15 * 1000,
-      enableHighAccuracy: true // may cause errors if true
-    };
+    $rootScope.getLocationEnable = false;
+    $rootScope.getLocationAfterEnable = function() {
 
-    var watch = $cordovaGeolocation.watchPosition(watchOptions);
-    watch.then(
-      null,
-      function(err) {
+      $rootScope.getLocationEnable = true;
+      $rootScope.getLocation();
 
-        // console.log(err)
+    }
 
-        if(err.code == 1) {
+    $rootScope.getLocation = function() {
+    
+      // var promise
+      var watchOptions = {
+        maximumAge : 1 * 60 * 1000,
+        timeout : 15 * 1000,
+        enableHighAccuracy: true // may cause errors if true
+      };
 
-          $rootScope.positionAvailable = false;
-          $rootScope.homeImgHeight = "auto";
-          $rootScope.homeImgWidth = "130%";
+      var watch = $cordovaGeolocation.watchPosition(watchOptions);
+      watch.then(
+        null,
+        function(err) {
 
-        } else if (err.code == 2 || err.code == 3) {
+          // console.log(err)
 
-          if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+          if(err.code == 1) {
 
-            var posOptions = {timeout: 15 * 1000, enableHighAccuracy: false};
-            $cordovaGeolocation
-            .getCurrentPosition(posOptions)
-            .then(function (position) {
+            $rootScope.positionAvailable = false;
+            $rootScope.homeImgHeight = "auto";
+            $rootScope.homeImgWidth = "130%";
 
-            }, function(err) {
+          } else if (err.code == 2 || err.code == 3) {
+
+            if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+
+              var posOptions = {timeout: 15 * 1000, enableHighAccuracy: false};
+              $cordovaGeolocation
+              .getCurrentPosition(posOptions)
+              .then(function (position) {
+
+              }, function(err) {
+
+                $rootScope.positionAvailable = false;
+                $rootScope.homeImgHeight = "auto";
+                $rootScope.homeImgWidth = "130%";
+
+                navigator.notification.alert(
+                  'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
+                  null,                    // callback
+                  'Alert',                // title
+                  'Done'                  // buttonName
+                );
+
+              });
+
+              // promise = $interval(function() { 
+              //   $cordovaGeolocation
+              //   .getCurrentPosition(posOptions)
+              //   .then(function (position) {
+
+              //     // alert("Get current position retrieved");
+
+              //     var lat  = position.coords.latitude
+              //     var long = position.coords.longitude
+
+              //     $rootScope.myLat = lat;
+              //     $rootScope.myLong = long;
+
+              //   }, function(err) {
+
+              //     navigator.notification.alert(
+
+              //       'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
+              //       null,                    // callback
+              //       'Alert',                // title
+              //       'Done'                  // buttonName
+              //     );
+
+              //   });
+              // }, 1 * 60 * 1000);
+
+            } else {
 
               $rootScope.positionAvailable = false;
               $rootScope.homeImgHeight = "auto";
@@ -198,70 +212,76 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
               navigator.notification.alert(
                 'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
-                null,                    // callback
+                null,                     // callback
                 'Alert',                // title
                 'Done'                  // buttonName
               );
 
-            });
+            } 
 
-            // promise = $interval(function() { 
-            //   $cordovaGeolocation
-            //   .getCurrentPosition(posOptions)
-            //   .then(function (position) {
+          }                
+          
+        },
+        function(position) {
 
-            //     // alert("Get current position retrieved");
+          $rootScope.positionAvailable = true;
 
-            //     var lat  = position.coords.latitude
-            //     var long = position.coords.longitude
+          // $interval.cancel(promise);
 
-            //     $rootScope.myLat = lat;
-            //     $rootScope.myLong = long;
+          var lat  = position.coords.latitude;
+          var long = position.coords.longitude;
 
-            //   }, function(err) {
+          $rootScope.myLat = lat;
+          $rootScope.myLong = long;
 
-            //     navigator.notification.alert(
+      });
 
-            //       'We regret that there is a problem retrieving your current location. This app does not require your location but turning it on allows for a better browsing experience.',  // message
-            //       null,                    // callback
-            //       'Alert',                // title
-            //       'Done'                  // buttonName
-            //     );
+    };
 
-            //   });
-            // }, 1 * 60 * 1000);
+    if(ionic.Platform.isWebView()) {
 
-          } else {
+      navigator.splashscreen.hide();
+
+      setTimeout(function() {
+        cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+          if(!enabled) {
+
+            function locationChoice(buttonIndex) {
+              if(buttonIndex == 1) {
+                if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+                  cordova.plugins.diagnostic.switchToSettings(function(){
+                    console.log("Successfully switched to Settings app");
+                  }, function(error){
+                    console.error("The following error occurred: "+error);
+                  });
+                } else if (ionic.Platform.isAndroid){
+                  cordova.plugins.diagnostic.switchToLocationSettings();
+                }                
+              }
+            }
 
             $rootScope.positionAvailable = false;
             $rootScope.homeImgHeight = "auto";
             $rootScope.homeImgWidth = "130%";
-
-            navigator.notification.alert(
-              'There seems to be a problem retrieving your current location. Please make sure you have an internet connection and reload the page.',  // message
-              null,                     // callback
-              'Alert',                // title
-              'Done'                  // buttonName
+            navigator.notification.confirm(
+              "Youre device's location setting is turned off, would you like to turn it on?",  // message
+              locationChoice,                     // callback
+              'Alert',   
+              'Yes,Cancel'                 // buttonName
             );
 
-          } 
+          } else {
+            $rootScope.getLocation()
+          }
 
-        }                
-        
-      },
-      function(position) {
+        }, function(error){
+          console.error("The following error occurred: "+error);
+        });
+      }, 2000)      
 
-        $rootScope.positionAvailable = true;
-
-        // $interval.cancel(promise);
-
-        var lat  = position.coords.latitude;
-        var long = position.coords.longitude;
-
-        $rootScope.myLat = lat;
-        $rootScope.myLong = long;
-
-    });
+    } else {
+      $rootScope.getLocation()
+    } 
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

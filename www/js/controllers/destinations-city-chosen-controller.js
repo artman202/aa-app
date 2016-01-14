@@ -6,7 +6,6 @@ angular.module('destinations.city.chosen.controller', [])
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
     $rootScope.enquireBtn = false;
-
   });
 
   $scope.state = $stateParams;
