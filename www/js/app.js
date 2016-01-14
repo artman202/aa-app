@@ -20,7 +20,15 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
             function locationChoice(buttonIndex) {
               if(buttonIndex == 1) {
-                cordova.plugins.settings.openSetting("location_source", function(){console.log("opened location settings")},function(){console.log("failed to open location settings")});
+                if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+                  cordova.plugins.diagnostic.switchToSettings(function(){
+                    console.log("Successfully switched to Settings app"));
+                  }, function(error){
+                    console.error("The following error occurred: "+error);
+                  });
+                } else if (ionic.Platform.isAndroid){
+                  cordova.plugins.diagnostic.switchToLocationSettings();
+                }                
               }
             }
 

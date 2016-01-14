@@ -24,10 +24,6 @@
     "cordova-plugin-crosswalk-webview",
     "cordova-plugin-statusbar",
     {
-      "locator": "https://github.com/katzer/cordova-plugin-email-composer.git",
-      "id": "de.appplant.cordova.plugin.email-composer"
-    },
-    {
       "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-socialsharing"
     },
@@ -41,11 +37,7 @@
     "cordova-plugin-inappbrowser",
     "cordova-plugin-file",
     "cordova-plugin-splashscreen",
-    "cordova.plugins.diagnostic",
-    {
-      "locator": "https://github.com/deefactorial/Cordova-open-native-settings.git",
-      "id": "com.phonegap.plugins.nativesettingsopener"
-    }
+    "cordova.plugins.diagnostic"
   ],
   "cordovaPlatforms": [
     {
