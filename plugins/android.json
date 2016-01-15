@@ -136,9 +136,6 @@
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.aatravel.aatravelapp"
-        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         },
@@ -161,6 +158,9 @@
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.aatravel.aatravelapp"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         }
     },

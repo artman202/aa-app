@@ -49,10 +49,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
                         },
@@ -70,6 +66,10 @@
                         },
                         {
                             "xml": "<feature name=\"Diagnostic\"><param name=\"ios-package\" value=\"Diagnostic\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -149,11 +149,11 @@
                 "parents": {
                     "NSLocationWhenInUseUsageDescription": [
                         {
-                            "xml": "<string />",
+                            "xml": "<string>This app will now only track your location when the screen is on and the app is displayed.</string>",
                             "count": 1
                         },
                         {
-                            "xml": "<string>This app will now only track your location when the screen is on and the app is displayed.</string>",
+                            "xml": "<string />",
                             "count": 1
                         }
                     ],
@@ -195,9 +195,6 @@
         "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "com.ionicframework.aaapp413929"
         },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.aatravel.aatravelapp"
-        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         },
@@ -211,6 +208,9 @@
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         },
         "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.aatravel.aatravelapp"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
         }
     },

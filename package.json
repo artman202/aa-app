@@ -34,12 +34,12 @@
       "locator": "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git",
       "id": "cordova-plugin-datepicker"
     },
-    "cordova-plugin-geolocation",
     "cordova-plugin-inappbrowser",
     "cordova-plugin-file",
     "cordova-plugin-splashscreen",
     "cordova.plugins.diagnostic",
-    "cordova-plugin-crosswalk-webview"
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
     {
