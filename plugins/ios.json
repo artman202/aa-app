@@ -209,6 +209,9 @@
         },
         "cordova.plugins.diagnostic": {
             "PACKAGE_NAME": "com.aatravel.aatravelapp"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.aatravel.aatravelapp"
         }
     },
     "dependent_plugins": {}

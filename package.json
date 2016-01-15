@@ -38,7 +38,8 @@
     "cordova-plugin-inappbrowser",
     "cordova-plugin-file",
     "cordova-plugin-splashscreen",
-    "cordova.plugins.diagnostic"
+    "cordova.plugins.diagnostic",
+    "cordova-plugin-crosswalk-webview"
   ],
   "cordovaPlatforms": [
     {
