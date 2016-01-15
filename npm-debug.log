@@ -1,0 +1,208 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose readDependencies loading dependencies from C:\Users\User\Desktop\aa-app\package.json
+5 warn package.json aaapp@1.1.1 No repository field.
+6 warn package.json aaapp@1.1.1 No license field.
+7 verbose install where, deps [ 'C:\\Users\\User\\Desktop\\aa-app',
+7 verbose install   [ 'angular',
+7 verbose install     'async',
+7 verbose install     'gulp',
+7 verbose install     'gulp-concat',
+7 verbose install     'gulp-minify-css',
+7 verbose install     'gulp-rename',
+7 verbose install     'gulp-sass',
+7 verbose install     'jshint',
+7 verbose install     'bower',
+7 verbose install     'gulp-util',
+7 verbose install     'ionic-minify',
+7 verbose install     'shelljs' ] ]
+8 verbose install where, peers [ 'C:\\Users\\User\\Desktop\\aa-app', [] ]
+9 verbose installManyTop reading for lifecycle C:\Users\User\Desktop\aa-app\package.json
+10 info preinstall aaapp@1.1.1
+11 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\angular\package.json
+12 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\async\package.json
+13 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\bower\package.json
+14 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\clean-css\package.json
+15 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\gulp\package.json
+16 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-concat\package.json
+17 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-minify-css\package.json
+18 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-rename\package.json
+19 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-sass\package.json
+20 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-util\package.json
+21 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\ionic-minify\package.json
+22 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\jshint\package.json
+23 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\mozjpeg-stream\package.json
+24 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\ng-annotate\package.json
+25 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\pngout-bin\package.json
+26 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\shelljs\package.json
+27 verbose installManyTop reading scoped package data from C:\Users\User\Desktop\aa-app\node_modules\uglify-js\package.json
+28 info package.json gulp-minify-css@0.3.13 No license field.
+29 info package.json gulp-rename@1.2.2 No license field.
+30 info package.json gulp-util@2.2.20 No license field.
+31 info package.json shelljs@0.3.0 license should be a valid SPDX license expression
+32 verbose readDependencies loading dependencies from C:\Users\User\Desktop\aa-app\package.json
+33 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\angular\package.json
+34 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\async\package.json
+35 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\bower\package.json
+36 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\clean-css\package.json
+37 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\gulp\package.json
+38 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-concat\package.json
+39 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-minify-css\package.json
+40 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-rename\package.json
+41 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-sass\package.json
+42 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\gulp-util\package.json
+43 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\ionic-minify\package.json
+44 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\jshint\package.json
+45 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\mozjpeg-stream\package.json
+46 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\ng-annotate\package.json
+47 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\pngout-bin\package.json
+48 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\shelljs\package.json
+49 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\uglify-js\package.json
+50 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\bower\package.json
+51 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\bower.cmd\package.json
+52 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\cleancss\package.json
+53 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\cleancss.cmd\package.json
+54 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\gulp\package.json
+55 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\gulp.cmd\package.json
+56 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\jshint\package.json
+57 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\jshint.cmd\package.json
+58 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\ng-annotate\package.json
+59 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\ng-annotate.cmd\package.json
+60 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\pngout\package.json
+61 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\pngout.cmd\package.json
+62 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\shjs\package.json
+63 verbose targetResolver reading package data from C:\Users\User\Desktop\aa-app\node_modules\.bin\shjs.cmd\package.json
+64 verbose already installed skipping angular@^1.4.8 C:\Users\User\Desktop\aa-app
+65 verbose already installed skipping async@^1.5.2 C:\Users\User\Desktop\aa-app
+66 verbose already installed skipping gulp@^3.5.6 C:\Users\User\Desktop\aa-app
+67 verbose already installed skipping gulp-concat@^2.2.0 C:\Users\User\Desktop\aa-app
+68 verbose already installed skipping gulp-minify-css@^0.3.0 C:\Users\User\Desktop\aa-app
+69 verbose already installed skipping gulp-rename@^1.2.0 C:\Users\User\Desktop\aa-app
+70 verbose already installed skipping gulp-sass@^2.0.4 C:\Users\User\Desktop\aa-app
+71 verbose already installed skipping jshint@^2.9.1 C:\Users\User\Desktop\aa-app
+72 verbose already installed skipping bower@^1.3.3 C:\Users\User\Desktop\aa-app
+73 verbose already installed skipping gulp-util@^2.2.14 C:\Users\User\Desktop\aa-app
+74 verbose already installed skipping ionic-minify@^2.0.5 C:\Users\User\Desktop\aa-app
+75 verbose already installed skipping shelljs@^0.3.0 C:\Users\User\Desktop\aa-app
+76 silly install resolved []
+77 info build C:\Users\User\Desktop\aa-app
+78 info linkStuff aaapp@1.1.1
+79 silly linkStuff aaapp@1.1.1 has C:\Users\User\Desktop as its parent node_modules
+80 verbose linkBins aaapp@1.1.1
+81 verbose linkMans aaapp@1.1.1
+82 verbose rebuildBundles aaapp@1.1.1
+83 verbose rebuildBundles [ '.bin',
+83 verbose rebuildBundles   'angular',
+83 verbose rebuildBundles   'async',
+83 verbose rebuildBundles   'bower',
+83 verbose rebuildBundles   'clean-css',
+83 verbose rebuildBundles   'gulp',
+83 verbose rebuildBundles   'gulp-concat',
+83 verbose rebuildBundles   'gulp-minify-css',
+83 verbose rebuildBundles   'gulp-rename',
+83 verbose rebuildBundles   'gulp-sass',
+83 verbose rebuildBundles   'gulp-util',
+83 verbose rebuildBundles   'ionic-minify',
+83 verbose rebuildBundles   'jshint',
+83 verbose rebuildBundles   'mozjpeg-stream',
+83 verbose rebuildBundles   'ng-annotate',
+83 verbose rebuildBundles   'pngout-bin',
+83 verbose rebuildBundles   'shelljs',
+83 verbose rebuildBundles   'uglify-js' ]
+84 verbose rebuild bundle C:\Users\User\Desktop\aa-app\node_modules\clean-css
+85 info build C:\Users\User\Desktop\aa-app\node_modules\clean-css
+86 info preinstall clean-css@3.4.8
+87 info linkStuff clean-css@3.4.8
+88 silly linkStuff clean-css@3.4.8 has C:\Users\User\Desktop\aa-app\node_modules as its parent node_modules
+89 verbose linkBins clean-css@3.4.8
+90 verbose link bins [ { cleancss: './bin/cleancss' },
+90 verbose link bins   'C:\\Users\\User\\Desktop\\aa-app\\node_modules\\.bin',
+90 verbose link bins   false ]
+91 verbose linkMans clean-css@3.4.8
+92 verbose rebuildBundles clean-css@3.4.8
+93 verbose rebuildBundles [ 'commander', 'source-map' ]
+94 info install clean-css@3.4.8
+95 info postinstall clean-css@3.4.8
+96 verbose rebuild bundle C:\Users\User\Desktop\aa-app\node_modules\mozjpeg-stream
+97 info build C:\Users\User\Desktop\aa-app\node_modules\mozjpeg-stream
+98 info preinstall mozjpeg-stream@1.0.2
+99 info linkStuff mozjpeg-stream@1.0.2
+100 silly linkStuff mozjpeg-stream@1.0.2 has C:\Users\User\Desktop\aa-app\node_modules as its parent node_modules
+101 verbose linkBins mozjpeg-stream@1.0.2
+102 verbose linkMans mozjpeg-stream@1.0.2
+103 verbose rebuildBundles mozjpeg-stream@1.0.2
+104 verbose rebuildBundles [ '.bin', 'duplex-child-process', 'mozjpeg', 'tape' ]
+105 info install mozjpeg-stream@1.0.2
+106 info postinstall mozjpeg-stream@1.0.2
+107 verbose rebuild bundle C:\Users\User\Desktop\aa-app\node_modules\ng-annotate
+108 info build C:\Users\User\Desktop\aa-app\node_modules\ng-annotate
+109 info preinstall ng-annotate@0.15.4
+110 info linkStuff ng-annotate@0.15.4
+111 silly linkStuff ng-annotate@0.15.4 has C:\Users\User\Desktop\aa-app\node_modules as its parent node_modules
+112 verbose linkBins ng-annotate@0.15.4
+113 verbose link bins [ { 'ng-annotate': './build/es5/ng-annotate' },
+113 verbose link bins   'C:\\Users\\User\\Desktop\\aa-app\\node_modules\\.bin',
+113 verbose link bins   false ]
+114 verbose linkMans ng-annotate@0.15.4
+115 verbose rebuildBundles ng-annotate@0.15.4
+116 verbose rebuildBundles [ '.bin',
+116 verbose rebuildBundles   'acorn',
+116 verbose rebuildBundles   'alter',
+116 verbose rebuildBundles   'convert-source-map',
+116 verbose rebuildBundles   'optimist',
+116 verbose rebuildBundles   'ordered-ast-traverse',
+116 verbose rebuildBundles   'simple-fmt',
+116 verbose rebuildBundles   'simple-is',
+116 verbose rebuildBundles   'source-map',
+116 verbose rebuildBundles   'stable',
+116 verbose rebuildBundles   'stringmap',
+116 verbose rebuildBundles   'stringset',
+116 verbose rebuildBundles   'tryor' ]
+117 info install ng-annotate@0.15.4
+118 info postinstall ng-annotate@0.15.4
+119 verbose rebuild bundle C:\Users\User\Desktop\aa-app\node_modules\pngout-bin
+120 info build C:\Users\User\Desktop\aa-app\node_modules\pngout-bin
+121 info preinstall pngout-bin@2.0.1
+122 info linkStuff pngout-bin@2.0.1
+123 silly linkStuff pngout-bin@2.0.1 has C:\Users\User\Desktop\aa-app\node_modules as its parent node_modules
+124 verbose linkBins pngout-bin@2.0.1
+125 verbose link bins [ { pngout: 'cli.js' },
+125 verbose link bins   'C:\\Users\\User\\Desktop\\aa-app\\node_modules\\.bin',
+125 verbose link bins   false ]
+126 verbose linkMans pngout-bin@2.0.1
+127 verbose rebuildBundles pngout-bin@2.0.1
+128 verbose rebuildBundles [ 'bin-wrapper', 'imagemin-log' ]
+129 info install pngout-bin@2.0.1
+130 info postinstall pngout-bin@2.0.1
+131 verbose unsafe-perm in lifecycle true
+132 info pngout-bin@2.0.1 Failed to exec postinstall script
+133 verbose stack Error: pngout-bin@2.0.1 postinstall: `node lib/install.js`
+133 verbose stack Exit status 1
+133 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:213:16)
+133 verbose stack     at EventEmitter.emit (events.js:110:17)
+133 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+133 verbose stack     at ChildProcess.emit (events.js:110:17)
+133 verbose stack     at maybeClose (child_process.js:1015:16)
+133 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+134 verbose pkgid pngout-bin@2.0.1
+135 verbose cwd C:\Users\User\Desktop\aa-app
+136 error Windows_NT 6.3.9600
+137 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+138 error node v0.12.7
+139 error npm  v2.11.3
+140 error code ELIFECYCLE
+141 error pngout-bin@2.0.1 postinstall: `node lib/install.js`
+141 error Exit status 1
+142 error Failed at the pngout-bin@2.0.1 postinstall script 'node lib/install.js'.
+142 error This is most likely a problem with the pngout-bin package,
+142 error not with npm itself.
+142 error Tell the author that this fails on your system:
+142 error     node lib/install.js
+142 error You can get their info via:
+142 error     npm owner ls pngout-bin
+142 error There is likely additional logging output above.
+143 verbose exit [ 1, true ]
