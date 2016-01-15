@@ -241,7 +241,11 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     function locationChoice(buttonIndex) {
       if(buttonIndex == 1) {
         if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-          $rootScope.getLocation();
+          cordova.plugins.diagnostic.switchToSettings(function(){
+            console.log("Successfully switched to Settings app");
+          }, function(error){
+            console.error("The following error occurred: "+error);
+          });
         } else if (ionic.Platform.isAndroid){
           cordova.plugins.diagnostic.switchToLocationSettings();
         }                
@@ -253,11 +257,10 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       navigator.splashscreen.hide();
 
       setTimeout(function() {
-        cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
-          if(!enabled) {
+        if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+          cordova.plugins.diagnostic.isLocationEnabledSetting(function(enabled){          
+            if(!enabled) {
 
-            if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-            } else if (ionic.Platform.isAndroid){
               $rootScope.positionAvailable = false;
               $rootScope.homeImgHeight = "auto";
               $rootScope.homeImgWidth = "130%";
@@ -267,18 +270,38 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
                 'Alert',   
                 'Yes,Cancel'                 // buttonName
               );
+
+            } else {
+              $rootScope.getLocation();
             }
 
-            
+          }, function(error){
+            console.error("The following error occurred: "+error);
+          });
+        } else if (ionic.Platform.isAndroid){
+          cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){          
+            if(!enabled) {
 
-          } else {
-            $rootScope.getLocation();
-          }
+              $rootScope.positionAvailable = false;
+              $rootScope.homeImgHeight = "auto";
+              $rootScope.homeImgWidth = "130%";
+              navigator.notification.confirm(
+                "Youre device's location setting is turned off, would you like to turn it on?",  // message
+                locationChoice,                     // callback
+                'Alert',   
+                'Yes,Cancel'                 // buttonName
+              );
 
-        }, function(error){
-          console.error("The following error occurred: "+error);
-        });
-      }, 2000);      
+            } else {
+              $rootScope.getLocation();
+            } 
+
+          }, function(error){
+            console.error("The following error occurred: "+error);
+          });
+        } 
+
+      }, 2 * 1000);
 
     } else {
       $rootScope.getLocation();
