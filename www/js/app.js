@@ -241,11 +241,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     function locationChoice(buttonIndex) {
       if(buttonIndex == 1) {
         if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-          cordova.plugins.diagnostic.switchToSettings(function(){
-            console.log("Successfully switched to Settings app");
-          }, function(error){
-            console.error("The following error occurred: "+error);
-          });
+          $rootScope.getLocation();
         } else if (ionic.Platform.isAndroid){
           cordova.plugins.diagnostic.switchToLocationSettings();
         }                
@@ -260,15 +256,20 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
         cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
           if(!enabled) {
 
-            $rootScope.positionAvailable = false;
-            $rootScope.homeImgHeight = "auto";
-            $rootScope.homeImgWidth = "130%";
-            navigator.notification.confirm(
-              "Youre device's location setting is turned off, would you like to turn it on?",  // message
-              locationChoice,                     // callback
-              'Alert',   
-              'Yes,Cancel'                 // buttonName
-            );
+            if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+            } else if (ionic.Platform.isAndroid){
+              $rootScope.positionAvailable = false;
+              $rootScope.homeImgHeight = "auto";
+              $rootScope.homeImgWidth = "130%";
+              navigator.notification.confirm(
+                "Youre device's location setting is turned off, would you like to turn it on?",  // message
+                locationChoice,                     // callback
+                'Alert',   
+                'Yes,Cancel'                 // buttonName
+              );
+            }
+
+            
 
           } else {
             $rootScope.getLocation();
