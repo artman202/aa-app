@@ -13,31 +13,31 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
       // portrait
-      $rootScope.sliderHeight = "slider-portrait"
-      $rootScope.footerBtn = "footerBtn-potrait"
+      $rootScope.sliderHeight = "slider-portrait";
+      $rootScope.footerBtn = "footerBtn-potrait";
       $rootScope.homeImgHeight = "100%";
       $rootScope.homeImgWidth = "auto";
       $rootScope.imgHeight = "100%";
       $rootScope.imgWidth = "auto";
-      $rootScope.orientation = true
-      $rootScope.menuBg = "menu-bg-portrait"
-      $rootScope.socialIconsWrap = "menu-social-wrapper-portrait"
+      $rootScope.orientation = true;
+      $rootScope.menuBg = "menu-bg-portrait";
+      $rootScope.socialIconsWrap = "menu-social-wrapper-portrait";
     } else {
       // landscape
-      $rootScope.sliderHeight = "slider-landscape"
-      $rootScope.footerBtn = "footerBtn-landscape"
+      $rootScope.sliderHeight = "slider-landscape";
+      $rootScope.footerBtn = "footerBtn-landscape";
       $rootScope.homeImgHeight = "auto";
       $rootScope.homeImgWidth = "130%";
       $rootScope.imgHeight = "auto";
       $rootScope.imgWidth = "130%";
-      $rootScope.orientation = false
-      $rootScope.menuBg = "menu-bg-landscape"
-      $rootScope.socialIconsWrap = "menu-social-wrapper-landscape"
+      $rootScope.orientation = false;
+      $rootScope.menuBg = "menu-bg-landscape";
+      $rootScope.socialIconsWrap = "menu-social-wrapper-landscape";
     }
 
     window.addEventListener("orientationchange", function() {
       // Announce the new orientation number
-      if (window.orientation == 0) {
+      if (window.orientation === 0) {
         // portrait
         if($rootScope.positionAvailable) {
           $rootScope.homeImgHeight = "100%";
@@ -46,24 +46,24 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
           $rootScope.homeImgHeight = "auto";
           $rootScope.homeImgWidth = "130%";
         }
-        $rootScope.sliderHeight = "slider-portrait"
-        $rootScope.footerBtn = "footerBtn-potrait"
+        $rootScope.sliderHeight = "slider-portrait";
+        $rootScope.footerBtn = "footerBtn-potrait";
         $rootScope.imgHeight = "100%";
         $rootScope.imgWidth = "auto";
-        $rootScope.orientation = true
-        $rootScope.menuBg = "menu-bg-portrait"
-        $rootScope.socialIconsWrap = "menu-social-wrapper-portrait"
+        $rootScope.orientation = true;
+        $rootScope.menuBg = "menu-bg-portrait";
+        $rootScope.socialIconsWrap = "menu-social-wrapper-portrait";
       } else {
         // landscape
-        $rootScope.sliderHeight = "slider-landscape"
-        $rootScope.footerBtn = "footerBtn-landscape"
+        $rootScope.sliderHeight = "slider-landscape";
+        $rootScope.footerBtn = "footerBtn-landscape";
         $rootScope.homeImgHeight = "auto";
         $rootScope.homeImgWidth = "130%";
         $rootScope.imgHeight = "auto";
         $rootScope.imgWidth = "130%";
-        $rootScope.orientation = false
-        $rootScope.menuBg = "menu-bg-landscape"
-        $rootScope.socialIconsWrap = "menu-social-wrapper-landscape"
+        $rootScope.orientation = false;
+        $rootScope.menuBg = "menu-bg-landscape";
+        $rootScope.socialIconsWrap = "menu-social-wrapper-landscape";
       }
     }, false);
 
@@ -109,7 +109,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     $interval(function(){
       checkConnection();
-    }, 5000)
+    }, 5000);
 
     document.addEventListener("offline", onOffline, false);
 
@@ -130,7 +130,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       $rootScope.getLocationEnable = true;
       $rootScope.getLocation();
 
-    }
+    };
 
     $rootScope.getLocation = function() {
     
@@ -238,6 +238,20 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     };
 
+    function locationChoice(buttonIndex) {
+      if(buttonIndex == 1) {
+        if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+          cordova.plugins.diagnostic.switchToSettings(function(){
+            console.log("Successfully switched to Settings app");
+          }, function(error){
+            console.error("The following error occurred: "+error);
+          });
+        } else if (ionic.Platform.isAndroid){
+          cordova.plugins.diagnostic.switchToLocationSettings();
+        }                
+      }
+    }
+
     if(ionic.Platform.isWebView()) {
 
       navigator.splashscreen.hide();
@@ -245,20 +259,6 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       setTimeout(function() {
         cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
           if(!enabled) {
-
-            function locationChoice(buttonIndex) {
-              if(buttonIndex == 1) {
-                if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-                  cordova.plugins.diagnostic.switchToSettings(function(){
-                    console.log("Successfully switched to Settings app");
-                  }, function(error){
-                    console.error("The following error occurred: "+error);
-                  });
-                } else if (ionic.Platform.isAndroid){
-                  cordova.plugins.diagnostic.switchToLocationSettings();
-                }                
-              }
-            }
 
             $rootScope.positionAvailable = false;
             $rootScope.homeImgHeight = "auto";
@@ -271,17 +271,17 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
             );
 
           } else {
-            $rootScope.getLocation()
+            $rootScope.getLocation();
           }
 
         }, function(error){
           console.error("The following error occurred: "+error);
         });
-      }, 2000)      
+      }, 2000);      
 
     } else {
-      $rootScope.getLocation()
-    } 
+      $rootScope.getLocation();
+    }
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -450,7 +450,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
           controller: 'EnquireFormCtrl'
         }
       }
-    })
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
@@ -492,6 +492,6 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     // getAcommData: function() {
     //   return JSON.parse(window.localStorage['accomData']);
     // }
-  }
+  };
 
 }]);

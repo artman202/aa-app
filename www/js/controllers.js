@@ -6,7 +6,7 @@ angular.module('starter.controllers', [])
 
   $rootScope.goBack = function() {
     $ionicHistory.goBack();
-  }
+  };
 
   $rootScope.$on('$ionicView.beforeEnter', function() {
     angular.element(document.getElementById("tab-topdes")).addClass("tab-active");
@@ -27,12 +27,12 @@ angular.module('starter.controllers', [])
 
   $rootScope.$on('$ionicView.beforeLeave', function() {
 
-    if($rootScope.getLocationEnable == false) {
+    if($rootScope.getLocationEnable === false) {
       //Check status of gps
       cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
         if(enabled) {
           $rootScope.getLocationAfterEnable();   
-          console.log("Location Enabled")
+          console.log("Location Enabled");
         }
       }, function(error){
         console.error("The following error occurred: "+error);
@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
     
   });
 
-}])
+}]);
 
 // FUNCTIONS --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -68,7 +68,7 @@ function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interv
 
         var distanceArray = [];
         for ( var x = 0; x < acommodations.length; x++) {
-          acommodations[x]["distance"] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,acommodations[x].lat,acommodations[x].lon));
+          acommodations[x].distance = Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,acommodations[x].lat,acommodations[x].lon));
         }
 
         acommodations.sort(function(a,b) {
@@ -129,31 +129,30 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 }
 
 function deg2rad(deg) {
-  return deg * (Math.PI/180)
+  return deg * (Math.PI/180);
 }
 
 function mapView(data, $rootScope, mapType, $ionicLoading) {
 
-  var Latlng = "";
+  var nearMeMap;
 
   if(mapType == 'accommodation-map') {
 
     // run normal add marker script    
-    var Latlng = new google.maps.LatLng(data[0].lat, data[0].lon);
+    var accomLatlng = new google.maps.LatLng(data[0].lat, data[0].lon);
     var mapOptions = {
       zoom: 11,
-      center: Latlng,
+      center: accomLatlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       disableDefaultUI: true
     };
 
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    nearMeMap = new google.maps.Map(document.getElementById("map"), mapOptions);
 
   } else if(mapType == 'nearme-map') {
 
     var Latlng = new google.maps.LatLng($rootScope.myLat, $rootScope.myLong);
-
-    var mapOptions = {
+    var nearMeMapOptions = {
       zoom: 11,
       center: Latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -161,12 +160,12 @@ function mapView(data, $rootScope, mapType, $ionicLoading) {
     };
 
     // add your location with unique marker
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    nearMeMap = new google.maps.Map(document.getElementById("map"), nearMeMapOptions);
 
     var myLocImage = 'img/markers/accom-marker-location.svg';
     var marker = new google.maps.Marker({
       position: Latlng,
-      map: map,
+      map: nearMeMap,
       icon: myLocImage,
       title: "You are here!"
     });
@@ -176,33 +175,33 @@ function mapView(data, $rootScope, mapType, $ionicLoading) {
 
   // hide loader
   setTimeout(function() {
-    $ionicLoading.hide()
-  }, 1000)
+    $ionicLoading.hide();
+  }, 1000);
 
   var markersArray = [];
   var image = 'img/markers/accom-marker.svg';
   for(var x = 0; x < data.length; x++) {
     
-    var LatLng = new google.maps.LatLng(data[x].lat,data[x].lon);
-    var marker = new google.maps.Marker({
-      position: LatLng,
-      map: map,
+    var markerLatLng = new google.maps.LatLng(data[x].lat,data[x].lon);
+    var accomMarker = new google.maps.Marker({
+      position: markerLatLng,
+      map: nearMeMap,
       id: data[x].id,
       title: data[x].n,
       icon: image
     });
-    marker.addListener('click', markerId);
+    accomMarker.addListener('click', markerId);
 
-    markersArray.push(marker);
+    markersArray.push(accomMarker);
 
   }
 
   var infowindow = new google.maps.InfoWindow();
 
   function markerMyLocation() {
-    infowindow.close()
+    infowindow.close();
     infowindow.setContent(this.title);
-    infowindow.open(map, this);
+    infowindow.open(nearMeMap, this);
   }
 
   function markerId() {
@@ -217,16 +216,16 @@ function mapView(data, $rootScope, mapType, $ionicLoading) {
 
       if(this.id == data[x].id) {
         markerObj = data[x];
-        marker = markersArray[x]
+        marker = markersArray[x];
       }
 
     }
 
-    console.log(markerObj)
+    console.log(markerObj);
 
-    infowindow.close()
+    infowindow.close();
     infowindow.setContent(markerObj.n);
-    infowindow.open(map, marker);
+    infowindow.open(nearMeMap, marker);
 
     var markerLink = angular.element(document.getElementById('map-list-item-wrap'));
     var acommPrice;
@@ -274,43 +273,38 @@ function mapView(data, $rootScope, mapType, $ionicLoading) {
 
     var distance;
     if(isNaN(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon)))) {
-      distance = ""
+      distance = "";
     } else {
-      distance = "<div class='accom-distance bg-yellow white' ng-if='$root.positionAvailable'><i class='icon ion-location'></i>&nbsp;"+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km</div>"
+      distance = "<div class='accom-distance bg-yellow white' ng-if='$root.positionAvailable'><i class='icon ion-location'></i>&nbsp;"+Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,markerObj.lat,markerObj.lon))+" km</div>";
     }
 
-    markerLink.html("\
-      <div class='padding map-list-item-wrap' id='"+markerObj.tb+"'>\
-        <a type='button' class='map-item-close-btn' onclick='closeMapListItem()'>\
-          <i class='icon ion-close'></i>\
-        </a>\
-        <a type='button' id='map-list-box' class='map-list-item padding' href='#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/"+markerObj.n+"+id="+markerObj.id+"' class='accom-btn'>\
-          <div class='row map-list-item-row'>\
-            <div class='col accom-img-bg'>\
-              "+distance+"\
-              <img class='img-height center-image' src='"+markerObj.tb+"'>\
-            </div>\
-            <div class='col col-75 accom-content'>\
-              <h3 class='page-blue-heading'>\
-                <b>\
-                  "+markerObj.n+"\
-                </b>\
-              </h3>\
-              <div class='accom-title-underline'></div>\
-              <div class='row accom-ratings-row'>\
-                <div class='col accom-ratings-row-price'>\
-                  <b>"+acommPrice+"</b>\
-                </div>\
-              </div>\
-              <div class='row accom-aa-ratings-row accom-aa-ratings-text'>\
-                <p>"+ratingArray[0].text+"</p>\
-              </div>\
-              </div>\
-            </div>\
-          </div>\
-        </a>\
-      </div>\
-    ")
+    markerLink.html("<div class='padding map-list-item-wrap' id='"+markerObj.tb+"'>"+
+        "<a type='button' class='map-item-close-btn' onclick='closeMapListItem()'>"+
+          "<i class='icon ion-close'></i>"+
+        "</a>"+
+        "<a type='button' id='map-list-box' class='map-list-item padding' href='#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/"+markerObj.n+"+id="+markerObj.id+"' class='accom-btn'>"+
+          "<div class='row map-list-item-row'>"+
+            "<div class='col accom-img-bg'>"+distance+"<img class='img-height center-image' src='"+markerObj.tb+"'>"+
+            "</div>"+
+            "<div class='col col-75 accom-content'>"+
+              "<h3 class='page-blue-heading'>"+
+                "<b>"+markerObj.n+
+                "</b>"+
+              "</h3>"+
+              "<div class='accom-title-underline'></div>"+
+              "<div class='row accom-ratings-row'>"+
+                "<div class='col accom-ratings-row-price'>"+
+                  "<b>"+acommPrice+"</b>"+
+                "</div>"+
+              "</div>"+
+              "<div class='row accom-aa-ratings-row accom-aa-ratings-text'>"+
+                "<p>"+ratingArray[0].text+"</p>"+
+              "</div>"+
+              "</div>"+
+            "</div>"+
+          "</div>"+
+       "</a>"+
+      "</div>");
 
   }
 
@@ -325,7 +319,6 @@ function closeMapListItem() {
 
 function calculateRating(data) {
 
-  var data = data;
   var ratingArray = [];
 
   // create the final multi dimensional array
@@ -426,7 +419,7 @@ function filter(filterType, mySelect, $scope, $rootScope) {
       $scope.priceLow = false;
       $scope.distance = false;
       $rootScope.mySelect = '0';
-      $scope.featureSelected = true
+      $scope.featureSelected = true;
       break;
     case 'price-high':
       $scope.alphabetical = false;
@@ -434,7 +427,7 @@ function filter(filterType, mySelect, $scope, $rootScope) {
       $scope.priceLow = false;
       $scope.distance = false;
       $rootScope.mySelect = '0';
-      $scope.featureSelected = true
+      $scope.featureSelected = true;
       break;
     case 'price-low':
       $scope.alphabetical = false;
@@ -442,7 +435,7 @@ function filter(filterType, mySelect, $scope, $rootScope) {
       $scope.priceLow = true;
       $scope.distance = false;
       $rootScope.mySelect = '0';
-      $scope.featureSelected = true
+      $scope.featureSelected = true;
       break;
     case 'distance':
       $scope.alphabetical = false;
@@ -450,28 +443,29 @@ function filter(filterType, mySelect, $scope, $rootScope) {
       $scope.priceLow = false;
       $scope.distance = true;
       $rootScope.mySelect = '0';
-      $scope.featureSelected = true
+      $scope.featureSelected = true;
       break;
     case 'aaqa':
       $scope.alphabetical = false;
       $scope.priceHigh = false;
       $scope.priceLow = false;
       $scope.distance = false;
-      $scope.featureSelected = true
+      $scope.featureSelected = true;
       break;
   }
 
+  var allRadios;
   if(filterType != 'aaqa') {
 
     $rootScope.mySelect = '0';    
 
-    var allRadios = angular.element(document.getElementsByClassName("radio-icon"));
-    allRadios.css({"display":"inline-block"})
+    allRadios = angular.element(document.getElementsByClassName("radio-icon"));
+    allRadios.css({"display":"inline-block"});
 
   } else {
 
-    var allRadios = angular.element(document.getElementsByClassName("radio-icon"));
-    allRadios.css({"display":"none"})
+    allRadios = angular.element(document.getElementsByClassName("radio-icon"));
+    allRadios.css({"display":"none"});
     
   }
 
@@ -481,8 +475,8 @@ function runFilter($scope, data, $rootScope, $ionicScrollDelegate) {
 
   $ionicScrollDelegate.scrollTop();
 
-  filterType = $scope.radioValue
-  mySelect = $rootScope.mySelect
+  filterType = $scope.radioValue;
+  mySelect = $rootScope.mySelect;
 
   // sort price array
   var hasPriceArray = [];
@@ -490,11 +484,11 @@ function runFilter($scope, data, $rootScope, $ionicScrollDelegate) {
   var distanceArray = [];
   for(var x = 0; x < data.length; x++) {
     if (data[x].pl != "0.00") {
-      hasPriceArray.push(data[x])
+      hasPriceArray.push(data[x]);
     } else {
-      missingPriceArray.push(data[x])
+      missingPriceArray.push(data[x]);
     }
-  };
+  }
 
   switch(filterType) {
     case 'alphabetical':
@@ -503,8 +497,8 @@ function runFilter($scope, data, $rootScope, $ionicScrollDelegate) {
         if(a.n > b.n) return 1;
         return 0;
       });
-      for(var x = 0; x < data.length; x++) {
-        console.log(data[x].n)
+      for(var a = 0; a < data.length; a++) {
+        console.log(data[a].n);
       }
       $scope.filterBy = "Alphabetical";
       $scope.filteredData = data;
@@ -536,9 +530,9 @@ function runFilter($scope, data, $rootScope, $ionicScrollDelegate) {
 
       break;
     case 'distance':
-      for(var x = 0; x < data.length; x++) {
-        data[x]['distance'] = Math.round(getDistanceFromLatLonInKm($rootScope.myLat, $rootScope.myLong, data[x].lat, data[x].lon));
-        distanceArray.push(data[x])
+      for(var b = 0; b < data.length; b++) {
+        data[b].distance = Math.round(getDistanceFromLatLonInKm($rootScope.myLat, $rootScope.myLong, data[b].lat, data[b].lon));
+        distanceArray.push(data[b]);
       }
       distanceArray.sort(function(a,b) {
         return a.distance - b.distance;
@@ -584,9 +578,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
       $scope.filterBy = "AA Recommended";
       break;
     case '2':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '2')
-        recommendedArray.push(data[x]);
+      for(var c = 0; c < data.length; c++) {
+        if(data[c].ar == '2')
+        recommendedArray.push(data[c]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '2';
@@ -596,9 +590,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
       $scope.filterBy = "AA Highly Recommended";
       break;
     case '3':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '3')
-        recommendedArray.push(data[x]);
+      for(var d = 0; d < data.length; d++) {
+        if(data[d].ar == '3')
+        recommendedArray.push(data[d]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '3';
@@ -608,9 +602,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
       $scope.filterBy = "AA Superior";
       break;
     case '4':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '4')
-        recommendedArray.push(data[x]);
+      for(var e = 0; e < data.length; e++) {
+        if(data[e].ar == '4')
+        recommendedArray.push(data[e]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '4';
@@ -620,9 +614,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
       $scope.filterBy = "AA Recommended/Highly Recommended";
       break;
     case '5':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '5')
-        recommendedArray.push(data[x]);
+      for(var f = 0; f < data.length; f++) {
+        if(data[f].ar == '5')
+        recommendedArray.push(data[f]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '5';
@@ -632,9 +626,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
 
       break;
     case '6':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '6')
-        recommendedArray.push(data[x]);
+      for(var g = 0; g < data.length; g++) {
+        if(data[g].ar == '6')
+        recommendedArray.push(data[g]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '6';
@@ -644,9 +638,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
 
       break;
     case '7':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '7' || data[x].ar == '8')
-        recommendedArray.push(data[x]);
+      for(var h = 0; h < data.length; h++) {
+        if(data[h].ar == '7' || data[h].ar == '8')
+        recommendedArray.push(data[h]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '7';
@@ -656,9 +650,9 @@ function selectRecom(mySelect, data, $scope, $rootScope) {
 
       break;
     case '8':
-      for(var x = 0; x < data.length; x++) {
-        if(data[x].ar == '9')
-        recommendedArray.push(data[x]);
+      for(var i = 0; i < data.length; i++) {
+        if(data[i].ar == '9')
+        recommendedArray.push(data[i]);
       }
       $scope.filteredData = recommendedArray;
       $scope.mySelect = '8';
