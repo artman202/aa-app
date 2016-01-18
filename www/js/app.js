@@ -328,7 +328,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
   if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
 
-    $ionicConfigProvider.scrolling.jsScrolling(false);
+    // $ionicConfigProvider.scrolling.jsScrolling(false);
     homePageState = 'home';
 
   } else {
