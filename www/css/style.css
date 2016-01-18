@@ -186,6 +186,9 @@ input[disabled] {background-color: white !important}
 .img-width {width: 100%}
 .home-item-col {padding: 4px}
 .homepage-ion-scroll-wrap {height: 390px; overflow: scroll}
+.home-wrapper {position: relative; height: 100%;overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;}
+.home-row-wrapper {position: absolute; overflow: scroll}
 
 /*.display-none {display: none}*/
 
