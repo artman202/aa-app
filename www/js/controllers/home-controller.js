@@ -1,6 +1,6 @@
 angular.module('home.controller', [])
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', '$ionicScrollDelegate', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout, $ionicScrollDelegate) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout) {
 
   $rootScope.positionAvailable = true;
 
@@ -12,10 +12,6 @@ angular.module('home.controller', [])
 
   // destinations
   $scope.showSpiralCity = true;
-
-  $scope.ionScrollHeight = $window.innerHeight+"px";
-
-  console.log($scope.ionScrollHeight)
 
   $http({
     method: 'GET',
