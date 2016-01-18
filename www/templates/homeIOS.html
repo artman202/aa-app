@@ -1,5 +1,5 @@
 <ion-view view-title="Home IOS">
-  <ion-content has-bouncing="false"> 
+  <ion-content overflow-scroll="false" has-bouncing="false"> 
 
     <div class="homepage-slider">
 			<ion-slides options="{allowSwipeToNext: false, allowSwipeToPrev: false}">
@@ -28,7 +28,7 @@
           <div class="center" ng-if="showSpiralCity == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
-          <ion-scroll style="height: 390px" direction="y">
+          <div class="homepage-ion-scroll-wrap">
             <div ng-repeat="topDestination in topDestinationArray">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
                 <div class="home-col-content-block">
@@ -44,7 +44,7 @@
                 </div>
               </a>
             </div>
-          </ion-scroll>
+          </div>
         </div>
   		</div>
   		<div class="col home-col-2">
@@ -56,7 +56,7 @@
           <div class="center" ng-if="showSpiralReccom == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
-          <ion-scroll style="height: 390px" direction="y">
+          <div class="homepage-ion-scroll-wrap">
             <div ng-repeat="reccommendedAccom in reccommendedAccomArray">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{reccommendedAccom.n}}+id={{reccommendedAccom.id}}">
                 <div class="home-col-content-block">
@@ -72,7 +72,7 @@
                 </div>
               </a>
             </div>
-          </ion-scroll>      
+          </div>        
         </div>
   		</div>
   		<!-- <div class="col home-col-3">
@@ -90,7 +90,7 @@
           <div class="center" ng-if="showSpiralNear == true">
             <ion-spinner icon="crescent"></ion-spinner>      
           </div>
-          <ion-scroll style="height: 390px" direction="y">
+          <div class="homepage-ion-scroll-wrap">
             <div ng-repeat="accommodation in nearMeAcommodations">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
                 <div class="home-col-content-block">
@@ -106,7 +106,8 @@
                 </div>
               </a>
             </div>
-          </ion-scroll>          
+          </div>
+          
         </div>
   		</div>  
     </div>   
