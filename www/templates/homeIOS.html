@@ -1,5 +1,5 @@
 <ion-view view-title="Home IOS">
-  <ion-content overflow-scroll="false"> 
+  <ion-content overflow-scroll="false" has-bouncing="false"> 
 
     <div class="homepage-slider">
 			<ion-slides options="{allowSwipeToNext: false, allowSwipeToPrev: false}">
@@ -18,15 +18,13 @@
   			</h3>
   		</div>
     </div>
-  	   
-  </ion-content>
-  <div class="row no-padding home-col">
-      <div class="col home-col-1">
+  	<div class="row no-padding home-col">
+  		<div class="col home-col-1">
         <div class="home-item-col">
-          <a class="tab-item icon-font home-icon-link" ng-click="$root.tabSelect('tab-topdes')" href="#/app/destinations" >
-            <i class="icon ion-ios-location home-icon"></i>
+    			<a class="tab-item icon-font home-icon-link" ng-click="$root.tabSelect('tab-topdes')" href="#/app/destinations" >
+    				<i class="icon ion-ios-location home-icon"></i>
             View Top<br> Destinations
-          </a>
+    			</a>
           <div class="center" ng-if="showSpiralCity == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
@@ -48,13 +46,13 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col home-col-2">
+  		</div>
+  		<div class="col home-col-2">
         <div class="home-item-col">
-          <a class="tab-item icon-font home-icon-link" href="#/app/featured-accommodation" >
-            <i class="icon ion-heart home-icon"></i>
-            Featured<br> Accommodation
-          </a>
+    			<a class="tab-item icon-font home-icon-link" href="#/app/featured-accommodation" >
+    				<i class="icon ion-heart home-icon"></i>
+    				Featured<br> Accommodation
+    			</a>
           <div class="center" ng-if="showSpiralReccom == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
@@ -76,19 +74,19 @@
             </div>
           </div>        
         </div>
-      </div>
-      <!-- <div class="col home-col-3">
-        <a class="tab-item icon-font home-icon-link" href="#/app/specials" >
-          <i class="icon ion-ios-location"></i>
-          Specials
-        </a>
-      </div> -->
-      <div class="col home-col-4" ng-if="$root.positionAvailable">
+  		</div>
+  		<!-- <div class="col home-col-3">
+  			<a class="tab-item icon-font home-icon-link" href="#/app/specials" >
+  				<i class="icon ion-ios-location"></i>
+  				Specials
+  			</a>
+  		</div> -->
+  		<div class="col home-col-4" ng-if="$root.positionAvailable">
         <div class="home-item-col">
-          <a class="tab-item icon-font home-icon-link" href="#/app/near-me" >
-            <i class="icon ion-navigate home-icon"></i>
-            What's<br> Near Me
-          </a>
+    			<a class="tab-item icon-font home-icon-link" href="#/app/near-me" >
+    				<i class="icon ion-navigate home-icon"></i>
+    				What's<br> Near Me
+    			</a>
           <div class="center" ng-if="showSpiralNear == true">
             <ion-spinner icon="crescent"></ion-spinner>      
           </div>
@@ -111,6 +109,7 @@
           </div>
           
         </div>
-      </div>  
-    </div>
+  		</div>  
+    </div>   
+  </ion-content>
 </ion-view>
