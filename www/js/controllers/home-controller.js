@@ -13,6 +13,10 @@ angular.module('home.controller', [])
   // destinations
   $scope.showSpiralCity = true;
 
+  $scope.ionScrollHeight = $window.innerHeight+"px";
+
+  console.log($scope.ionScrollHeight)
+
   $http({
     method: 'GET',
     url: 'http://www.aatravel.co.za/_mobi_app/accomm_search.php'
