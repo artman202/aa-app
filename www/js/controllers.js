@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
 
 // FUNCTIONS --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http) {
+function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $ionicLoading) {
  
   // test if the location has been updated yet, if not an interval starts
   var promise = $interval(function() {
@@ -57,7 +57,7 @@ function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interv
         url: 'http://www.aatravel.co.za/_mobi_app/accomm.php?gps=1&latitude='+$rootScope.myLat+'&longitude='+$rootScope.myLong
       }).then(function successCallback(response) {
 
-        $scope.$broadcast('scroll.refreshComplete');
+        $ionicLoading.hide();
 
         $scope.showSpiralNear = false;
         $scope.resultsLoaded = true;

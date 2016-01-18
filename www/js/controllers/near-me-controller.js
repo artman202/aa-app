@@ -14,16 +14,12 @@ angular.module('near.me.controller', [])
 
   $scope.showSpiralNear = true;     
 
-  $timeout(function(){
-
-    $scope.doRefresh = function() {
-      loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http)      
-    }   
+  $timeout(function(){    
 
     $scope.showMapBtn = false;
     var finalResultArray;
 
-    loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http)
+    loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $ionicLoading)
 
     var promise = $interval(function() {
 
@@ -69,6 +65,18 @@ angular.module('near.me.controller', [])
       // loadItemsByScroll("accommodation", $scope, $ionicScrollDelegate, $rootScope, $scope.filteredData, $window, $timeout)
       $scope.modal.hide();
     }; 
+
+    $scope.refreshContent = function() {
+      $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
+      loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $ionicLoading)
+      $scope.alphabetical = false;
+      $scope.priceHigh = false;
+      $scope.priceLow = false;
+      $scope.distance = true;
+      $scope.featureSelected = false;
+      $scope.filterBy = "Distance";
+      $scope.select = "distance";
+    }   
 
   }, 500);
 

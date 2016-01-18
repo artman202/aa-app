@@ -1,6 +1,6 @@
 angular.module('home.controller', [])
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', '$ionicLoading', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout, $ionicLoading) {
 
   $rootScope.positionAvailable = true;
 
@@ -25,6 +25,9 @@ angular.module('home.controller', [])
     var cityArrayImg = [];
 
     for(var x = 0; x < data.length; x++) {
+
+      console.log(data[x].city);
+
       switch(data[x].city) {
         case 'Cape Town':
           cityArrayImg.push("img/home-top-des/cape-town.jpg");
@@ -37,6 +40,18 @@ angular.module('home.controller', [])
           break;
         case 'Kimberley':
           cityArrayImg.push("img/home-top-des/kimberley.jpg");
+          break;
+        case 'East London':
+          cityArrayImg.push("img/home-top-des/east-london.jpg");
+          break;
+        case 'Queenstown':
+          cityArrayImg.push("img/home-top-des/queenstown.jpg");
+          break;
+        case 'Port Elizabeth':
+          cityArrayImg.push("img/home-top-des/port-elizabeth.jpg");
+          break;
+        case 'Ballito':
+          cityArrayImg.push("img/home-top-des/ballito.jpg");
           break;
         default:
           cityArrayImg.push("error");
@@ -114,6 +129,6 @@ angular.module('home.controller', [])
 
   // near me
   $scope.showSpiralNear = true;
-  loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http);
+  loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $ionicLoading);
 
 }])

@@ -324,18 +324,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
-  var homePageState;
-
-  if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-
-    $ionicConfigProvider.scrolling.jsScrolling(false);
-    homePageState = 'home';
-
-  } else {
-
-    homePageState = 'homeIOS';
-
-  }
+  if(!ionic.Platform.isIOS() || ionic.Platform.isIPad())$ionicConfigProvider.scrolling.jsScrolling(false);
 
   $stateProvider
     .state('app', {
@@ -343,17 +332,17 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       abstract: true,
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
-    })     
+    })
 
-    .state('app.'+homePageState+'', {
-      url: '/'+homePageState+'',
+    .state('app.home', {
+      url: '/home',
       views: {
         'menuContent': {
-          templateUrl: 'templates/'+homePageState+'.html',
+          templateUrl: 'templates/home.html',
           controller: 'HomeCtrl'
         }
       }
-    }) 
+    })
 
     .state('app.contact-us', {
       url: '/contact-us',
@@ -488,7 +477,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/'+homePageState);
+  $urlRouterProvider.otherwise('/app/home');
 })
 
 .directive('imageonload', function($timeout) {

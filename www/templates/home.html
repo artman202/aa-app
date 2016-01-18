@@ -29,7 +29,7 @@
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
           <div class="homepage-ion-scroll-wrap">
-            <div ng-repeat="topDestination in topDestinationArray">            
+            <div ng-repeat="topDestination in topDestinationArray | limitTo: 8">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
                 <div class="home-col-content-block">
                   <div class="home-col-content-block-distance-wrap">

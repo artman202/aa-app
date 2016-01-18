@@ -476,6 +476,15 @@ input[disabled] {background-color: white !important}
   align-items: center;
   justify-content: center;
   position: absolute; right: 10px; margin-top: 10px; font-size: 1.5em; height: 30px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
+.filter-btn-refresh {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; right: 60px; margin-top: 10px; font-size: 1.5em; height: 30px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
 .filter-wrapper.activated .filter-btn {background-color: #113A84 !important;}
 .filter-item .item-content {
   display: -webkit-box;
@@ -494,6 +503,7 @@ input[disabled] {background-color: white !important}
   align-items: center;
 }
 .filter-by-text {overflow: hidden; text-overflow: ellipsis; white-space: nowrap !important; padding-right: 60px}
+.filter-by-text-refresh {overflow: hidden; text-overflow: ellipsis; white-space: nowrap !important; padding-right: 100px}
 .filter-checkbox-icon {position: absolute; font-size: 2em; right: 10px; top: 12px;}
 .item-select {height: 4em;}
 .filter-select {padding: 0 0 0 auto !important; left: 0; direction: ltr !important; height: 4em !important; max-width: none !important;}
