@@ -484,7 +484,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute; z-index: 98; right: 60px; margin-top: 10px; font-size: 1.5em; height: 30px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
+  position: absolute; z-index: 99; right: 60px; margin-top: 10px; font-size: 1.5em; height: 30px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
 .filter-wrapper.activated .filter-btn {background-color: #113A84 !important;}
 .filter-item .item-content {
   display: -webkit-box;
