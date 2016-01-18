@@ -28,7 +28,7 @@
           <div class="center" ng-if="showSpiralCity == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
-          <div class="homepage-ion-scroll-wrap">
+          <ion-scroll style="height: 390px">
             <div ng-repeat="topDestination in topDestinationArray">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
                 <div class="home-col-content-block">
@@ -44,7 +44,7 @@
                 </div>
               </a>
             </div>
-          </div>
+          </ion-scroll>
         </div>
   		</div>
   		<div class="col home-col-2">
