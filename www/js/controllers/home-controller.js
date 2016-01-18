@@ -1,6 +1,6 @@
 angular.module('home.controller', [])
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', '$http', '$window', '$timeout', '$ionicScrollDelegate', function($scope, $rootScope, $ionicHistory, $interval, $http, $window, $timeout, $ionicScrollDelegate) {
 
   $rootScope.positionAvailable = true;
 
