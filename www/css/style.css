@@ -185,7 +185,7 @@ input[disabled] {background-color: white !important}
 .img-height {height: 100%}
 .img-width {width: 100%}
 .home-item-col {padding: 4px}
-.homepage-ion-scroll-wrap {height: 390px; overflow: scroll; -webkit-overflow-scrolling: touch;}
+.homepage-ion-scroll-wrap {height: 390px; overflow: scroll}
 
 /*.display-none {display: none}*/
 
