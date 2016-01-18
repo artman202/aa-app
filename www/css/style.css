@@ -189,6 +189,14 @@ input[disabled] {background-color: white !important}
 .home-wrapper {position: relative; height: 100%;overflow-y: scroll; /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;}
 .home-row-wrapper {position: absolute; overflow: scroll}
+html {
+    height  : 100%;
+    overflow: hidden;
+}
+body {
+    height  : 100%;
+    overflow: auto;
+}
 
 /*.display-none {display: none}*/
 
