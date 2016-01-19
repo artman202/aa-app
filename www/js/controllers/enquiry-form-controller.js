@@ -83,7 +83,7 @@ angular.module('enquiry.form.controller', [])
           "mobile" : mobile,
           "accomm_id" : $stateParams.accomId,
           "checkin" : checkIn,
-          "udid" : "E8AB9C2E-520A-4DFD-B024-8D1B02989B04",
+          "udid" : ionic.Platform.device().uuid,
           "email" : email,
           "type" : "enquire",
           "name" : name,

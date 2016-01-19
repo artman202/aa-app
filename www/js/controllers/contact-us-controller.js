@@ -1,6 +1,6 @@
 angular.module('contact.us.controller', [])
 
-.controller('ContactUsCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', '$timeout', '$http', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory, $timeout, $http) {
+.controller('ContactUsCtrl', ['$scope', '$rootScope', '$cordovaDatePicker', '$stateParams', '$ionicHistory', '$timeout', '$http', '$window', function($scope, $rootScope, $cordovaDatePicker, $stateParams, $ionicHistory, $timeout, $http, $window) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
@@ -8,7 +8,9 @@ angular.module('contact.us.controller', [])
     $rootScope.enquireBtn = false;
   });
 
-  console.log(ionic.Platform.device());
+  // $scope.$on('$ionicView.leave', function() {
+  //   document.getElementById("name").removeClass('');
+  // });
 
   $timeout(function(){
 
@@ -28,56 +30,46 @@ angular.module('contact.us.controller', [])
       } else {
 
         $scope.showSending = true;
-
-        var udid;
-
-        if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
-          udid = ionic.Platform.device().uuid;
-        } else {
-
-        }
         
         var contactUsFormObj = {
           "mobile" : mobile,
-          "udid" : "E8AB9C2E-520A-4DFD-B024-8D1B02989B04",
+          "udid" : ionic.Platform.device().uuid,
           "email" : email,
           "type" : "contact_us",
           "name" : name,
           "message" : message
         }
 
-        alert("Message sent!")
+        $http({
+          method: 'POST',
+          url: 'http://www.aatravel.co.za/_mobi_app/post.php',
+          data: contactUsFormObj,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response) {
 
-        console.log(contactUsFormObj);
+          $scope.showSending = false;
 
-        // $http({
-        //   method: 'POST',
-        //   url: 'http://www.aatravel.co.za/_mobi_app/post.php',
-        //   data: enquiryFormObj,
-        //   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        // }).then(function successCallback(response) {
+          function enquireSuccess() {
+            cordova.plugins.Keyboard.close();
+          }
 
-        //   function enquireSuccess() {
-        //     $ionicHistory.goBack();
-        //   }
+          navigator.notification.alert(
+            'Your email has been sent successfully.',  // message
+            enquireSuccess,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
 
-        //   navigator.notification.alert(
-        //     'Your email has been sent successfully.',  // message
-        //     enquireSuccess,                     // callback
-        //     'Alert',                // title
-        //     'Done'                  // buttonName
-        //   );
+        }, function errorCallback(response) {
 
-        // }, function errorCallback(response) {
+          navigator.notification.alert(
+            'We regret that there is a problem sending your email. Error: '+response,  // message
+            null,                     // callback
+            'Alert',                // title
+            'Done'                  // buttonName
+          );
 
-        //   navigator.notification.alert(
-        //     'We regret that there is a problem sending your email. Error'+response,  // message
-        //     null,                     // callback
-        //     'Alert',                // title
-        //     'Done'                  // buttonName
-        //   );
-
-        // });
+        });
 
       }      
 

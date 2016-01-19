@@ -1,12 +1,12 @@
 <ion-view view-title="Contact Us">
   <ion-content overflow-scroll="false">
 
-    <form ng-submit="submitEnquire(name, email, mobile, checkIn, checkOut)" name="contactUsForm" >
+    <form ng-submit="submitEnquire(name, email, mobile, checkIn, checkOut)" name="contactUsForm" id="contactUsForm" >
       <div class="list contact-form">
 
         <label class="item item-input item-floating-label">
           <span class="input-label blue">First Name *</span>
-          <input type="text" name="name" placeholder="First Name *" ng-model="name" ng-minlength="3" required>
+          <input type="text" name="name" id="name" placeholder="First Name *" ng-model="name" ng-minlength="3" required>
           <div class="error-text" ng-messages="contactUsForm.name.$error" role="alert" ng-show="errors">
             <div ng-message="required">
               <p><i class="icon ion-android-alert"></i> Please enter your name</p>
@@ -27,9 +27,6 @@
             <div ng-message="email">
               <p><i class="icon ion-android-alert"></i> Please enter a valid email address</p>
             </div>
-            <!-- <div ng-message="minlength, maxlength">
-              <p><i class="icon ion-android-alert"></i> This is not a valid email address</p>
-            </div> -->
           </div>
         </label>
 
@@ -45,9 +42,6 @@
             <div ng-message="required">
               <p><i class="icon ion-android-alert"></i> Please enter a message</p>
             </div>
-            <!-- <div ng-message="minlength, maxlength">
-              <p><i class="icon ion-android-alert"></i> This is not a valid email address</p>
-            </div> -->
           </div>
         </label>
 
