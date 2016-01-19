@@ -26,8 +26,6 @@ angular.module('home.controller', [])
 
     for(var x = 0; x < data.length; x++) {
 
-      console.log(data[x].city);
-
       switch(data[x].city) {
         case 'Cape Town':
           cityArrayImg.push("img/home-top-des/cape-town.jpg");
@@ -92,7 +90,6 @@ angular.module('home.controller', [])
     data.sort(function(a,b) {
       return b.pv - a.pv;
     });
-
 
     var promise;
     promise = $interval(function() {

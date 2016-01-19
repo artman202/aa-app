@@ -8,6 +8,8 @@ angular.module('contact.us.controller', [])
     $rootScope.enquireBtn = false;
   });
 
+  console.log(ionic.Platform.device());
+
   $timeout(function(){
 
     $scope.submitContactUs = function(name, email, mobile, message) {
@@ -26,14 +28,22 @@ angular.module('contact.us.controller', [])
       } else {
 
         $scope.showSending = true;
+
+        var udid;
+
+        if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+          udid = ionic.Platform.device().uuid;
+        } else {
+
+        }
         
         var contactUsFormObj = {
           "mobile" : mobile,
           "udid" : "E8AB9C2E-520A-4DFD-B024-8D1B02989B04",
           "email" : email,
-          "type" : "enquire",
+          "type" : "contact_us",
           "name" : name,
-          "message" : name
+          "message" : message
         }
 
         alert("Message sent!")
