@@ -10,6 +10,10 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
   $ionicPlatform.ready(function() {
 
+    if(ionic.Platform.isWebView()) {
+      navigator.splashscreen.hide();
+    };
+
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
       // portrait
@@ -253,8 +257,6 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     }
 
     if(ionic.Platform.isWebView()) {
-
-      navigator.splashscreen.hide();
 
       setTimeout(function() {
         if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
