@@ -69,6 +69,7 @@ angular.module('near.me.controller', [])
     $scope.refreshContent = function() {
       $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
       loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interval, $http, $ionicLoading)
+      $ionicScrollDelegate.scrollTop();
       $scope.alphabetical = false;
       $scope.priceHigh = false;
       $scope.priceLow = false;
