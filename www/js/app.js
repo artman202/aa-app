@@ -287,7 +287,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
               $rootScope.homeImgHeight = "auto";
               $rootScope.homeImgWidth = "130%";
               navigator.notification.confirm(
-                "Youre device's location setting is turned off, would you like to turn it on?",  // message
+                "Your device's location setting is turned off, would you like to turn it on?",  // message
                 locationChoice,                     // callback
                 'Alert',   
                 'Yes,Cancel'                 // buttonName
@@ -308,7 +308,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
               $rootScope.homeImgHeight = "auto";
               $rootScope.homeImgWidth = "130%";
               navigator.notification.confirm(
-                "Youre device's location setting is turned off, would you like to turn it on?",  // message
+                "Your device's location setting is turned off, would you like to turn it on?",  // message
                 locationChoice,                     // callback
                 'Alert',   
                 'Yes,Cancel'                 // buttonName
