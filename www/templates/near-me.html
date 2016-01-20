@@ -1,8 +1,10 @@
 <ion-view view-title="What's Near Me">
 
 	<div class="filter-wrapper bg-yellow white" ng-hide="$root.showMap" ng-if="positionAvailable && showMapBtn">
-  		<div class="filter-btn" ng-click="openModal()"><i class="icon ion-ios-more"></i></div>
-  		<div class="filter-btn-refresh" ng-click="refreshContent()"><i class="icon ion-android-refresh"></i></div>
+		<div class="filter-btn-wrapper">
+	  		<div class="filter-btn" ng-click="openModal()"><i class="icon ion-ios-more"></i></div>
+	  		<div class="filter-btn-refresh" ng-click="refreshContent()"><i class="icon ion-android-refresh"></i></div>
+	  	</div>
   		<div class="align-right filter-by-text-refresh">Filter By: {{filterBy}}</div>
   		<div class="clear"></div>
   	</div>

@@ -469,6 +469,7 @@ input[disabled] {background-color: white !important}
 .filter-item .item-content {background-color: transparent !important; color: #113A84 !important;}
 .filter-item .item {background-color: transparent !important; color: #113A84 !important; border-color: #E1E1E1 !important}
 .filter-container {top: 119px !important;}
+.filter-btn-wrapper {position: absolute; right: 10px; width: 90px}
 .filter-btn {
   color: white;
   display: -webkit-box;
@@ -478,7 +479,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute; z-index: 99; right: 10px; margin-top: 10px; font-size: 1.5em; height: 40px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
+  float: right; margin-top: 10px; font-size: 1.5em; height: 40px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
 .filter-btn.activated {background-color: #EEB203 !important;}
 .filter-btn-refresh {
   color: white;
@@ -489,7 +490,7 @@ input[disabled] {background-color: white !important}
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute; z-index: 99; right: 60px; margin-top: 10px; font-size: 1.5em; height: 40px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
+  float: left; margin-top: 10px; font-size: 1.5em; height: 40px; width: 40px; box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); border-radius: 5px}
 .filter-btn-refresh.activated {background-color: #EEB203 !important;}
 .filter-wrapper.activated .filter-btn {background-color: #EEB203 !important;}
 .filter-item .item-content {
