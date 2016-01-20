@@ -160,6 +160,8 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
           } else if (err.code == 2 || err.code == 3) {
 
+            console.log("Location not enabled");
+
             if(ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
 
               var posOptions = {timeout: 15 * 1000, enableHighAccuracy: false};
@@ -252,7 +254,25 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
           });
         } else if (ionic.Platform.isAndroid){
           cordova.plugins.diagnostic.switchToLocationSettings();
-        }                
+        }
+
+        // detect when location is turned on
+
+        var promise = $interval(function() {
+          console.log("Waiting for location decision");
+          cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+            if(enabled) {
+              console.log("Location Enabled");
+              $rootScope.getLocationAfterEnable();
+              if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
+                $rootScope.positionAvailable = true;
+                $interval.cancel(promise);
+              }     
+            }
+          }, function(error){
+            console.error("The following error occurred: "+error);
+          });          
+        }, 500);              
       }
     }
 
