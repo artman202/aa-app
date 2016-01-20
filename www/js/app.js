@@ -12,7 +12,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
     if(ionic.Platform.isWebView()) {
       navigator.splashscreen.hide();
-    };
+    }
 
     // detect wether to show tabs
     if($window.innerHeight > $window.innerWidth){
@@ -326,7 +326,14 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
-  if(!ionic.Platform.isIOS() || ionic.Platform.isIPad())$ionicConfigProvider.scrolling.jsScrolling(false);
+  var homePage;
+
+  if(!ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
+    homePage = "home";
+    $ionicConfigProvider.scrolling.jsScrolling(false);
+  } else {
+    homePage = "homeIOS";
+  }
 
   $stateProvider
     .state('app', {
@@ -336,11 +343,11 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
       controller: 'AppCtrl'
     })
 
-    .state('app.home', {
-      url: '/home',
+    .state('app.'+homePage, {
+      url: '/'+homePage,
       views: {
         'menuContent': {
-          templateUrl: 'templates/home.html',
+          templateUrl: 'templates/'+homePage+'.html',
           controller: 'HomeCtrl'
         }
       }
@@ -479,7 +486,7 @@ angular.module('starter', ['ionic', 'ngMessages', 'starter.controllers', 'map.vi
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/'+homePage);
 })
 
 .directive('imageonload', function($timeout) {

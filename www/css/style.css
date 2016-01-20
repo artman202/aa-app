@@ -133,6 +133,7 @@ input[disabled] {background-color: white !important}
 .menu-social-row .col {padding: 0;}
 .menu-list .list {height: 100%;}
 .menu-icon {font-size: 2em}
+.menu-left .scroll {height: 100%}
 
 .search-bar-wrapper {position: absolute; z-index: 999; width: 100%}
 .search-bar {padding: 0; height: 60px; position: relative;}
