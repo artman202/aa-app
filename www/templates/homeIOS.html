@@ -1,4 +1,4 @@
-<ion-view view-title="IOS Homepage">
+<ion-view view-title="AA Accommodation">
   <ion-content> 
 
     <div class="homepage-slider">
@@ -28,7 +28,7 @@
           <div class="center" ng-if="showSpiralCity == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
-          <div class="homepage-ion-scroll-wrap">
+          <ion-scroll direction="y" style="height: 430px">
             <div ng-repeat="topDestination in topDestinationArray | limitTo: 8">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{topDestination.city}}+id={{topDestination.city_id}}">
                 <div class="home-col-content-block">
@@ -47,7 +47,7 @@
                 </div>
               </a>
             </div>
-          </div>
+          </ion-scroll>
         </div>
   		</div>
   		<div class="col home-col-2">
@@ -59,7 +59,7 @@
           <div class="center" ng-if="showSpiralReccom == true">
             <ion-spinner icon="crescent" ng-if="!hide"></ion-spinner>      
           </div>
-          <div class="homepage-ion-scroll-wrap">
+          <ion-scroll direction="y" style="height: 430px">
             <div ng-repeat="reccommendedAccom in reccommendedAccomArray">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{reccommendedAccom.n}}+id={{reccommendedAccom.id}}">
                 <div class="home-col-content-block">
@@ -78,7 +78,7 @@
                 </div>
               </a>
             </div>
-          </div>        
+          </ion-scroll>        
         </div>
   		</div>
   		<!-- <div class="col home-col-3">
@@ -96,7 +96,7 @@
           <div class="center" ng-if="showSpiralNear == true">
             <ion-spinner icon="crescent"></ion-spinner>      
           </div>
-          <div class="homepage-ion-scroll-wrap">
+          <ion-scroll direction="y" style="height: 430px">
             <div ng-repeat="accommodation in nearMeAcommodations">            
               <a href="#/app/destinations/{{state.provinceName}}+id={{state.provinceId}}/{{state.cityName}}+id={{state.cityId}}/{{accommodation.n}}+id={{accommodation.id}}">
                 <div class="home-col-content-block">
@@ -115,7 +115,7 @@
                 </div>
               </a>
             </div>
-          </div>
+          </ion-scroll>
           
         </div>
   		</div>  
