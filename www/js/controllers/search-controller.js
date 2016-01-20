@@ -6,8 +6,7 @@ angular.module('search.controller', [])
 
     $rootScope.showSearchBar = true;
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
     
   });
 

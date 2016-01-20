@@ -4,8 +4,7 @@ angular.module('about.us.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = false;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = false;
   });
 
 }])

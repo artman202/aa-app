@@ -5,7 +5,6 @@ angular.module('favourite.accommodations.controller', [])
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = false;
-    $rootScope.enquireBtn = false;
 
     $scope.noResults = false;
     $cordovaFile.readAsText(cordova.file.dataDirectory, "favourites.txt")

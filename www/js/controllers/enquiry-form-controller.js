@@ -4,8 +4,7 @@ angular.module('enquiry.form.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
   });
 
   $timeout(function(){

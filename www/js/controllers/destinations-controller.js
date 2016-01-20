@@ -4,8 +4,7 @@ angular.module('destinations.controller', [])
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
   });
 
   // Create province array

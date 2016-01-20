@@ -1,4 +1,11 @@
 <ion-view view-title="Accommodation" cache-view="false">
+	
+	<!-- ng-show="$root.enquireBtn" -->
+	
+	<a type="button" ng-class="$root.footerBtn" class="footer-btn enquire-btn" id="enquire-btn" ng-click="goToEnquireForm()" >
+      ENQUIRE
+    </a>
+
   <ion-content class="single-accom-row-wrap" scroll="false">
 
   	<ion-scroll style="position:relative" delegate-handle="scroll-accom-chosen" on-scroll="scrollFunc()" ng-style="{'height': setScrollHeight}">  	

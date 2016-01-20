@@ -4,8 +4,7 @@ angular.module('near.me.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;    
+    $rootScope.showBack = true;   
   });
 
   $scope.$on('$ionicView.leave', function() {

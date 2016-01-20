@@ -1,11 +1,10 @@
 angular.module('destinations.city.chosen.controller', [])
 
-.controller('DestinationsCityChosenCtrl', ['$scope', '$localstorage', '$state', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicModal', function($scope, $localstorage, $state, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory, $ionicLoading, $ionicModal) {
+.controller('DestinationsCityChosenCtrl', ['$scope', '$localstorage', '$state', '$stateParams', '$http', '$cordovaGeolocation', '$rootScope', '$ionicScrollDelegate', '$document', '$window', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicModal', '$interval', function($scope, $localstorage, $state, $stateParams, $http, $cordovaGeolocation, $rootScope, $ionicScrollDelegate, $document, $window, $timeout, $ionicHistory, $ionicLoading, $ionicModal, $interval) {
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
   });
 
   $scope.state = $stateParams;
@@ -30,11 +29,8 @@ angular.module('destinations.city.chosen.controller', [])
 
       var finalResultArray = $scope.acommodations;
 
-      var distanceArray = [];
-      for ( var x = 0; x < data.length; x++) {
-        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
-      }
-      $scope.acommodationsDistances = distanceArray;
+      //load distances if available
+      loadDistances(data, $rootScope, $interval, $scope);
 
       $scope.aaRating = calculateRating(data);
 

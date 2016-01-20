@@ -4,8 +4,7 @@ angular.module('destinations.province.chosen.controller', [])
 
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
     
   });
  

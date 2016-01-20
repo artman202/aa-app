@@ -6,8 +6,7 @@ angular.module('map.view.controller', [])
 
     $ionicLoading.show({template: $rootScope.ionSpinnerTemplate})
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
 
     console.log($localstorage.get("closeTab"));
 

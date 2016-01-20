@@ -1,11 +1,10 @@
 angular.module('featured-accommodation.controller', [])
 
-.controller('FeaturedAccommodationCtrl', ['$scope', '$rootScope', '$timeout', '$http', '$ionicLoading', '$ionicScrollDelegate', '$window', '$ionicModal', function($scope, $rootScope, $timeout, $http, $ionicLoading, $ionicScrollDelegate, $window, $ionicModal) {
+.controller('FeaturedAccommodationCtrl', ['$scope', '$rootScope', '$timeout', '$http', '$ionicLoading', '$ionicScrollDelegate', '$window', '$ionicModal', '$interval', function($scope, $rootScope, $timeout, $http, $ionicLoading, $ionicScrollDelegate, $window, $ionicModal, $interval) {
   
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
-    $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    $rootScope.showBack = true;
   });
 
   $scope.hide = true;
@@ -54,12 +53,8 @@ angular.module('featured-accommodation.controller', [])
       $scope.acommodations = data;
       var finalResultArray = $scope.acommodations;
 
-      var distanceArray = [];
-      for ( var x = 0; x < data.length; x++) {
-        console.log("distance")
-        distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
-      }
-      $scope.acommodationsDistances = distanceArray;
+      // load distances if available
+      loadDistances(data, $rootScope, $interval, $scope);
 
       $scope.aaRating = calculateRating(data);
 

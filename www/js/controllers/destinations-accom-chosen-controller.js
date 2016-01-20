@@ -7,11 +7,11 @@ angular.module('destinations.accom.chosen.controller', [])
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = true;
     $rootScope.showBack = true;    
-    $rootScope.enquireBtn = false;
+    // $rootScope.enquireBtn = false;
 
-    if($ionicHistory.viewHistory().forwardView.stateName == "app.enquire-form") {
-      enquireBtn.removeClass("ng-hide")
-    }
+    // if($ionicHistory.viewHistory().forwardView.stateName == "app.enquire-form") {
+    //   enquireBtn.removeClass("ng-hide")
+    // }
     
   }); 
 
@@ -83,7 +83,9 @@ angular.module('destinations.accom.chosen.controller', [])
       $scope.accommodation = data[0];
 
       var accomGallery = data[0].g;
+      console.log(data)      
       var accomGalleryArray = accomGallery.split(",");
+      console.log(accomGalleryArray)
       $scope.accomGallery = accomGalleryArray
 
       $scope.imgLoaded = function(id) {

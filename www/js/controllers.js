@@ -100,6 +100,36 @@ function loadDistanceBefore($rootScope, $ionicHistory, $scope, $timeout, $interv
 
 }
 
+function loadDistances(data, $rootScope, $interval, $scope) {
+  if(ionic.Platform.isWebView()) {
+    cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+      if(enabled) {
+        var distanceArray = [];
+        var promise = $interval(function() {
+          console.log("waiting for location before distance is loaded");
+          if (typeof $rootScope.myLat !== 'undefined' || typeof $rootScope.myLong !== 'undefined'){
+            for ( var x = 0; x < data.length; x++) {            
+              distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+            }   
+            $scope.acommodationsDistances = distanceArray;
+
+            $interval.cancel(promise);
+            
+          }  
+        }, 500);        
+      }
+    }, function(error){
+      console.error("The following error occurred: "+error);
+    });
+  } else {
+    var distanceArray = [];
+    for ( var x = 0; x < data.length; x++) {            
+      distanceArray.push(Math.round(getDistanceFromLatLonInKm($rootScope.myLat,$rootScope.myLong,data[x].lat,data[x].lon)));
+    }
+    $scope.acommodationsDistances = distanceArray;
+  }
+}
+
 function buildProvinces() {
   return [
     { id: 1, link: 'eastern-cape', name: 'Eastern Cape', image: 'img/provinces/eastern-cape.svg' },

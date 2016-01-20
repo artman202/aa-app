@@ -7,7 +7,6 @@ angular.module('home.controller', [])
   $scope.$on('$ionicView.enter', function() {
     $rootScope.showTabs = false;
     $rootScope.showBack = false;
-    $rootScope.enquireBtn = false;
   });
 
   // destinations
