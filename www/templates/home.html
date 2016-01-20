@@ -35,6 +35,9 @@
                   <div class="home-col-content-block-distance-wrap">
                     {{topDestination.city}}<!-- <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodationsDistances[$index]}}&nbsp;km -->
                   </div>
+                  <div class="home-col-content-block-counter-wrap">
+                    {{$index + 1}}/8
+                  </div>
                   <div class="image-load-wrap">
                     <div class="image-loader">
                       <ion-spinner icon="crescent">
@@ -62,6 +65,9 @@
                 <div class="home-col-content-block">
                   <div class="home-col-content-block-distance-wrap" ng-if="$root.positionAvailable && homeRecommended">
                     <i class="icon ion-location"></i>&nbsp;&nbsp;{{reccommendedAccom.distance}}&nbsp;km
+                  </div>
+                  <div class="home-col-content-block-counter-wrap">
+                    {{$index + 1}}/{{reccommendedAccomArray.length}}
                   </div>
                   <div class="image-load-wrap">
                     <div class="image-loader">
@@ -96,7 +102,10 @@
                 <div class="home-col-content-block">
                   <div class="home-col-content-block-distance-wrap">
                     <i class="icon ion-location"></i>&nbsp;&nbsp;{{accommodation.distance}}&nbsp;km
-                  </div> 
+                  </div>
+                  <div class="home-col-content-block-counter-wrap">
+                    {{$index + 1}}/{{nearMeAcommodations.length}}
+                  </div>
                   <div class="image-load-wrap">
                     <div class="image-loader">
                       <ion-spinner icon="crescent">
